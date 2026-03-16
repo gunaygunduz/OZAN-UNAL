@@ -371,6 +371,113 @@
     }
     .cta-exh-item:hover .cta-exh-arrow { transform: translateX(5px); }
 
+    /* SERGİ KART GRİDİ */
+    .exh-grid {
+      max-width: 1200px;
+      margin: 0 auto 6rem;
+      padding: 0 4rem;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    .exh-card {
+      position: relative;
+      aspect-ratio: 3/4;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    .exh-card-img {
+      position: absolute; inset: 0;
+    }
+    .exh-card-img img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      filter: grayscale(20%);
+      transition: transform 0.7s cubic-bezier(0.23,1,0.32,1), filter 0.4s;
+    }
+    .exh-card-placeholder {
+      background: linear-gradient(160deg, #1a1a14 0%, #0e0e0e 100%);
+    }
+    .exh-card-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(8,8,8,0.92) 0%, rgba(8,8,8,0.2) 60%, transparent 100%);
+      transition: background 0.4s;
+    }
+    .exh-card:hover .exh-card-overlay {
+      background: linear-gradient(to top, rgba(8,8,8,0.95) 0%, rgba(184,115,51,0.15) 60%, transparent 100%);
+    }
+    .exh-card:hover .exh-card-img img {
+      transform: scale(1.06);
+      filter: grayscale(0%);
+    }
+    .exh-card-content {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 2rem;
+      z-index: 2;
+    }
+    .exh-card-year {
+      display: block;
+      font-size: 0.5rem;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--copper);
+      margin-bottom: 0.6rem;
+    }
+    .exh-card-title {
+      font-size: clamp(1rem, 1.5vw, 1.3rem);
+      font-weight: 500;
+      color: var(--white);
+      line-height: 1.25;
+      letter-spacing: -0.01em;
+    }
+    .exh-card-soon {
+      opacity: 0.5;
+      cursor: default;
+    }
+    .exh-card-soon::after {
+      content: 'Yakında';
+      position: absolute;
+      top: 1.2rem; right: 1.2rem;
+      font-size: 0.45rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--copper);
+      border: 1px solid rgba(184,115,51,0.4);
+      padding: 0.3rem 0.7rem;
+    }
+    body.lang-en .exh-card-soon::after { content: 'Coming Soon'; }
+
+    /* Geri Butonu */
+    .exh-back-btn {
+      display: none;
+      align-items: center;
+      gap: 0.8rem;
+      background: none;
+      border: none;
+      color: var(--copper);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.55rem;
+      font-weight: 500;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      cursor: pointer;
+      padding: 0 4rem 3rem;
+      transition: opacity 0.3s;
+    }
+    .exh-back-btn:hover { opacity: 0.7; }
+
+    /* Sergi Detay — varsayılan gizli */
+    .exh-detail { display: none; }
+
+    @media (max-width: 900px) {
+      .exh-grid { grid-template-columns: repeat(2, 1fr); padding: 0 2rem; }
+      .exh-back-btn { padding: 0 2rem 2rem; }
+    }
+    @media (max-width: 500px) {
+      .exh-grid { grid-template-columns: 1fr; }
+    }
+
     /* ── SERGİLER BÖLÜMÜ ────────────────────────────────────── */
     #sergiler {
       padding: 8rem 0 0;
@@ -1348,70 +1455,11 @@
         <span data-lang="en">"I now leave you alone with those heavy, silent stories built from the truth I found by subtraction."</span>
       </p>
 
-      <!-- ESERLERİ KEŞFET butonu + akordiyon -->
-      <button class="cta-btn" id="ctaExplore" onclick="toggleExhibitionList()">
-        <span data-lang="tr"><span>Eserleri Keşfet</span></span>
-        <span data-lang="en"><span>Explore Works</span></span>
-        <span class="cta-arrow" id="ctaArrow">→</span>
-      </button>
-
-      <div class="cta-exh-list" id="ctaExhList">
-        <a href="#rhsha" class="cta-exh-item" onclick="toggleExhibitionList()">
-          <span class="cta-exh-year">2021</span>
-          <span class="cta-exh-title" data-lang="tr">Rüya Hissi Süsler, Hafıza Anıyı.</span>
-          <span class="cta-exh-title" data-lang="en">Dream Adorns the Feeling, Memory the Moment.</span>
-          <span class="cta-exh-arrow">→</span>
-        </a>
-        <a href="#ikbd" class="cta-exh-item" onclick="toggleExhibitionList()">
-          <span class="cta-exh-year">2021</span>
-          <span class="cta-exh-title" data-lang="tr">İki Kişilik Bir Dünya</span>
-          <span class="cta-exh-title" data-lang="en">A World for Two</span>
-          <span class="cta-exh-arrow">→</span>
-        </a>
-        <a href="#ras" class="cta-exh-item" onclick="toggleExhibitionList()">
-          <span class="cta-exh-year">2021</span>
-          <span class="cta-exh-title" data-lang="tr">Rüya Anıdan Sayılır Mı?</span>
-          <span class="cta-exh-title" data-lang="en">Can a Dream Count as a Memory?</span>
-          <span class="cta-exh-arrow">→</span>
-        </a>
-        <!-- Sonraki sergiler buraya eklenecek -->
-        <a href="#sergiler" class="cta-exh-item">
-          <span class="cta-exh-year">2020</span>
-          <span class="cta-exh-title" data-lang="tr">Çünkü Bu Bir Oyun</span>
-          <span class="cta-exh-title" data-lang="en">Because This Is A Game</span>
-          <span class="cta-exh-arrow">→</span>
-        </a>
-        <a href="#sergiler" class="cta-exh-item">
-          <span class="cta-exh-year">2019</span>
-          <span class="cta-exh-title" data-lang="tr">Bir Var-lık Bir Yok-luk</span>
-          <span class="cta-exh-title" data-lang="en">A Being, A Non-Being</span>
-          <span class="cta-exh-arrow">→</span>
-        </a>
-        <a href="#sergiler" class="cta-exh-item">
-          <span class="cta-exh-year">2018</span>
-          <span class="cta-exh-title" data-lang="tr">Düşbozumu</span>
-          <span class="cta-exh-title" data-lang="en">Dream Harvest</span>
-          <span class="cta-exh-arrow">→</span>
-        </a>
-        <a href="#sergiler" class="cta-exh-item">
-          <span class="cta-exh-year">2017</span>
-          <span class="cta-exh-title" data-lang="tr">Yerini Yadırgayanlar</span>
-          <span class="cta-exh-title" data-lang="en">Outsiders</span>
-          <span class="cta-exh-arrow">→</span>
-        </a>
-        <a href="#sergiler" class="cta-exh-item">
-          <span class="cta-exh-year">2016</span>
-          <span class="cta-exh-title" data-lang="tr">Tahterevalli</span>
-          <span class="cta-exh-title" data-lang="en">Seesaw</span>
-          <span class="cta-exh-arrow">→</span>
-        </a>
-        <a href="#sergiler" class="cta-exh-item">
-          <span class="cta-exh-year">2014</span>
-          <span class="cta-exh-title" data-lang="tr">İnsan Kara Bir Leke Değildir</span>
-          <span class="cta-exh-title" data-lang="en">Man Is Not a Black Spot</span>
-          <span class="cta-exh-arrow">→</span>
-        </a>
-      </div>
+      <a href="#sergiler" class="cta-btn">
+        <span data-lang="tr"><span>Sergileri Keşfet</span></span>
+        <span data-lang="en"><span>Explore Exhibitions</span></span>
+        <span class="cta-arrow">→</span>
+      </a>
 
     </div>
   </section>
@@ -1428,8 +1476,118 @@
       </p>
     </div>
 
+    <!-- SERGİ KART GRİDİ -->
+    <div class="exh-grid" id="exhGrid">
+      <div class="exh-card" onclick="openExhibition('rhsha')">
+        <div class="exh-card-img"><img src="rhsha/rhsha02.webp" alt="" /></div>
+        <div class="exh-card-overlay"></div>
+        <div class="exh-card-content">
+          <span class="exh-card-year">2021</span>
+          <h3 class="exh-card-title">
+            <span data-lang="tr">Rüya Hissi Süsler,<br>Hafıza Anıyı.</span>
+            <span data-lang="en">Dream Adorns the Feeling,<br>Memory the Moment.</span>
+          </h3>
+        </div>
+      </div>
+      <div class="exh-card" onclick="openExhibition('ikbd')">
+        <div class="exh-card-img"><img src="ikikisilikbirdunya/elvedamerhabaelveda.webp" alt="" /></div>
+        <div class="exh-card-overlay"></div>
+        <div class="exh-card-content">
+          <span class="exh-card-year">2021</span>
+          <h3 class="exh-card-title">
+            <span data-lang="tr">İki Kişilik<br>Bir Dünya</span>
+            <span data-lang="en">A World<br>for Two</span>
+          </h3>
+        </div>
+      </div>
+      <div class="exh-card" onclick="openExhibition('ras')">
+        <div class="exh-card-img"><img src="ruyaanidansayilirmi/ras023.webp" alt="" /></div>
+        <div class="exh-card-overlay"></div>
+        <div class="exh-card-content">
+          <span class="exh-card-year">2021</span>
+          <h3 class="exh-card-title">
+            <span data-lang="tr">Rüya Anıdan<br>Sayılır Mı?</span>
+            <span data-lang="en">Can a Dream Count<br>as a Memory?</span>
+          </h3>
+        </div>
+      </div>
+      <div class="exh-card exh-card-soon">
+        <div class="exh-card-img exh-card-placeholder"></div>
+        <div class="exh-card-overlay"></div>
+        <div class="exh-card-content">
+          <span class="exh-card-year">2020</span>
+          <h3 class="exh-card-title">
+            <span data-lang="tr">Çünkü Bu<br>Bir Oyun</span>
+            <span data-lang="en">Because This<br>Is A Game</span>
+          </h3>
+        </div>
+      </div>
+      <div class="exh-card exh-card-soon">
+        <div class="exh-card-img exh-card-placeholder"></div>
+        <div class="exh-card-overlay"></div>
+        <div class="exh-card-content">
+          <span class="exh-card-year">2019</span>
+          <h3 class="exh-card-title">
+            <span data-lang="tr">Bir Var-lık<br>Bir Yok-luk</span>
+            <span data-lang="en">A Being,<br>A Non-Being</span>
+          </h3>
+        </div>
+      </div>
+      <div class="exh-card exh-card-soon">
+        <div class="exh-card-img exh-card-placeholder"></div>
+        <div class="exh-card-overlay"></div>
+        <div class="exh-card-content">
+          <span class="exh-card-year">2018</span>
+          <h3 class="exh-card-title">
+            <span data-lang="tr">Düşbozumu</span>
+            <span data-lang="en">Dream Harvest</span>
+          </h3>
+        </div>
+      </div>
+      <div class="exh-card exh-card-soon">
+        <div class="exh-card-img exh-card-placeholder"></div>
+        <div class="exh-card-overlay"></div>
+        <div class="exh-card-content">
+          <span class="exh-card-year">2017</span>
+          <h3 class="exh-card-title">
+            <span data-lang="tr">Yerini<br>Yadırgayanlar</span>
+            <span data-lang="en">Outsiders</span>
+          </h3>
+        </div>
+      </div>
+      <div class="exh-card exh-card-soon">
+        <div class="exh-card-img exh-card-placeholder"></div>
+        <div class="exh-card-overlay"></div>
+        <div class="exh-card-content">
+          <span class="exh-card-year">2016</span>
+          <h3 class="exh-card-title">
+            <span data-lang="tr">Tahterevalli</span>
+            <span data-lang="en">Seesaw</span>
+          </h3>
+        </div>
+      </div>
+      <div class="exh-card exh-card-soon">
+        <div class="exh-card-img exh-card-placeholder"></div>
+        <div class="exh-card-overlay"></div>
+        <div class="exh-card-content">
+          <span class="exh-card-year">2014</span>
+          <h3 class="exh-card-title">
+            <span data-lang="tr">İnsan Kara Bir<br>Leke Değildir</span>
+            <span data-lang="en">Man Is Not<br>a Black Spot</span>
+          </h3>
+        </div>
+      </div>
+    </div>
+
+    <!-- GERİ BUTONU -->
+    <button class="exh-back-btn" id="exhBackBtn" onclick="closeExhibition()">
+      <span>←</span>
+      <span data-lang="tr">Tüm Sergiler</span>
+      <span data-lang="en">All Exhibitions</span>
+    </button>
+
     <!-- SERGİ 1: RÜYA HİSSİ SÜSLER, HAFIZA ANIYI -->
-    <article class="exhibition-block" id="rhsha">
+    <article class="exhibition-block exh-detail" id="rhsha">
 
       <!-- Sergi Başlığı -->
       <div class="exh-head reveal">
@@ -1498,7 +1656,7 @@
     </article>
 
     <!-- SERGİ 2: İKİ KİŞİLİK BİR DÜNYA -->
-    <article class="exhibition-block" id="ikbd">
+    <article class="exhibition-block exh-detail" id="ikbd">
 
       <!-- Tam Ekran Eskiz Hero -->
       <div class="exh-hero reveal">
@@ -1580,7 +1738,7 @@
     </article>
 
     <!-- SERGİ 3: RÜYA ANIDAN SAYILIR MI? -->
-    <article class="exhibition-block" id="ras">
+    <article class="exhibition-block exh-detail" id="ras">
 
       <!-- PERDE 1: Eskiz Hero + Büyük Soru -->
       <div class="exh-hero reveal">
@@ -2051,6 +2209,33 @@
       });
     });
 
+    // ── Sergi Kart Sistemi
+    function openExhibition(id) {
+      // Grid gizle
+      document.getElementById('exhGrid').style.display = 'none';
+      document.querySelector('.exhibitions-intro').style.display = 'none';
+      // Geri butonu göster
+      document.getElementById('exhBackBtn').style.display = 'flex';
+      // Seçilen sergiyi göster
+      const detail = document.getElementById(id);
+      if (detail) {
+        detail.style.display = 'block';
+        // Smooth scroll
+        setTimeout(() => detail.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
+      }
+    }
+    function closeExhibition() {
+      // Tüm detayları gizle
+      document.querySelectorAll('.exh-detail').forEach(el => el.style.display = 'none');
+      // Grid göster
+      document.getElementById('exhGrid').style.display = 'grid';
+      document.querySelector('.exhibitions-intro').style.display = 'block';
+      // Geri butonu gizle
+      document.getElementById('exhBackBtn').style.display = 'none';
+      // Sergiler bölümüne scroll
+      document.getElementById('sergiler').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
     // ── Şiir Akordiyon Toggle
     function togglePoem(id) {
       const poem = document.getElementById(id + '-poem');
@@ -2061,14 +2246,6 @@
     }
 
     // ── CTA Sergi Listesi Toggle
-    function toggleExhibitionList() {
-      const list  = document.getElementById('ctaExhList');
-      const arrow = document.getElementById('ctaArrow');
-      const isOpen = list.classList.contains('open');
-      list.classList.toggle('open', !isOpen);
-      arrow.style.transform = isOpen ? '' : 'rotate(90deg)';
-    }
-
     // ── İletişim Formu
     function submitForm() {
       const name    = document.querySelector('input[name="name"]').value.trim();
