@@ -55,7 +55,7 @@
     /* NAVİGASYON */
     nav {
       position: fixed; top: 0; left: 0; right: 0;
-      z-index: 100;
+      z-index: 250;
       display: flex; align-items: center; justify-content: space-between;
       padding: 2rem 4rem;
       transition: background 0.6s ease, padding 0.4s ease;
@@ -103,7 +103,7 @@
     #hero {
       min-height: 100vh;
       display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
+      align-items: flex-start; justify-content: center;
       position: relative; overflow: hidden; padding: 0 4rem;
     }
     #hero::before {
@@ -136,8 +136,6 @@
     .hero-content {
       position: relative; z-index: 2;
       max-width: 680px; align-self: flex-start; margin-left: 4rem;
-      padding-left: 2rem;
-      border-left: 2px solid var(--copper);
     }
     .hero-eyebrow {
       font-size: 0.6rem; font-weight: 400;
@@ -493,6 +491,72 @@
     .exh-back-btn:hover { opacity: 0.7; }
 
     /* Sergi Detay — varsayılan gizli */
+    /* SERGİ OVERLAY */
+    .exh-overlay {
+      position: fixed;
+      top: 0; bottom: 0;
+      left: 16vw; right: 16vw;
+      z-index: 200;
+      overflow-y: auto;
+      overflow-x: hidden;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s ease;
+      -webkit-overflow-scrolling: touch;
+      background: #080808;
+    }
+    .exh-overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+    /* Buzlu cam yan paneller — sayfanın üstünde, overlay'in dışında */
+    .glass-panel {
+      position: fixed;
+      top: 0; bottom: 0;
+      width: 16vw;
+      z-index: 205;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.35s ease;
+    }
+    .glass-panel.visible { opacity: 1; }
+    .glass-panel-left  { left: 0; background: linear-gradient(to right, rgba(8,8,8,1) 0%, rgba(8,8,8,0.97) 50%, rgba(8,8,8,0.6) 80%, transparent 100%); }
+    .glass-panel-right { right: 0; background: linear-gradient(to left,  rgba(8,8,8,1) 0%, rgba(8,8,8,0.97) 50%, rgba(8,8,8,0.6) 80%, transparent 100%); }
+    .exh-overlay-close {
+      position: fixed;
+      top: 5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 260;
+      display: none;
+      align-items: center;
+      gap: 0.6rem;
+      background: rgba(8,8,8,0.85);
+      border: 1px solid rgba(184,115,51,0.35);
+      color: var(--copper);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.55rem;
+      font-weight: 500;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      padding: 0.7rem 1.8rem;
+      cursor: pointer;
+      backdrop-filter: blur(8px);
+      transition: background 0.3s, border-color 0.3s;
+    }
+    .exh-overlay-close:hover {
+      background: var(--copper);
+      color: var(--black);
+      border-color: var(--copper);
+    }
+    .exh-overlay-close.visible { display: flex; }
+
+    /* Overlay scrollbar — bakır */
+    .exh-overlay::-webkit-scrollbar { width: 4px; }
+    .exh-overlay::-webkit-scrollbar-track { background: rgba(240,236,228,0.06); }
+    .exh-overlay::-webkit-scrollbar-thumb { background: var(--copper); border-radius: 2px; }
+    .exh-overlay::-webkit-scrollbar-thumb:hover { background: #c8924e; }
+
     .exh-detail { display: none; }
 
     @media (max-width: 900px) {
@@ -517,6 +581,15 @@
     .sergiler-hero-bg {
       position: absolute; inset: 0;
       background: var(--black);
+      overflow: hidden;
+    }
+    .sergiler-hero-bg img {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      opacity: 0.3;
+      filter: grayscale(20%);
+      display: block;
     }
     .sergiler-hero-overlay {
       position: absolute; inset: 0;
@@ -601,17 +674,18 @@
       bottom: 0; left: 0; right: 0;
       padding: 1.2rem;
       z-index: 2;
+      text-align: left;
     }
     .exh-slide-year {
       display: block;
-      font-size: 0.48rem;
+      font-size: 0.52rem;
       letter-spacing: 0.35em;
       color: var(--copper);
       margin-bottom: 0.4rem;
       text-transform: uppercase;
     }
     .exh-slide-title {
-      font-size: clamp(0.7rem, 1vw, 0.9rem);
+      font-size: clamp(0.85rem, 1.1vw, 1rem);
       font-weight: 500;
       color: var(--white);
       line-height: 1.3;
@@ -657,12 +731,22 @@
     }
     .exh-dot.active { background: var(--copper); transform: scale(1.4); }
 
-    @media (max-width: 900px) {
+    @media (max-width: 600px) {
+      .exh-slider-wrap { flex-direction: column; padding: 0 1.5rem; gap: 1rem; }
+      .exh-slider-btn { display: none; }
+      .exh-slider { flex-direction: column; overflow: visible; width: 100%; }
+      .exh-slide-card {
+        width: 100% !important;
+        display: block !important;
+        aspect-ratio: 2/3;
+      }
+      .exh-slide-info { text-align: center; }
+      .exh-slider-dots { display: none; }
+      .sergiler-hero { min-height: auto; padding: 5rem 0 4rem; }
+    }
+    @media (min-width: 601px) and (max-width: 900px) {
       .exh-slider-wrap { padding: 0 1rem; }
       .exh-slide-card { width: calc((100% - 1.2rem) / 3); }
-    }
-    @media (max-width: 500px) {
-      .exh-slide-card { width: calc((100% - 0.6rem) / 2); }
     }
 
     /* SERGİ KART GRİDİ (eski — artık kullanılmıyor, temizlendi) */
@@ -689,7 +773,7 @@
 
     /* Sergi Bloğu */
     .exhibition-block {
-      max-width: 1200px;
+      max-width: 100%;
       margin: 0 auto;
       padding: 0 4rem 6rem;
     }
@@ -712,14 +796,19 @@
       flex-shrink: 0;
     }
     .exh-title {
-      font-size: clamp(1.8rem, 3.5vw, 3.2rem);
+      font-size: clamp(1.4rem, 3vw, 3rem);
       font-weight: 500;
       color: var(--white);
       line-height: 1.15;
       letter-spacing: -0.01em;
     }
 
-    /* Metin + Eskiz */
+    .exh-overlay .exhibition-block {
+      padding-top: 6rem;
+    }
+    .exh-overlay .exh-head {
+      padding-top: 0;
+    }
     .exh-intro {
       display: grid;
       grid-template-columns: 1fr 320px;
@@ -1549,7 +1638,7 @@
     #iletisim {
       padding: 8rem 0;
       background: #111111;
-      border-top: 2px solid var(--copper);
+      border-top: none;
     }
     .contact-inner {
       max-width: 1200px;
@@ -1685,7 +1774,7 @@
       color: var(--copper);
     }
     #iletisim .about-divider {
-      background: rgba(184,115,51,0.4);
+      display: none;
     }
 
     @media (max-width: 900px) {
@@ -1959,7 +2048,9 @@
 
     <!-- Video Hero + Başlık + Alıntı + Slider -->
     <div class="sergiler-hero" id="sergilerHero">
-      <div class="sergiler-hero-bg"></div>
+      <div class="sergiler-hero-bg">
+        <img src="sergilerbackground.webp" alt="" />
+      </div>
       <div class="sergiler-hero-overlay"></div>
 
       <!-- Üst: Başlık + Alıntı -->
@@ -2100,19 +2191,11 @@
       </div>
 
       <!-- Sayfa Noktaları -->
-      <div class="exh-slider-dots" id="sliderDots">
-        <span class="exh-dot active" onclick="goToPage(0)"></span>
-        <span class="exh-dot" onclick="goToPage(1)"></span>
-      </div>
+      <div class="exh-slider-dots" id="sliderDots"></div>
 
     </div>
 
     <!-- GERİ BUTONU -->
-    <button class="exh-back-btn" id="exhBackBtn" onclick="closeExhibition()">
-      <span>←</span>
-      <span data-lang="tr">Tüm Sergiler</span>
-      <span data-lang="en">All Exhibitions</span>
-    </button>
 
     <!-- SERGİ 1: RÜYA HİSSİ SÜSLER, HAFIZA ANIYI -->
     <article class="exhibition-block exh-detail" id="rhsha">
@@ -3060,64 +3143,107 @@
 
     // ── Sergi Kart Sistemi
     // ── Kart Slider
-    const CARDS_PER_PAGE = 5;
     let sliderPage = 0;
+
+    function getCardsPerPage() {
+      const w = window.innerWidth;
+      if (w <= 600) return 999; // mobilde hepsi görünsün
+      if (w <= 900) return 3;
+      return 5;
+    }
 
     function getSliderCards() {
       return document.querySelectorAll('.exh-slide-card');
     }
+
     function getTotalPages() {
-      return Math.ceil(getSliderCards().length / CARDS_PER_PAGE);
+      return Math.ceil(getSliderCards().length / getCardsPerPage());
     }
+
+    function renderDots() {
+      const dotsEl = document.getElementById('sliderDots');
+      if (!dotsEl) return;
+      const total = getTotalPages();
+      dotsEl.innerHTML = '';
+      for (let i = 0; i < total; i++) {
+        const dot = document.createElement('span');
+        dot.className = 'exh-dot' + (i === sliderPage ? ' active' : '');
+        dot.onclick = () => goToPage(i);
+        dotsEl.appendChild(dot);
+      }
+    }
+
     function renderSlider() {
       const cards = getSliderCards();
+      const cpp = getCardsPerPage();
       const total = getTotalPages();
-      const start = sliderPage * CARDS_PER_PAGE;
+      // Sayfa sınırını aş
+      if (sliderPage >= total) sliderPage = total - 1;
+      const start = sliderPage * cpp;
       cards.forEach((card, i) => {
-        card.style.display = (i >= start && i < start + CARDS_PER_PAGE) ? 'block' : 'none';
+        card.style.display = (i >= start && i < start + cpp) ? 'block' : 'none';
       });
-      // Nokta güncelle
-      document.querySelectorAll('.exh-dot').forEach((dot, i) => {
-        dot.classList.toggle('active', i === sliderPage);
-      });
-      // Ok durumu
+      renderDots();
       const prev = document.getElementById('sliderPrev');
       const next = document.getElementById('sliderNext');
       if (prev) prev.disabled = sliderPage === 0;
       if (next) next.disabled = sliderPage >= total - 1;
     }
+
     function slideCards(dir) {
       const total = getTotalPages();
       sliderPage = Math.max(0, Math.min(sliderPage + dir, total - 1));
       renderSlider();
     }
+
     function goToPage(page) {
       sliderPage = page;
       renderSlider();
     }
+
+    // Ekran boyutu değişince yeniden hesapla
+    window.addEventListener('resize', () => {
+      sliderPage = 0;
+      renderSlider();
+    });
+
     // İlk yüklemede
     renderSlider();
 
     function openExhibition(id) {
-      const hero = document.getElementById('sergilerHero');
-      const backBtn = document.getElementById('exhBackBtn');
-      if (hero) hero.style.display = 'none';
-      if (backBtn) backBtn.style.display = 'flex';
       const detail = document.getElementById(id);
-      if (detail) {
-        detail.style.display = 'block';
-        setTimeout(() => {
-          detail.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }, 50);
-      }
+      if (!detail) return;
+
+      const overlay = document.getElementById('exhOverlay');
+      const closeBtn = document.getElementById('exhOverlayClose');
+      const glassL = document.getElementById('glassPanelLeft');
+      const glassR = document.getElementById('glassPanelRight');
+
+      overlay.innerHTML = '';
+      const clone = detail.cloneNode(true);
+      clone.style.display = 'block';
+      overlay.appendChild(clone);
+
+      overlay.scrollTop = 0;
+      overlay.classList.add('open');
+      closeBtn.classList.add('visible');
+      glassL.classList.add('visible');
+      glassR.classList.add('visible');
+      document.body.style.overflow = 'hidden';
     }
+
     function closeExhibition() {
-      document.querySelectorAll('.exh-detail').forEach(el => el.style.display = 'none');
-      const hero = document.getElementById('sergilerHero');
-      const backBtn = document.getElementById('exhBackBtn');
-      if (hero) hero.style.display = 'flex';
-      if (backBtn) backBtn.style.display = 'none';
-      document.getElementById('sergiler').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      const overlay = document.getElementById('exhOverlay');
+      const closeBtn = document.getElementById('exhOverlayClose');
+      const glassL = document.getElementById('glassPanelLeft');
+      const glassR = document.getElementById('glassPanelRight');
+
+      overlay.classList.remove('open');
+      closeBtn.classList.remove('visible');
+      glassL.classList.remove('visible');
+      glassR.classList.remove('visible');
+      document.body.style.overflow = '';
+      setTimeout(() => { overlay.innerHTML = ''; }, 400);
     }
 
     // ── Şiir Akordiyon Toggle
@@ -3154,6 +3280,20 @@
       });
     });
   </script>
+
+  <!-- SERGİ OVERLAY -->
+  <div class="exh-overlay" id="exhOverlay"></div>
+
+  <!-- BUZLU CAM PANELLER -->
+  <div class="glass-panel glass-panel-left" id="glassPanelLeft"></div>
+  <div class="glass-panel glass-panel-right" id="glassPanelRight"></div>
+
+  <!-- OVERLAY KAPAT BUTONU -->
+  <button class="exh-overlay-close" id="exhOverlayClose" onclick="closeExhibition()">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="15 18 9 12 15 6"/></svg>
+    <span data-lang="tr">Tüm Sergiler</span>
+    <span data-lang="en">All Exhibitions</span>
+  </button>
 
 </body>
 </html>
