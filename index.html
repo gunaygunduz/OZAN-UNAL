@@ -1356,7 +1356,9 @@
     }
     .exh-other-btn:hover { color: var(--black); border-color: var(--copper); }
     .exh-other-btn:hover::before { transform: translateX(0); }
-    .exh-other-btn span { position: relative; z-index: 1; }
+    /* Overlay içinde alt Diğer Sergiler butonu gizle */
+    .exh-overlay .exh-other-btn-wrap { display: none; }
+    .exh-overlay .exh-divider { display: none; }
 
     /* Sergi Ayracı */
     .exh-divider {
@@ -3100,7 +3102,15 @@
       observer.observe(el);
     });
 
-    // Dil toggle
+    // Nav linklerine tıklandığında overlay'i kapat
+    document.querySelectorAll('.nav-links a, .nav-logo').forEach(link => {
+      link.addEventListener('click', () => {
+        const overlay = document.getElementById('exhOverlay');
+        if (overlay && overlay.classList.contains('open')) {
+          closeExhibition();
+        }
+      });
+    });
     document.querySelectorAll('.lang-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         const lang = btn.dataset.set;
