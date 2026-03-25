@@ -731,6 +731,10 @@
     }
     .exh-dot.active { background: var(--copper); transform: scale(1.4); }
 
+    @media (max-width: 768px) {
+      .exh-overlay { left: 0; right: 0; }
+      .glass-panel { display: none; }
+    }
     @media (max-width: 600px) {
       .exh-slider-wrap { flex-direction: column; padding: 0 1.5rem; gap: 1rem; }
       .exh-slider-btn { display: none; }
@@ -744,7 +748,6 @@
       .exh-slider-dots { display: none; }
       .sergiler-hero { min-height: auto; padding: 5rem 0 4rem; }
     }
-    @media (min-width: 601px) and (max-width: 900px) {
       .exh-slider-wrap { padding: 0 1rem; }
       .exh-slide-card { width: calc((100% - 1.2rem) / 3); }
     }
