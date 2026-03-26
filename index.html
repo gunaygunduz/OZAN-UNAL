@@ -31,6 +31,7 @@
       overflow-x: hidden;
       cursor: none;
     }
+    *, *::before, *::after { cursor: none !important; }
 
     /* CUSTOM CURSOR */
     .cursor {
@@ -39,16 +40,16 @@
       border-radius: 50%;
       position: fixed; top: 0; left: 0;
       pointer-events: none; z-index: 9999;
-      transition: transform 0.15s ease;
+      transition: transform 0.05s linear;
       transform: translate(-50%, -50%);
     }
     .cursor-ring {
       width: 36px; height: 36px;
-      border: 1px solid rgba(184,115,51,0.4);
+      border: 1px solid rgba(184,115,51,0.6);
       border-radius: 50%;
       position: fixed; top: 0; left: 0;
       pointer-events: none; z-index: 9998;
-      transition: transform 0.45s cubic-bezier(0.23,1,0.32,1), border-color 0.3s;
+      transition: transform 0.12s cubic-bezier(0.23,1,0.32,1), border-color 0.3s;
       transform: translate(-50%, -50%);
     }
 
@@ -748,8 +749,12 @@
       .exh-slider-dots { display: none; }
       .sergiler-hero { min-height: auto; padding: 5rem 0 4rem; }
     }
+    @media (min-width: 601px) and (max-width: 900px) {
       .exh-slider-wrap { padding: 0 1rem; }
-      .exh-slide-card { width: calc((100% - 1.2rem) / 3); }
+      .exh-slide-card { width: calc((100% - 1.8rem) / 3); }
+    }
+    @media (min-width: 901px) and (max-width: 1200px) {
+      .exh-slide-card { width: calc((100% - 1.8rem) / 4); }
     }
 
     /* SERGİ KART GRİDİ (eski — artık kullanılmıyor, temizlendi) */
@@ -3079,15 +3084,24 @@
     // Custom Cursor
     const cursor = document.getElementById('cursor');
     const ring = document.getElementById('cursorRing');
+    let mouseX = 0, mouseY = 0;
+
     document.addEventListener('mousemove', e => {
-      cursor.style.transform = `translate(${e.clientX - 4}px, ${e.clientY - 4}px)`;
-      setTimeout(() => {
-        ring.style.transform = `translate(${e.clientX - 18}px, ${e.clientY - 18}px)`;
-      }, 80);
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      cursor.style.transform = `translate(${mouseX}px, ${mouseY}px) translate(-50%, -50%)`;
+      ring.style.transform = `translate(${mouseX}px, ${mouseY}px) translate(-50%, -50%)`;
     });
+
     document.querySelectorAll('a, button').forEach(el => {
-      el.addEventListener('mouseenter', () => { ring.style.transform += ' scale(1.4)'; ring.style.borderColor = 'rgba(184,115,51,0.9)'; });
-      el.addEventListener('mouseleave', () => { ring.style.borderColor = ''; });
+      el.addEventListener('mouseenter', () => {
+        ring.style.transform = `translate(${mouseX}px, ${mouseY}px) translate(-50%, -50%) scale(1.4)`;
+        ring.style.borderColor = 'rgba(184,115,51,0.9)';
+      });
+      el.addEventListener('mouseleave', () => {
+        ring.style.transform = `translate(${mouseX}px, ${mouseY}px) translate(-50%, -50%)`;
+        ring.style.borderColor = '';
+      });
     });
 
     // Navbar scroll
@@ -3162,6 +3176,7 @@
       const w = window.innerWidth;
       if (w <= 600) return 999; // mobilde hepsi görünsün
       if (w <= 900) return 3;
+      if (w <= 1200) return 4;
       return 5;
     }
 
