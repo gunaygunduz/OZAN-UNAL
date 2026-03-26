@@ -1418,6 +1418,45 @@
       filter: grayscale(0%);
     }
 
+    /* ÖNCEKİ / SONRAKİ SERGİ */
+    .exh-nav-btns {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      padding: 4rem 0 6rem;
+    }
+    .exh-nav-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.7rem;
+      background: none;
+      border: 1px solid rgba(184,115,51,0.35);
+      color: var(--copper);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.55rem;
+      font-weight: 500;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      padding: 0.9rem 2rem;
+      cursor: none;
+      position: relative;
+      overflow: hidden;
+      transition: color 0.4s, border-color 0.4s, opacity 0.3s;
+    }
+    .exh-nav-btn::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: var(--copper);
+      transform: translateX(-105%);
+      transition: transform 0.45s cubic-bezier(0.23,1,0.32,1);
+      z-index: 0;
+    }
+    .exh-nav-btn:hover { color: var(--black); border-color: var(--copper); }
+    .exh-nav-btn:hover::before { transform: translateX(0); }
+    .exh-nav-btn span { position: relative; z-index: 1; }
+    .exh-nav-btn:disabled { opacity: 0.2; pointer-events: none; }
+    .exh-overlay .exh-nav-btns { display: flex; }
+
     /* DİĞER SERGİLER BUTONU */
     .exh-other-btn-wrap {
       display: flex;
@@ -2380,7 +2419,15 @@
         </div>
       </div>
 
-      <div class="exh-other-btn-wrap">
+      <div class="exh-nav-btns">
+          <button class="exh-nav-btn" disabled>
+            <span>← <span data-lang="tr">İlk Sergi</span><span data-lang="en">First Exhibition</span></span>
+          </button>
+          <button class="exh-nav-btn" onclick="openExhibition('ikbd')">
+            <span><span data-lang="tr">İki Kişilik Bir Dünya</span><span data-lang="en">A World for Two</span> →</span>
+          </button>
+        </div>
+            <div class="exh-other-btn-wrap">
         <button class="exh-other-btn" onclick="closeExhibition()">
           <span data-lang="tr">← Diğer Sergiler</span>
           <span data-lang="en">← Other Exhibitions</span>
@@ -2468,7 +2515,15 @@
         </div>
       </div>
 
-      <div class="exh-other-btn-wrap">
+      <div class="exh-nav-btns">
+          <button class="exh-nav-btn" onclick="openExhibition('rhsha')">
+            <span>← <span data-lang="tr">Rüya Hissi Süsler</span><span data-lang="en">Dream Adorns</span></span>
+          </button>
+          <button class="exh-nav-btn" onclick="openExhibition('ras')">
+            <span><span data-lang="tr">Rüya Anıdan Sayılır Mı?</span><span data-lang="en">Can a Dream Count?</span> →</span>
+          </button>
+        </div>
+            <div class="exh-other-btn-wrap">
         <button class="exh-other-btn" onclick="closeExhibition()">
           <span data-lang="tr">← Diğer Sergiler</span>
           <span data-lang="en">← Other Exhibitions</span>
@@ -2586,7 +2641,15 @@
         </div>
       </div>
 
-      <div class="exh-other-btn-wrap">
+      <div class="exh-nav-btns">
+          <button class="exh-nav-btn" onclick="openExhibition('ikbd')">
+            <span>← <span data-lang="tr">İki Kişilik Bir Dünya</span><span data-lang="en">A World for Two</span></span>
+          </button>
+          <button class="exh-nav-btn" onclick="openExhibition('oyun')">
+            <span><span data-lang="tr">Çünkü Bu Bir Oyun</span><span data-lang="en">Because This Is A Game</span> →</span>
+          </button>
+        </div>
+            <div class="exh-other-btn-wrap">
         <button class="exh-other-btn" onclick="closeExhibition()">
           <span data-lang="tr">← Diğer Sergiler</span>
           <span data-lang="en">← Other Exhibitions</span>
@@ -2659,7 +2722,15 @@
         </div>
       </div>
 
-      <div class="exh-other-btn-wrap">
+      <div class="exh-nav-btns">
+          <button class="exh-nav-btn" onclick="openExhibition('ras')">
+            <span>← <span data-lang="tr">Rüya Anıdan Sayılır Mı?</span><span data-lang="en">Can a Dream Count?</span></span>
+          </button>
+          <button class="exh-nav-btn" onclick="openExhibition('bvby')">
+            <span><span data-lang="tr">Bir Var-lık Bir Yok-luk</span><span data-lang="en">A Being, A Non-Being</span> →</span>
+          </button>
+        </div>
+            <div class="exh-other-btn-wrap">
         <button class="exh-other-btn" onclick="closeExhibition()">
           <span data-lang="tr">← Diğer Sergiler</span>
           <span data-lang="en">← Other Exhibitions</span>
@@ -2731,7 +2802,15 @@
         </div>
       </div>
 
-      <div class="exh-other-btn-wrap">
+      <div class="exh-nav-btns">
+          <button class="exh-nav-btn" onclick="openExhibition('oyun')">
+            <span>← <span data-lang="tr">Çünkü Bu Bir Oyun</span><span data-lang="en">Because This Is A Game</span></span>
+          </button>
+          <button class="exh-nav-btn" onclick="openExhibition('dusbozumu')">
+            <span><span data-lang="tr">Düşbozumu</span><span data-lang="en">Dream Harvest</span> →</span>
+          </button>
+        </div>
+            <div class="exh-other-btn-wrap">
         <button class="exh-other-btn" onclick="closeExhibition()">
           <span data-lang="tr">← Diğer Sergiler</span>
           <span data-lang="en">← Other Exhibitions</span>
@@ -2961,7 +3040,15 @@
         </div>
       </div>
 
-      <div class="exh-other-btn-wrap">
+      <div class="exh-nav-btns">
+          <button class="exh-nav-btn" onclick="openExhibition('bvby')">
+            <span>← <span data-lang="tr">Bir Var-lık Bir Yok-luk</span><span data-lang="en">A Being, A Non-Being</span></span>
+          </button>
+          <button class="exh-nav-btn" disabled>
+            <span><span data-lang="tr">Son Sergi</span><span data-lang="en">Last Exhibition</span> →</span>
+          </button>
+        </div>
+            <div class="exh-other-btn-wrap">
         <button class="exh-other-btn" onclick="closeExhibition()">
           <span data-lang="tr">← Diğer Sergiler</span>
           <span data-lang="en">← Other Exhibitions</span>
