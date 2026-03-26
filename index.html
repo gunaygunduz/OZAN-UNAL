@@ -645,6 +645,16 @@
       cursor: pointer;
       transition: transform 0.4s cubic-bezier(0.23,1,0.32,1);
     }
+    @media (min-width: 601px) and (max-width: 900px) {
+      .exh-slider-wrap { padding: 0 0.5rem; }
+      .exh-slide-card { width: calc((100% - 1.6rem) / 5); }
+      .exh-slide-year { font-size: 0.42rem; }
+      .exh-slide-title { font-size: 0.7rem; }
+      .exh-slide-info { padding: 0.8rem; }
+    }
+    @media (min-width: 901px) and (max-width: 1200px) {
+      .exh-slide-card { width: calc((100% - 2rem) / 5); }
+    }
     .exh-slide-card:hover { transform: translateY(-6px); }
     .exh-slide-img {
       position: absolute; inset: 0;
@@ -748,13 +758,6 @@
       .exh-slide-info { text-align: center; }
       .exh-slider-dots { display: none; }
       .sergiler-hero { min-height: auto; padding: 5rem 0 4rem; }
-    }
-    @media (min-width: 601px) and (max-width: 900px) {
-      .exh-slider-wrap { padding: 0 1rem; }
-      .exh-slide-card { width: calc((100% - 1.8rem) / 3); }
-    }
-    @media (min-width: 901px) and (max-width: 1200px) {
-      .exh-slide-card { width: calc((100% - 1.8rem) / 4); }
     }
 
     /* SERGİ KART GRİDİ (eski — artık kullanılmıyor, temizlendi) */
@@ -3174,10 +3177,8 @@
 
     function getCardsPerPage() {
       const w = window.innerWidth;
-      if (w <= 600) return 999; // mobilde hepsi görünsün
-      if (w <= 900) return 3;
-      if (w <= 1200) return 4;
-      return 5;
+      if (w <= 600) return 999; // mobilde hepsi alt alta
+      return 5; // her ekranda 5 kart
     }
 
     function getSliderCards() {
