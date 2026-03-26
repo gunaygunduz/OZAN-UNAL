@@ -1260,6 +1260,91 @@
       transform: scale(1.03);
       filter: grayscale(0%);
     }
+    /* LIGHTBOX */
+    .lightbox {
+      position: fixed; inset: 0;
+      z-index: 500;
+      background: rgba(8,8,8,0.97);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .lightbox.open { opacity: 1; pointer-events: all; }
+
+    .lightbox-img-wrap {
+      flex: 1;
+      display: flex; align-items: center; justify-content: center;
+      width: 100%; padding: 5rem 6rem 2rem;
+      box-sizing: border-box;
+    }
+    .lightbox-img-wrap img {
+      max-width: 65%;
+      max-height: 65vh;
+      object-fit: contain;
+      display: block;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+    .lightbox-info {
+      text-align: center;
+      padding: 0 2rem 2rem;
+      min-height: 3rem;
+    }
+    .lightbox-name {
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--white);
+      display: block;
+      margin-bottom: 0.3rem;
+    }
+    .lightbox-meta {
+      font-size: 0.55rem;
+      letter-spacing: 0.08em;
+      color: rgba(184,115,51,0.8);
+      display: block;
+    }
+    .lightbox-close {
+      position: fixed; top: 1.5rem; right: 2rem;
+      background: none; border: none;
+      color: rgba(240,236,228,0.5);
+      font-size: 1.4rem; cursor: none;
+      z-index: 501; line-height: 1;
+      transition: color 0.3s;
+      font-weight: 200;
+    }
+    .lightbox-close:hover { color: var(--white); }
+    .lightbox-nav {
+      position: fixed; top: 50%;
+      transform: translateY(-50%);
+      background: rgba(8,8,8,0.5);
+      border: 1px solid rgba(184,115,51,0.3);
+      color: var(--copper);
+      width: 48px; height: 48px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: none; z-index: 501;
+      transition: background 0.3s, border-color 0.3s;
+      backdrop-filter: blur(4px);
+    }
+    .lightbox-nav:hover { background: var(--copper); color: var(--black); border-color: var(--copper); }
+    .lightbox-nav svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 1.5; }
+    .lightbox-prev { left: 1.5rem; }
+    .lightbox-next { right: 1.5rem; }
+    .lightbox-counter {
+      position: fixed; bottom: 1.5rem; left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.5rem; letter-spacing: 0.3em;
+      color: rgba(240,236,228,0.35);
+      text-transform: uppercase;
+    }
+    /* Masonry item tıklanabilir — sadece masaüstü */
+    @media (min-width: 769px) {
+      .exh-masonry-item { cursor: none; }
+      .exh-masonry-item img { cursor: none; }
+    }
+
     /* Eser Bilgisi — Sabit Alt Başlık */
     .exh-artwork-info {
       padding: 0.6rem 0 0.4rem;
@@ -3171,6 +3256,70 @@
       });
     });
 
+    // ── Lightbox
+    let lbItems = [];
+    let lbIndex = 0;
+
+    function initLightbox() {
+      if (window.innerWidth <= 768) return;
+      const container = document.getElementById('exhOverlay');
+      if (!container) return;
+      container.querySelectorAll('.exh-masonry-item').forEach((item, i) => {
+        item.onclick = () => {
+          const items = container.querySelectorAll('.exh-masonry-item');
+          lbItems = Array.from(items).map(el => ({
+            src: el.querySelector('img')?.src || '',
+            name: el.querySelector('.exh-artwork-name')?.textContent?.trim() || '',
+            meta: el.querySelector('.exh-artwork-meta')?.textContent?.trim() || ''
+          }));
+          lbIndex = i;
+          openLightbox();
+        };
+      });
+    }
+
+    function openLightbox() {
+      updateLightboxContent();
+      document.getElementById('lightbox').classList.add('open');
+    }
+
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('open');
+    }
+
+    function updateLightboxContent() {
+      const item = lbItems[lbIndex];
+      if (!item) return;
+      document.getElementById('lightboxImg').src = item.src;
+      document.getElementById('lightboxName').textContent = item.name;
+      document.getElementById('lightboxMeta').textContent = item.meta;
+      document.getElementById('lightboxCounter').textContent = `${lbIndex + 1} / ${lbItems.length}`;
+      document.getElementById('lightboxPrev').style.opacity = lbIndex === 0 ? '0.2' : '1';
+      document.getElementById('lightboxNext').style.opacity = lbIndex === lbItems.length - 1 ? '0.2' : '1';
+    }
+
+    function lightboxNav(dir) {
+      const next = lbIndex + dir;
+      if (next < 0 || next >= lbItems.length) return;
+      lbIndex = next;
+      updateLightboxContent();
+    }
+
+    document.addEventListener('keydown', e => {
+      const lb = document.getElementById('lightbox');
+      if (!lb.classList.contains('open')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') lightboxNav(-1);
+      if (e.key === 'ArrowRight') lightboxNav(1);
+    });
+
+    const lbEl = document.getElementById('lightbox');
+    if (lbEl) {
+      lbEl.addEventListener('click', e => {
+        if (e.target.id === 'lightbox') closeLightbox();
+      });
+    }
+
     // ── Sergi Kart Sistemi
     // ── Kart Slider
     let sliderPage = 0;
@@ -3259,6 +3408,8 @@
       glassL.classList.add('visible');
       glassR.classList.add('visible');
       document.body.style.overflow = 'hidden';
+      // Lightbox'ı başlat
+      setTimeout(() => initLightbox(), 100);
     }
 
     function closeExhibition() {
@@ -3277,14 +3428,21 @@
 
     // ── Şiir Akordiyon Toggle
     function togglePoem(id) {
-      const poem = document.getElementById(id + '-poem');
-      const icon = document.getElementById(id + '-icon');
-      const isOpen = poem.classList.contains('open');
-      poem.classList.toggle('open', !isOpen);
-      icon.classList.toggle('open', !isOpen);
+      // Hem overlay hem sayfa içinde çalış
+      const containers = [document.getElementById('exhOverlay'), document];
+      for (const container of containers) {
+        if (!container) continue;
+        const poem = container.querySelector('#' + id + '-poem, [id="' + id + '-poem"]');
+        const icon = container.querySelector('#' + id + '-icon, [id="' + id + '-icon"]');
+        if (poem) {
+          const isOpen = poem.classList.contains('open');
+          poem.classList.toggle('open', !isOpen);
+          if (icon) icon.classList.toggle('open', !isOpen);
+          break;
+        }
+      }
     }
 
-    // ── CTA Sergi Listesi Toggle
     // ── İletişim Formu
     function submitForm() {
       const name    = document.querySelector('input[name="name"]').value.trim();
@@ -3297,18 +3455,40 @@
       document.getElementById('formSuccess').style.display = 'block';
     }
 
-    // ── Akordiyon
-    document.querySelectorAll('.acc-trigger').forEach(trigger => {
-      trigger.addEventListener('click', () => {
-        const item = trigger.closest('.acc-item');
-        const isOpen = item.classList.contains('open');
-        // Tümünü kapat
-        document.querySelectorAll('.acc-item.open').forEach(el => el.classList.remove('open'));
-        // Tıklanan kapalıysa aç
-        if (!isOpen) item.classList.add('open');
-      });
+    // ── Akordiyon — event delegation
+    document.addEventListener('click', e => {
+      const trigger = e.target.closest('.acc-trigger');
+      if (!trigger) return;
+      const item = trigger.closest('.acc-item');
+      if (!item) return;
+      const parent = item.closest('.accordion');
+      const isOpen = item.classList.contains('open');
+      // Aynı accordion içindeki tümünü kapat
+      if (parent) {
+        parent.querySelectorAll('.acc-item.open').forEach(el => el.classList.remove('open'));
+      }
+      if (!isOpen) item.classList.add('open');
     });
   </script>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lightboxClose" onclick="closeLightbox()">✕</button>
+    <button class="lightbox-nav lightbox-prev" id="lightboxPrev" onclick="lightboxNav(-1)">
+      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <div class="lightbox-img-wrap">
+      <img id="lightboxImg" src="" alt="" />
+    </div>
+    <div class="lightbox-info">
+      <span class="lightbox-name" id="lightboxName"></span>
+      <span class="lightbox-meta" id="lightboxMeta"></span>
+    </div>
+    <button class="lightbox-nav lightbox-next" id="lightboxNext" onclick="lightboxNav(1)">
+      <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+    <div class="lightbox-counter" id="lightboxCounter"></div>
+  </div>
 
   <!-- SERGİ OVERLAY -->
   <div class="exh-overlay" id="exhOverlay"></div>
