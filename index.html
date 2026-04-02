@@ -76,10 +76,12 @@
     .nav-links { display: flex; gap: 3rem; list-style: none; align-items: center; }
     .nav-links a {
       font-size: 0.65rem; font-weight: 400;
-      letter-spacing: 0.25em; text-transform: uppercase;
+      letter-spacing: 0.25em;
       color: var(--gray-lt); text-decoration: none;
       transition: color 0.3s; position: relative;
     }
+    .nav-links a [data-lang="tr"] { text-transform: uppercase; }
+    .nav-links a [data-lang="en"] { text-transform: none; }
     .nav-links a::after {
       content: ''; position: absolute; bottom: -4px; left: 0;
       width: 0; height: 1px; background: var(--copper);
@@ -290,6 +292,88 @@
     .scene-body {
       font-size: 0.9rem; font-weight: 300;
       line-height: 2; color: rgba(240,236,228,0.6);
+    }
+    @media (max-width: 900px) {
+      .scene-body {
+        max-width: 88vw;
+      }
+      #scene-3 .scene-text {
+        width: 100%;
+        padding: 0 6vw;
+        box-sizing: border-box;
+      }
+      #scene-3 .scene-body {
+        max-width: 100%;
+        width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+      }
+    }
+
+    /* ESKİZ STACK & SPREAD */
+    .eskiz-scene {
+      position: relative;
+      height: 400vh;
+      background: var(--bg);
+    }
+    .eskiz-sticky {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .eskiz-stack-wrap {
+      position: relative;
+      width: 340px;
+      height: 420px;
+      clip-path: none;
+    }
+    .eskiz-text {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: min(480px, 80vw);
+      opacity: 0;
+      transition: opacity 1s ease;
+      z-index: 0;
+      pointer-events: none;
+      text-align: center;
+      padding: 3rem 2.5rem;
+      background: radial-gradient(ellipse at center,
+        rgba(8,8,8,0.92) 0%,
+        rgba(8,8,8,0.85) 50%,
+        rgba(8,8,8,0) 100%);
+    }
+    .eskiz-text.visible {
+      opacity: 1;
+    }
+    .eskiz-stack {
+      position: relative;
+      width: 340px;
+      height: 420px;
+    }
+    .eskiz-card {
+      position: absolute;
+      inset: 0;
+      background: #fff;
+      box-shadow: 0 4px 32px rgba(0,0,0,0.4);
+      overflow: hidden;
+      will-change: transform;
+    }
+    .eskiz-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      pointer-events: none;
+    }
+    @media (max-width: 900px) {
+      .eskiz-text { width: 260px; max-width: 260px; }
+      .eskiz-stack { width: 260px; height: 320px; }
     }
 
     /* SAHNE 4 */
@@ -795,6 +879,7 @@
       align-items: baseline;
       gap: 3rem;
       margin-bottom: 4rem;
+      margin-top: 3rem;
       padding-bottom: 2rem;
       border-bottom: 1px solid rgba(184,115,51,0.12);
     }
@@ -807,18 +892,19 @@
       flex-shrink: 0;
     }
     .exh-title {
-      font-size: clamp(1.4rem, 3vw, 3rem);
+      font-size: clamp(2rem, 5vw, 4rem);
       font-weight: 500;
       color: var(--white);
-      line-height: 1.15;
-      letter-spacing: -0.01em;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
     }
 
     .exh-overlay .exhibition-block {
-      padding-top: 6rem;
+      padding-top: 9rem;
     }
     .exh-overlay .exh-head {
       padding-top: 0;
+      margin-top: 0;
     }
     .exh-intro {
       display: grid;
@@ -847,6 +933,212 @@
       filter: none;
       mix-blend-mode: screen;
       opacity: 0.85;
+    }
+
+
+
+    /* TAHTEREVALLİ */
+    .thr-icerik {
+      display: grid;
+      grid-template-columns: 55fr 45fr;
+      min-height: 80vh;
+      align-items: center;
+      gap: 0;
+    }
+    .thr-metin {
+      padding: 5rem 4rem 5rem 6rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .thr-metin p {
+      font-size: clamp(0.9rem, 1.2vw, 1.05rem);
+      font-weight: 300;
+      font-style: italic;
+      line-height: 1.8;
+      color: rgba(240,236,228,0.68);
+    }
+    .thr-vurgu {
+      color: var(--copper);
+      font-style: italic;
+      font-weight: 400;
+    }
+    .thr-eskiz {
+      height: 80vh;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg);
+      position: relative;
+    }
+    .thr-eskiz::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to left,   rgba(8,8,8,0.5) 0%, transparent 30%),
+        linear-gradient(to right,  rgba(8,8,8,0.5) 0%, transparent 30%),
+        linear-gradient(to bottom, rgba(8,8,8,0.5) 0%, transparent 25%),
+        linear-gradient(to top,    rgba(8,8,8,0.5) 0%, transparent 25%);
+      z-index: 1;
+      pointer-events: none;
+    }
+    .thr-eskiz img {
+      width: 110%;
+      height: 110%;
+      object-fit: contain;
+      display: block;
+      mix-blend-mode: screen;
+      opacity: 0.88;
+      filter: brightness(1.05) contrast(1.1);
+      position: relative;
+      z-index: 0;
+    }
+    @media (max-width: 900px) {
+      .thr-icerik { grid-template-columns: 1fr; }
+      .thr-metin { padding: 4rem 2rem; }
+      .thr-eskiz { height: 60vw; }
+    }
+    /* İNSAN KARA BİR LEKE DEĞİLDİR */
+    .ikbld-icerik {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 100vh;
+      align-items: stretch;
+    }
+    .ikbld-metin {
+      padding: 6rem 4rem 6rem 6rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .ikbld-metin p {
+      font-size: clamp(0.9rem, 1.2vw, 1.05rem);
+      font-weight: 300;
+      font-style: italic;
+      line-height: 2.2;
+      color: rgba(240,236,228,0.68);
+      text-align: left;
+    }
+    .ikbld-vurgu {
+      color: var(--copper);
+      font-style: italic;
+      font-weight: 400;
+    }
+    .ikbld-son {
+      display: block;
+      margin-top: 1.5rem;
+      font-size: clamp(1.1rem, 1.8vw, 1.5rem);
+      font-weight: 500;
+      font-style: normal;
+      color: var(--white);
+      letter-spacing: 0.02em;
+    }
+    .ikbld-eskiz {
+      position: relative;
+      overflow: hidden;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg);
+    }
+    .ikbld-eskiz::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, rgba(8,8,8,0.4) 0%, transparent 30%, transparent 70%, rgba(8,8,8,0.4) 100%),
+                  linear-gradient(to bottom, rgba(8,8,8,0.6) 0%, transparent 20%, transparent 80%, rgba(8,8,8,0.6) 100%);
+      z-index: 1;
+      pointer-events: none;
+    }
+    .ikbld-eskiz img {
+      width: 70%;
+      height: auto;
+      display: block;
+      mix-blend-mode: screen;
+      opacity: 0.85;
+      filter: brightness(1.05) contrast(1.1);
+      position: relative;
+      z-index: 0;
+    }
+    @media (max-width: 900px) {
+      .ikbld-icerik { grid-template-columns: 1fr; }
+      .ikbld-metin { padding: 4rem 2rem; }
+      .ikbld-eskiz { min-height: 60vw; }
+    }
+    /* YERİNİ YADIRGAYANLAR — hero split layout */
+    .yy-hero {
+      display: grid;
+      grid-template-columns: 45fr 55fr;
+      min-height: 100vh;
+      background: var(--bg);
+      align-items: center;
+    }
+    .yy-hero-left {
+      padding: 8rem 4rem 8rem 6rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .yy-hero-title {
+      font-size: clamp(2rem, 5vw, 4rem);
+      font-weight: 500;
+      line-height: 1.1;
+      color: var(--white);
+      margin: 1.5rem 0 2.5rem;
+      letter-spacing: -0.02em;
+    }
+    .yy-hero-poem {
+      font-size: clamp(0.85rem, 1.2vw, 1rem);
+      font-weight: 300;
+      font-style: italic;
+      line-height: 1.9;
+      color: rgba(240,236,228,0.55);
+    }
+    .yy-hero-poem em { color: var(--copper-lt); font-style: italic; }
+    .yy-hero-right {
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg);
+    }
+    .yy-hero-right img {
+      width: 85%;
+      height: 85%;
+      object-fit: contain;
+      object-position: center;
+      mix-blend-mode: screen;
+      opacity: 0.9;
+      filter: brightness(1.05) contrast(1.1);
+      display: block;
+    }
+    @media (max-width: 900px) {
+      .yy-hero { grid-template-columns: 1fr; }
+      .yy-hero-left { padding: 6rem 2rem 3rem; }
+      .yy-hero-right { height: 60vw; }
+    }
+
+    /* YERİNİ YADIRGAYANLAR — ortalı uzun metin */
+    .yy-metin {
+      max-width: 760px;
+      margin: 0 auto 5rem;
+      padding: 2rem 2rem 3rem;
+    }
+    .yy-metin p {
+      font-size: clamp(0.95rem, 1.4vw, 1.1rem);
+      font-weight: 300;
+      font-style: italic;
+      line-height: 2.1;
+      color: rgba(240,236,228,0.7);
+      text-align: left;
+    }
+    .yy-vurgu {
+      color: var(--copper);
+      font-style: italic;
     }
     .exh-sketch-label {
       display: block;
@@ -1155,9 +1447,9 @@
       max-width: 680px;
     }
     .exh-hero-title {
-      font-size: clamp(2.8rem, 5vw, 5.5rem);
+      font-size: clamp(2rem, 5vw, 4rem);
       font-weight: 500;
-      line-height: 1.05;
+      line-height: 1.1;
       color: var(--white);
       letter-spacing: -0.02em;
       margin: 1rem 0 2.5rem;
@@ -1265,44 +1557,63 @@
       position: fixed; inset: 0;
       z-index: 500;
       background: rgba(8,8,8,0.97);
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       opacity: 0; pointer-events: none;
       transition: opacity 0.3s ease;
     }
     .lightbox.open { opacity: 1; pointer-events: all; }
 
+    .lightbox-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      max-height: 90vh;
+    }
+
     .lightbox-img-wrap {
-      flex: 1;
       display: flex; align-items: center; justify-content: center;
-      width: 100%; padding: 5rem 6rem 2rem;
-      box-sizing: border-box;
     }
     .lightbox-img-wrap img {
-      max-width: 65%;
-      max-height: 65vh;
+      max-width: 70vw;
+      max-height: 72vh;
+      width: auto;
+      height: auto;
       object-fit: contain;
       display: block;
       user-select: none;
       -webkit-user-drag: none;
     }
     .lightbox-info {
-      text-align: center;
-      padding: 0 2rem 2rem;
-      min-height: 3rem;
+      padding: 0.65rem 0 0;
+      max-width: 70vw;
+      width: 100%;
+      text-align: left;
+    }
+    .lightbox-info-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 0.2rem;
     }
     .lightbox-name {
-      font-size: 0.65rem;
+      font-size: 0.75rem;
       font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
+      letter-spacing: 0.12em;
       color: var(--white);
-      display: block;
-      margin-bottom: 0.3rem;
+    }
+    .lightbox-size {
+      font-size: 0.62rem;
+      letter-spacing: 0.05em;
+      color: rgba(240,236,228,0.45);
+      white-space: nowrap;
+      flex-shrink: 0;
     }
     .lightbox-meta {
-      font-size: 0.55rem;
-      letter-spacing: 0.08em;
+      font-size: 0.65rem;
+      letter-spacing: 0.06em;
       color: rgba(184,115,51,0.8);
       display: block;
     }
@@ -1355,17 +1666,30 @@
       font-size: 0.75rem;
       font-weight: 500;
       letter-spacing: 0.08em;
-      text-transform: uppercase;
       color: var(--white);
       display: block;
-      margin-bottom: 0.2rem;
+      margin-bottom: 0.15rem;
+      margin-top: 0.75rem;
     }
     .exh-artwork-meta {
-      font-size: 0.65rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 0.5rem;
+    }
+    .exh-artwork-material {
+      font-size: 0.75rem;
       font-weight: 400;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.06em;
       color: rgba(184,115,51,0.7);
-      display: block;
+    }
+    .exh-artwork-size {
+      font-size: 0.7rem;
+      font-weight: 300;
+      letter-spacing: 0.04em;
+      color: rgba(240,236,228,0.4);
+      text-align: right;
+      white-space: nowrap;
     }
     @media (max-width: 900px) {
       .exh-masonry { columns: 2; }
@@ -1772,6 +2096,105 @@
     }
 
     /* İLETİŞİM */
+    /* BASINDA */
+    #basinda {
+      position: relative;
+      background: var(--bg-2);
+      padding: 8rem 4rem;
+      overflow: hidden;
+    }
+    .basinda-video-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+    .basinda-video-bg video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(40%) contrast(1.05);
+      opacity: 0.3;
+    }
+    .basinda-video-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom,
+        rgba(8,8,8,0.7) 0%,
+        rgba(8,8,8,0.5) 40%,
+        rgba(8,8,8,0.7) 100%);
+    }
+    .basinda-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+    .basinda-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin-top: 3rem;
+    }
+    .basinda-card {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      padding: 1.8rem 0;
+      border-bottom: 1px solid rgba(240,236,228,0.07);
+      text-decoration: none;
+      transition: opacity 0.25s;
+      cursor: pointer;
+    }
+    .basinda-card:first-child { border-top: 1px solid rgba(240,236,228,0.07); }
+    .basinda-card:hover { opacity: 0.65; }
+    .basinda-card-icon {
+      width: 36px;
+      height: 36px;
+      flex-shrink: 0;
+      color: var(--copper);
+      opacity: 0.7;
+    }
+    .basinda-card-icon svg { width: 100%; height: 100%; }
+    .basinda-card-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+    .basinda-card-source {
+      font-size: 0.55rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--copper);
+      font-weight: 400;
+    }
+    .basinda-card-title {
+      font-size: 0.95rem;
+      font-weight: 300;
+      color: var(--white);
+      line-height: 1.4;
+    }
+    .basinda-card-date {
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      color: var(--gray);
+      font-weight: 300;
+    }
+    .basinda-card-arrow {
+      font-size: 1rem;
+      color: var(--copper);
+      opacity: 0.5;
+      flex-shrink: 0;
+      transition: transform 0.3s, opacity 0.3s;
+    }
+    .basinda-card:hover .basinda-card-arrow {
+      transform: translateX(6px);
+      opacity: 1;
+    }
+    @media (max-width: 900px) {
+      #basinda { padding: 5rem 2rem; }
+    }
+
     #iletisim {
       padding: 8rem 0;
       background: #111111;
@@ -1949,6 +2372,8 @@
     [data-lang="en"] { display: none !important; }
     body.lang-en [data-lang="tr"] { display: none !important; }
     body.lang-en [data-lang="en"] { display: revert !important; }
+    /* İngilizce span'larda text-transform uppercase Türkçe İ üretmesin */
+    [data-lang="en"] { text-transform: none !important; }
 
     /* RESPONSIVE */
     @media (max-width: 900px) {
@@ -1979,9 +2404,10 @@
   <nav id="navbar">
     <a href="#hero" class="nav-logo">Ozan <span>Ünal</span></a>
     <ul class="nav-links">
-      <li><a href="#sergiler"><span data-lang="tr">Sergiler</span><span data-lang="en">Exhibitions</span></a></li>
-      <li><a href="#hakkinda"><span data-lang="tr">Hakkında</span><span data-lang="en">About</span></a></li>
-      <li><a href="#iletisim"><span data-lang="tr">İletişim</span><span data-lang="en">Contact</span></a></li>
+      <li><a href="#sergiler"><span data-lang="tr">Sergiler</span><span data-lang="en">EXHIBITIONS</span></a></li>
+      <li><a href="#hakkinda"><span data-lang="tr">Hakkında</span><span data-lang="en">ABOUT</span></a></li>
+      <li><a href="#basinda"><span data-lang="tr">Basında</span><span data-lang="en">PRESS</span></a></li>
+      <li><a href="#iletisim"><span data-lang="tr">İletişim</span><span data-lang="en">CONTACT</span></a></li>
     </ul>
     <div class="lang-toggle">
       <button class="lang-btn active" data-set="tr">TR</button>
@@ -2006,15 +2432,15 @@
     <div class="hero-content">
       <p class="hero-eyebrow">
         <span data-lang="tr">Heykeltıraş</span>
-        <span data-lang="en">Sculptor</span>
+        <span data-lang="en">SCULPTOR</span>
       </p>
       <h1 class="hero-name">
         Ozan
         <strong>Ünal</strong>
       </h1>
       <p class="hero-quote">
-        <span data-lang="tr">"Uyanıklıkla uyku arasındaki o sınırsız boşlukta yüzerken, algının ve bilincin devreye girdiği anlar üzerine çokça düşündüm..."</span>
-        <span data-lang="en">"While floating in that boundless space between waking and sleep, I thought deeply about those moments when perception and consciousness come alive..."</span>
+        <span data-lang="tr">"sen gerçeği ham haliyle sindiremiyorsun." dedi…<br/>alıyorsun o gerçeği kucağına, atölyene geliyorsun. dövüyorsun, kaynatıyorsun, zımparalıyorsun…<br/>bozuyor ve tekrar yapıyorsun. ancak o zaman sindirebileceğin hale geliyor gerçek.<br/>"sen heykel yapıyorken; aslında gerçeği tekrar inşa ediyorsun" dedi…</span>
+        <span data-lang="en">"you can't digest reality in its raw form." they said…<br/>you take that reality into your arms, you come to your studio. you hammer it, you weld it, you sand it…<br/>you break it and rebuild it. only then does reality become something you can digest.<br/>"while you're sculpting; you're actually rebuilding reality" they said…</span>
       </p>
       <img src="imza.png" alt="Ozan Ünal" class="hero-signature" />
     </div>
@@ -2026,33 +2452,40 @@
   </section>
 
   <!-- SAHNE 2: UYANIS VE YÜZLEŞME -->
-  <section class="scene" id="scene-2">
-    <div class="scene-inner">
-      <div class="scene-sketch">
-        <!--
-          ═══════════════════════════════════════════════
-          ESKİZ FOTOĞRAFI 1:
-          Bir eskiz taramasını "eskiz-1.jpg" adıyla kaydet.
-          ═══════════════════════════════════════════════
-        -->
-        <img src="sketch-01.webp" alt="Eskiz" />
-        <div class="sketch-placeholder" style="display:none;">
-          <p class="sketch-placeholder-text">
-            <span data-lang="tr">Eskiz · Karalama Defteri</span>
-            <span data-lang="en">Sketch · Sketchbook</span>
-          </p>
-        </div>
-      </div>
-      <div class="scene-text">
+  <!-- SAHNE 2: ESKİZ - STACK & SPREAD -->
+  <section id="scene-2" class="eskiz-scene">
+    <div class="eskiz-sticky">
+
+      <!-- Metin: ortada belirer -->
+      <div class="eskiz-text" id="eskizText">
         <h2 class="scene-heading">
-          <span data-lang="tr">Güvenli mutsuzluktan<br/><em>sıyrılmak.</em></span>
-          <span data-lang="en">Peeling away from<br/><em>safe unhappiness.</em></span>
+          <span data-lang="tr">Lucid rüya gibi<br/><em>bir şey eskiz yapmak.</em></span>
+          <span data-lang="en">Sketching is something<br/><em>like a lucid dream.</em></span>
         </h2>
         <p class="scene-body">
-          <span data-lang="tr">Uyandığımızda karşılaştığımız gerçeklik, çoğu zaman kendi kendimize sardığımız dikenli tellerden ibarettir. Daha büyük bir acıdan korktuğumuz için o "güvenli mutsuzluğa" tutunuruz. Ben ise mutluluğun ekleyerek değil; bu tellerden soyunarak, eksilterek bulunabileceğine inandım.</span>
-          <span data-lang="en">The reality we face upon waking is often nothing but barbed wire we have wrapped around ourselves. We cling to that "safe unhappiness" out of fear of greater pain. I, however, came to believe that happiness is found not by adding — but by shedding these wires, by subtracting.</span>
+          <span data-lang="tr">Gel-git'li… akışa izin vermek ve kontrol etmek arasında bir yerlerde…</span>
+          <span data-lang="en">Back and forth… somewhere between letting the flow happen and controlling it…</span>
         </p>
       </div>
+
+      <!-- Kartlar: ortada saçılır -->
+      <div class="eskiz-stack-wrap">
+        <div class="eskiz-stack" id="eskizStack">
+          <div class="eskiz-card" data-index="11"><img src="eskizler/eskiz004.webp" alt="" /></div>
+          <div class="eskiz-card" data-index="10"><img src="eskizler/eskiz001.webp" alt="" /></div>
+          <div class="eskiz-card" data-index="9"><img src="eskizler/eskiz005.webp" alt="" /></div>
+          <div class="eskiz-card" data-index="8"><img src="eskizler/eskiz012.webp" alt="" /></div>
+          <div class="eskiz-card" data-index="7"><img src="eskizler/eskiz010.webp" alt="" /></div>
+          <div class="eskiz-card" data-index="6"><img src="eskizler/eskiz009.webp" alt="" /></div>
+          <div class="eskiz-card" data-index="5"><img src="eskizler/eskiz007.webp" alt="" /></div>
+          <div class="eskiz-card" data-index="4"><img src="eskizler/eskiz011.webp" alt="" /></div>
+          <div class="eskiz-card" data-index="3"><img src="eskizler/eskiz003.webp" alt="" /></div>
+          <div class="eskiz-card" data-index="2"><img src="eskizler/eskiz008.webp" alt="" /></div>
+          <div class="eskiz-card" data-index="1"><img src="eskizler/eskiz006.webp" alt="" /></div>
+          <div class="eskiz-card" data-index="0"><img src="eskizler/eskiz002.webp" alt="" /></div>
+        </div>
+      </div>
+
     </div>
   </section>
 
@@ -2076,12 +2509,12 @@
       </div>
       <div class="scene-text">
         <h2 class="scene-heading">
-          <span data-lang="tr">Demiri, ateşi ve<br/><em>algıyı bükerek.</em></span>
-          <span data-lang="en">Bending iron, fire<br/><em>and perception.</em></span>
+          <span data-lang="tr">Kara demir'in içindeki<br/><em>güzelliği gördüm.</em></span>
+          <span data-lang="en">I saw the beauty<br/><em>inside black iron.</em></span>
         </h2>
-        <p class="scene-body">
-          <span data-lang="tr">Atölyeme her girdiğimde, bana dayatılan o katı gerçeği olduğu gibi kabul etmeyi reddettim. Demiri ezip, büküp, kaynatarak kendi kabullenebileceğim bir forma soktum. Çünkü anladım ki; gerçeği katlanılabilir kılan en muazzam enstrüman "algı"nın ta kendisidir.</span>
-          <span data-lang="en">Every time I entered my studio, I refused to accept the rigid reality imposed upon me. I crushed, bent and welded iron into a form I could reconcile with. Because I came to understand that the most extraordinary instrument that makes reality bearable is perception itself.</span>
+        <p class="scene-body" style="background: rgba(8,8,8,0.55); padding: 1.2rem 1.5rem; backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); text-align: left;">
+          <span data-lang="tr">Yıllar oldu. Güzel; dandik bir sanayi sitesinin kimsegörmez, bakmayadeğmez, bir dükkanının haftasonu akşamüstüsü ıssızlığında; sobası artık söndüsayılır soğuğunda; kuşağı sağır, gözü kör, kolu felç eden yorgunluğunda; kara demir de olsa güzelmiş…</span>
+          <span data-lang="en">It's been years. Beauty; in the desolation of a weekend afternoon at a no-one-sees, no-one-cares workshop in a shabby industrial district; in the cold of a stove that's nearly gone out; in the exhaustion that deafens the waist, blinds the eyes, paralyzes the arms; even in black iron, there was beauty…</span>
         </p>
       </div>
     </div>
@@ -2100,7 +2533,7 @@
       <div class="about-content">
         <p class="about-label reveal">
           <span data-lang="tr">Hakkında</span>
-          <span data-lang="en">About</span>
+          <span data-lang="en">ABOUT</span>
         </p>
         <h2 class="about-heading reveal reveal-delay-1">
           <span data-lang="tr">Ozan<strong>Ünal</strong></span>
@@ -2154,7 +2587,7 @@
           <div class="about-meta-item">
             <span class="about-meta-key">
               <span data-lang="tr">Atölye</span>
-              <span data-lang="en">Studio</span>
+              <span data-lang="en">STUDIO</span>
             </span>
             <span class="about-meta-val">
               <span data-lang="tr">Atölye Pi — Karşıyaka, İzmir</span>
@@ -2194,12 +2627,8 @@
       <div class="sergiler-hero-top">
         <div class="sergiler-hero-title">
           <span data-lang="tr">Sergiler</span>
-          <span data-lang="en">Exhibitions</span>
+          <span data-lang="en">EXHIBITIONS</span>
         </div>
-        <p class="sergiler-hero-quote">
-          <span data-lang="tr">"Sizi; eksilerek bulduğum ve kendi gerçeğimle inşa ettiğim o ağır, sessiz hikayelerle baş başa bırakıyorum."</span>
-          <span data-lang="en">"I leave you alone with those heavy, silent stories built from the truth I found by subtraction."</span>
-        </p>
       </div>
 
       <!-- Kart Slider -->
@@ -2283,39 +2712,39 @@
               </h3>
             </div>
           </div>
-          <!-- Kart 7 — Yakında -->
-          <div class="exh-slide-card exh-slide-soon">
-            <div class="exh-slide-img exh-slide-placeholder"></div>
+          <!-- Kart 7 — Yerini Yadırgayanlar -->
+          <div class="exh-slide-card" onclick="openExhibition('yeriniyadirgayanlar')">
+            <div class="exh-slide-img"><img src="yeriniyadirgayanlar/cesme.webp" alt="" /></div>
             <div class="exh-slide-overlay"></div>
             <div class="exh-slide-info">
               <span class="exh-slide-year">2017</span>
               <h3 class="exh-slide-title">
-                <span data-lang="tr"><em>Yerini Yadırgayanlar</em></span>
-                <span data-lang="en"><em>Outsiders</em></span>
+                <span data-lang="tr">Yerini Yadırgayanlar</span>
+                <span data-lang="en">Outsiders</span>
               </h3>
             </div>
           </div>
           <!-- Kart 8 — Yakında -->
-          <div class="exh-slide-card exh-slide-soon">
-            <div class="exh-slide-img exh-slide-placeholder"></div>
+          <div class="exh-slide-card" onclick="openExhibition('tahterevalli')">
+            <div class="exh-slide-img"><img src="tahterevalli/flirt.webp" alt="" /></div>
             <div class="exh-slide-overlay"></div>
             <div class="exh-slide-info">
               <span class="exh-slide-year">2016</span>
               <h3 class="exh-slide-title">
-                <span data-lang="tr"><em>Tahterevalli</em></span>
-                <span data-lang="en"><em>Seesaw</em></span>
+                <span data-lang="tr">Tahterevalli</span>
+                <span data-lang="en">Seesaw</span>
               </h3>
             </div>
           </div>
-          <!-- Kart 9 — Yakında -->
-          <div class="exh-slide-card exh-slide-soon">
-            <div class="exh-slide-img exh-slide-placeholder"></div>
+          <!-- Kart 9 — İnsan Kara Bir Leke Değildir -->
+          <div class="exh-slide-card" onclick="openExhibition('ikbld')">
+            <div class="exh-slide-img"><img src="ikbld/hamile.webp" alt="" /></div>
             <div class="exh-slide-overlay"></div>
             <div class="exh-slide-info">
               <span class="exh-slide-year">2014</span>
               <h3 class="exh-slide-title">
-                <span data-lang="tr"><em>İnsan Kara Bir Leke Değildir</em></span>
-                <span data-lang="en"><em>Man Is Not a Black Spot</em></span>
+                <span data-lang="tr">İnsan Kara Bir Leke Değildir</span>
+                <span data-lang="en">Man Is Not a Black Spot</span>
               </h3>
             </div>
           </div>
@@ -2378,7 +2807,7 @@
           <img src="rhsha/rhshasketch.webp" alt="Eskiz" />
           <span class="exh-sketch-label">
             <span data-lang="tr">Eskiz</span>
-            <span data-lang="en">Sketch</span>
+            <span data-lang="en">SKETCH</span>
           </span>
         </div>
       </div>
@@ -2388,40 +2817,150 @@
       <div class="exh-gallery-wrap reveal">
         <p class="exh-strip-label">
           <span data-lang="tr">Eserler</span>
-          <span data-lang="en">Works</span>
+          <span data-lang="en">WORKS</span>
         </p>
         <div class="exh-masonry">
-          <div class="exh-masonry-item"><img src="rhsha/rhsha01.webp" alt="" /></div>
-          <div class="exh-masonry-item"><img src="rhsha/rhsha02.webp" alt="" /></div>
-          <div class="exh-masonry-item"><img src="rhsha/rhsha03.webp" alt="" /></div>
-          <div class="exh-masonry-item"><img src="rhsha/rhsha05.webp" alt="" /></div>
-          <div class="exh-masonry-item"><img src="rhsha/rhsha06.webp" alt="" /></div>
-          <div class="exh-masonry-item"><img src="rhsha/rhsha08.webp" alt="" /></div>
-          <div class="exh-masonry-item"><img src="rhsha/rhsha16.webp" alt="" /></div>
-          <div class="exh-masonry-item"><img src="rhsha/rhsha21.webp" alt="" /></div>
-          <div class="exh-masonry-item"><img src="rhsha/rhsha14.webp" alt="" /></div>
-          <div class="exh-masonry-item"><img src="rhsha/rhsha25.webp" alt="" /></div>
-          <div class="exh-masonry-item"><img src="rhsha/rhsha12.webp" alt="" /></div>
-          <div class="exh-masonry-item"><img src="rhsha/rhsha04.webp" alt="" /></div>
-          <div class="exh-masonry-item"><img src="rhsha/rhsha24.webp" alt="" /></div>
-          <div class="exh-masonry-item"><img src="rhsha/rhsha11.webp" alt="" /></div>
-          <div class="exh-masonry-item"><img src="rhsha/rhsha18.webp" alt="" /></div>
-          <div class="exh-masonry-item"><img src="rhsha/rhsha15.webp" alt="" /></div>
-          <div class="exh-masonry-item"><img src="rhsha/rhsha23.webp" alt="" /></div>
-          <div class="exh-masonry-item"><img src="rhsha/rhsha09.webp" alt="" /></div>
-          <div class="exh-masonry-item"><img src="rhsha/rhsha22.webp" alt="" /></div>
-          <div class="exh-masonry-item"><img src="rhsha/rhsha13.webp" alt="" /></div>
-          <div class="exh-masonry-item"><img src="rhsha/rhsha20.webp" alt="" /></div>
-          <div class="exh-masonry-item"><img src="rhsha/rhsha17.webp" alt="" /></div>
-          <div class="exh-masonry-item"><img src="rhsha/rhsha19.webp" alt="" /></div>
-          <div class="exh-masonry-item"><img src="rhsha/rhsha10.webp" alt="" /></div>
-          <div class="exh-masonry-item"><img src="rhsha/rhsha26.webp" alt="" /></div>
+          <div class="exh-masonry-item">
+            <img src="rhsha/rhsha01.webp" alt="sandık" />
+            <span class="exh-artwork-name" data-name-en="chest">SANDIK</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Concrete &amp; Bronze">Beton &amp; Bronz</span><span class="exh-artwork-size">80×50×60 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="rhsha/rhsha02.webp" alt="mut" />
+            <span class="exh-artwork-name" data-name-en="bliss">MUT</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Concrete &amp; Steel">Beton &amp; Çelik</span><span class="exh-artwork-size">130×40×30 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="rhsha/rhsha03.webp" alt="metruk melek" />
+            <span class="exh-artwork-name" data-name-en="derelict angel">METRUK MELEK</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Stainless Steel">Paslanmaz Çelik</span><span class="exh-artwork-size">210×110×110 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="rhsha/rhsha04.webp" alt="under construction" />
+            <span class="exh-artwork-name" data-name-en="under construction">UNDER CONSTRUCTION</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Concrete &amp; Steel">Beton &amp; Çelik</span><span class="exh-artwork-size">102×30×40 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="rhsha/rhsha05.webp" alt="firar" />
+            <span class="exh-artwork-name" data-name-en="escape">FİRAR</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Steel">Çelik</span><span class="exh-artwork-size">215×115×80 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="rhsha/rhsha06.webp" alt="bulut" />
+            <span class="exh-artwork-name" data-name-en="cloud">BULUT</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Bronze">Bronz</span><span class="exh-artwork-size">42×26×16 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="rhsha/rhsha08.webp" alt="duvar" />
+            <span class="exh-artwork-name" data-name-en="wall">DUVAR</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Steel">Çelik</span><span class="exh-artwork-size">113×74×77 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="rhsha/rhsha09.webp" alt="kör kral" />
+            <span class="exh-artwork-name" data-name-en="blind king">KÖR KRAL</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Bronze">Bronz</span><span class="exh-artwork-size">58×12×10 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="rhsha/rhsha10.webp" alt="istifa" />
+            <span class="exh-artwork-name" data-name-en="resignation">İSTİFA</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Concrete &amp; Steel">Beton &amp; Çelik</span><span class="exh-artwork-size">100×30×35 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="rhsha/rhsha11.webp" alt="kukla" />
+            <span class="exh-artwork-name" data-name-en="puppet">KUKLA</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Bronze">Bronz</span><span class="exh-artwork-size">56×12×10 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="rhsha/rhsha12.webp" alt="rağmen" />
+            <span class="exh-artwork-name" data-name-en="despite">RAĞMEN</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Bronze">Bronz</span><span class="exh-artwork-size">56×26×10 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="rhsha/rhsha13.webp" alt="mut" />
+            <span class="exh-artwork-name" data-name-en="bliss">MUT</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Bronze &amp; Stainless Steel">Bronz &amp; Paslanmaz Çelik</span><span class="exh-artwork-size">55×10×10 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="rhsha/rhsha14.webp" alt="saklı" />
+            <span class="exh-artwork-name" data-name-en="hidden">SAKLI</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Steel &amp; Vegetable Leather">Çelik &amp; Vegetal Deri</span><span class="exh-artwork-size">133×55×50 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="rhsha/rhsha15.webp" alt="oğlum" />
+            <span class="exh-artwork-name" data-name-en="my son">OĞLUM</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Concrete &amp; Steel">Beton &amp; Çelik</span><span class="exh-artwork-size">220×70×90 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="rhsha/rhsha16.webp" alt="yağmurlu bir gün" />
+            <span class="exh-artwork-name" data-name-en="a rainy day">YAĞMURLU BİR GÜN</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Steel &amp; Stainless Steel">Çelik &amp; Paslanmaz Çelik</span><span class="exh-artwork-size">92×40×30 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="rhsha/rhsha17.webp" alt="vicdan" />
+            <span class="exh-artwork-name" data-name-en="conscience">VİCDAN</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Steel">Çelik</span><span class="exh-artwork-size">92×55×45 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="rhsha/rhsha18.webp" alt="sır" />
+            <span class="exh-artwork-name" data-name-en="secret">SIR</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Bronze">Bronz</span><span class="exh-artwork-size">58×12×10 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="rhsha/rhsha19.webp" alt="yüksek ölçeler" />
+            <span class="exh-artwork-name" data-name-en="high measures">YÜKSEK ÖLÇELER</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Stainless Steel">Paslanmaz Çelik</span><span class="exh-artwork-size">210×220×150 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="rhsha/rhsha20.webp" alt="baba" />
+            <span class="exh-artwork-name" data-name-en="father">BABA</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Concrete &amp; Bronze">Beton &amp; Bronz</span><span class="exh-artwork-size">195×70×85 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="rhsha/rhsha21.webp" alt="geçer" />
+            <span class="exh-artwork-name" data-name-en="it passes">GEÇER</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Concrete &amp; Steel">Beton &amp; Çelik</span><span class="exh-artwork-size">123×40×35 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="rhsha/rhsha22.webp" alt="dip" />
+            <span class="exh-artwork-name" data-name-en="bottom">DİP</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Steel">Çelik</span><span class="exh-artwork-size">110×25×36 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="rhsha/rhsha23.webp" alt="ruh" />
+            <span class="exh-artwork-name" data-name-en="soul">RUH</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Bronze">Bronz</span><span class="exh-artwork-size">46×25×12 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="rhsha/rhsha24.webp" alt="çıpa" />
+            <span class="exh-artwork-name" data-name-en="anchor">ÇIPA</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Steel">Çelik</span><span class="exh-artwork-size">240×90×80 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="rhsha/rhsha25.webp" alt="emanetçi" />
+            <span class="exh-artwork-name" data-name-en="keeper">EMANETÇİ</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Bronze">Bronz</span><span class="exh-artwork-size">55×26×10 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="rhsha/rhsha26.webp" alt="Lily" />
+            <span class="exh-artwork-name" data-name-en="Lily">LILY</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Steel">Çelik</span><span class="exh-artwork-size">230×40×38 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="rhsha/rhsha27.webp" alt="manolya" />
+            <span class="exh-artwork-name" data-name-en="magnolia">MANOLYA</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Steel">Çelik</span><span class="exh-artwork-size">150×80×70 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="rhsha/rhsha28.webp" alt="sarkaç" />
+            <span class="exh-artwork-name" data-name-en="pendulum">SARKAÇ</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Steel">Çelik</span><span class="exh-artwork-size">245×134×65 cm</span></span>
+          </div>
         </div>
       </div>
 
       <div class="exh-nav-btns">
           <button class="exh-nav-btn" disabled>
-            <span>← <span data-lang="tr">İlk Sergi</span><span data-lang="en">First Exhibition</span></span>
+            <span>← <span data-lang="tr">İlk Sergi</span><span data-lang="en">FIRST EXHIBITION</span></span>
           </button>
           <button class="exh-nav-btn" onclick="openExhibition('ikbd')">
             <span><span data-lang="tr">İki Kişilik Bir Dünya</span><span data-lang="en">A World for Two</span> →</span>
@@ -2430,7 +2969,7 @@
             <div class="exh-other-btn-wrap">
         <button class="exh-other-btn" onclick="closeExhibition()">
           <span data-lang="tr">← Diğer Sergiler</span>
-          <span data-lang="en">← Other Exhibitions</span>
+          <span data-lang="en">← OTHER EXHIBITIONS</span>
         </button>
       </div>
       <div class="exh-divider"></div>
@@ -2503,15 +3042,74 @@
       <div class="exh-gallery-wrap reveal">
         <p class="exh-strip-label">
           <span data-lang="tr">Eserler</span>
-          <span data-lang="en">Works</span>
+          <span data-lang="en">WORKS</span>
         </p>
         <div class="exh-masonry">
-          <div class="exh-masonry-item"><img src="ikikisilikbirdunya/elvedamerhabaelveda.webp" alt="Elveda Merhaba Elveda" /></div>
-          <div class="exh-masonry-item"><img src="ikikisilikbirdunya/sarma.webp" alt="Sarma" /></div>
-          <div class="exh-masonry-item"><img src="ikikisilikbirdunya/piknik.webp" alt="Piknik" /></div>
-          <div class="exh-masonry-item"><img src="ikikisilikbirdunya/subat.webp" alt="Şubat" /></div>
-          <div class="exh-masonry-item"><img src="ikikisilikbirdunya/sabah.webp" alt="Sabah" /></div>
-          <div class="exh-masonry-item"><img src="ikikisilikbirdunya/liman.webp" alt="Liman" /></div>
+          <div class="exh-masonry-item">
+            <img src="ikikisilikbirdunya/elvedamerhabaelveda.webp" alt="elveda merhaba elveda" />
+            <span class="exh-artwork-name" data-name-en="FAREWELL HELLO FAREWELL">ELVEDA MERHABA ELVEDA</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Bronze">Bronz</span><span class="exh-artwork-size">31×22×14 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="ikikisilikbirdunya/piknik.webp" alt="piknik" />
+            <span class="exh-artwork-name" data-name-en="PICNIC">PİKNİK</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Bronze">Bronz</span><span class="exh-artwork-size">30×15×10 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="ikikisilikbirdunya/subat.webp" alt="şubat" />
+            <span class="exh-artwork-name" data-name-en="FEBRUARY">ŞUBAT</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Bronze">Bronz</span><span class="exh-artwork-size">34×24×10 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="ikikisilikbirdunya/sabah.webp" alt="sabah" />
+            <span class="exh-artwork-name" data-name-en="MORNING">SABAH</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Bronze">Bronz</span><span class="exh-artwork-size">30×14×10 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="ikikisilikbirdunya/liman.webp" alt="liman" />
+            <span class="exh-artwork-name" data-name-en="HARBOR">LİMAN</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Bronze">Bronz</span><span class="exh-artwork-size">19×24×18 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="ikikisilikbirdunya/sarma.webp" alt="teras" />
+            <span class="exh-artwork-name" data-name-en="TERRACE">TERAS</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Bronze">Bronz</span><span class="exh-artwork-size">17×12×20 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="ikikisilikbirdunya/dantel.webp" alt="dantel" />
+            <span class="exh-artwork-name" data-name-en="LACE">DANTEL</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Bronze">Bronz</span><span class="exh-artwork-size">18×12×30 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="ikikisilikbirdunya/esik.webp" alt="eşik" />
+            <span class="exh-artwork-name" data-name-en="THRESHOLD">EŞİK</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Bronze">Bronz</span><span class="exh-artwork-size">31×10×10 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="ikikisilikbirdunya/monza.webp" alt="monza" />
+            <span class="exh-artwork-name" data-name-en="MONZA">MONZA</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Bronze">Bronz</span><span class="exh-artwork-size">36×12×12 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="ikikisilikbirdunya/sacak.webp" alt="sacak" />
+            <span class="exh-artwork-name" data-name-en="EAVE">SAÇAK</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Bronze">Bronz</span><span class="exh-artwork-size">22×15×18 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="ikikisilikbirdunya/onbir.webp" alt="onbir" />
+            <span class="exh-artwork-name" data-name-en="ELEVEN">ONBİR</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Bronze">Bronz</span><span class="exh-artwork-size">31×10×18 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="ikikisilikbirdunya/nisan.webp" alt="nisan" />
+            <span class="exh-artwork-name" data-name-en="APRIL">NİSAN</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Bronze">Bronz</span><span class="exh-artwork-size">31×22×14 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="ikikisilikbirdunya/sedir.webp" alt="sedir" />
+            <span class="exh-artwork-name" data-name-en="CEDAR">SEDİR</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Bronze">Bronz</span><span class="exh-artwork-size">18×16×12 cm</span></span>
+          </div>
         </div>
       </div>
 
@@ -2526,7 +3124,7 @@
             <div class="exh-other-btn-wrap">
         <button class="exh-other-btn" onclick="closeExhibition()">
           <span data-lang="tr">← Diğer Sergiler</span>
-          <span data-lang="en">← Other Exhibitions</span>
+          <span data-lang="en">← OTHER EXHIBITIONS</span>
         </button>
       </div>
       <div class="exh-divider"></div>
@@ -2618,26 +3216,89 @@
       <div class="exh-gallery-wrap reveal">
         <p class="exh-strip-label">
           <span data-lang="tr">Eserler</span>
-          <span data-lang="en">Works</span>
+          <span data-lang="en">WORKS</span>
         </p>
         <div class="exh-masonry">
-          <div class="exh-masonry-item"><img src="ruyaanidansayilirmi/ras001.jpg" alt="" /></div>
-          <div class="exh-masonry-item"><img src="ruyaanidansayilirmi/ras004.webp" alt="" /></div>
-          <div class="exh-masonry-item"><img src="ruyaanidansayilirmi/ras003.webp" alt="" /></div>
-          <div class="exh-masonry-item"><img src="ruyaanidansayilirmi/ras007.webp" alt="" /></div>
-          <div class="exh-masonry-item"><img src="ruyaanidansayilirmi/ras006.webp" alt="" /></div>
-          <div class="exh-masonry-item"><img src="ruyaanidansayilirmi/ras012.webp" alt="" /></div>
-          <div class="exh-masonry-item"><img src="ruyaanidansayilirmi/ras024.webp" alt="" /></div>
-          <div class="exh-masonry-item"><img src="ruyaanidansayilirmi/ras023.webp" alt="" /></div>
-          <div class="exh-masonry-item"><img src="ruyaanidansayilirmi/ras010.webp" alt="" /></div>
-          <div class="exh-masonry-item"><img src="ruyaanidansayilirmi/ras009.webp" alt="" /></div>
-          <div class="exh-masonry-item"><img src="ruyaanidansayilirmi/ras014.webp" alt="" /></div>
-          <div class="exh-masonry-item"><img src="ruyaanidansayilirmi/ras025.webp" alt="" /></div>
-          <div class="exh-masonry-item"><img src="ruyaanidansayilirmi/ras017.jpg" alt="" /></div>
-          <div class="exh-masonry-item"><img src="ruyaanidansayilirmi/ras013.webp" alt="" /></div>
-          <div class="exh-masonry-item"><img src="ruyaanidansayilirmi/ras020.webp" alt="" /></div>
-          <div class="exh-masonry-item"><img src="ruyaanidansayilirmi/ras026.webp" alt="" /></div>
-          <div class="exh-masonry-item"><img src="ruyaanidansayilirmi/ras027.webp" alt="" /></div>
+          <div class="exh-masonry-item">
+            <img src="ruyaanidansayilirmi/ras001.webp" alt="oto sabotaj" />
+            <span class="exh-artwork-name" data-name-en="SELF SABOTAGE">OTO SABOTAJ</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Concrete &amp; Steel">Beton &amp; Çelik</span><span class="exh-artwork-size">78×43×192 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="ruyaanidansayilirmi/ras002.webp" alt="rüya" />
+            <span class="exh-artwork-name" data-name-en="DREAM">RÜYA</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Steel">Çelik</span><span class="exh-artwork-size">102×216×78 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="ruyaanidansayilirmi/ras003.webp" alt="ukde" />
+            <span class="exh-artwork-name" data-name-en="BURDEN">UKDE</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Concrete &amp; Steel">Beton &amp; Çelik</span><span class="exh-artwork-size">39×30×150 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="ruyaanidansayilirmi/ras004.webp" alt="battaniye" />
+            <span class="exh-artwork-name" data-name-en="BLANKET">BATTANİYE</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Concrete &amp; Steel">Beton &amp; Çelik</span><span class="exh-artwork-size">190×70×60 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="ruyaanidansayilirmi/ras005.webp" alt="kelebek nefesi" />
+            <span class="exh-artwork-name" data-name-en="BUTTERFLY BREATH">KELEBEK NEFESİ</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Steel">Çelik</span><span class="exh-artwork-size">120×40×130 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="ruyaanidansayilirmi/ras006.webp" alt="incelikler yüzünden" />
+            <span class="exh-artwork-name" data-name-en="BECAUSE OF SUBTLETIES">İNCELİKLER YÜZÜNDEN</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Concrete &amp; Steel">Beton &amp; Çelik</span><span class="exh-artwork-size">43×78×148 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="ruyaanidansayilirmi/ras007.webp" alt="tam değil ama bütün" />
+            <span class="exh-artwork-name" data-name-en="NOT PERFECT BUT WHOLE">TAM DEĞİL AMA BÜTÜN</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Steel">Çelik</span><span class="exh-artwork-size">112×50×185 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="ruyaanidansayilirmi/ras008.webp" alt="göç" />
+            <span class="exh-artwork-name" data-name-en="MIGRATION">GÖÇ</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Steel">Çelik</span><span class="exh-artwork-size">100×80×120 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="ruyaanidansayilirmi/ras009.webp" alt="jungle" />
+            <span class="exh-artwork-name" data-name-en="JUNGLE">JUNGLE</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Steel">Çelik</span><span class="exh-artwork-size">83×50×188 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="ruyaanidansayilirmi/ras010.webp" alt="kabuk" />
+            <span class="exh-artwork-name" data-name-en="SHELL">KABUK</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Concrete &amp; Steel">Beton &amp; Çelik</span><span class="exh-artwork-size">75×55×192 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="ruyaanidansayilirmi/ras011.webp" alt="prima materia" />
+            <span class="exh-artwork-name" data-name-en="PRIMA MATERIA">PRIMA MATERIA</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Steel">Çelik</span><span class="exh-artwork-size">140×70×193 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="ruyaanidansayilirmi/ras012.webp" alt="heba" />
+            <span class="exh-artwork-name" data-name-en="WASTE">HEBA</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Concrete &amp; Steel">Beton &amp; Çelik</span><span class="exh-artwork-size">105×70×200 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="ruyaanidansayilirmi/ras013.webp" alt="öz şefkat" />
+            <span class="exh-artwork-name" data-name-en="SELF COMPASSION">ÖZ ŞEFKAT</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Steel">Çelik</span><span class="exh-artwork-size">58×50×60 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="ruyaanidansayilirmi/ras014.webp" alt="316 sokak" />
+            <span class="exh-artwork-name" data-name-en="316 STREET">316 SOKAK</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Concrete &amp; Steel">Beton &amp; Çelik</span><span class="exh-artwork-size">90×74×125 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="ruyaanidansayilirmi/ras017.webp" alt="dutaltı" />
+            <span class="exh-artwork-name" data-name-en="UNDER THE MULBERRY">DUTALTI</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Steel">Çelik</span><span class="exh-artwork-size">43×36×87 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="ruyaanidansayilirmi/ras027.webp" alt="zambaklı lavi" />
+            <span class="exh-artwork-name" data-name-en="LILY LAVA">ZAMBAKLI LAVİ</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Steel">Çelik</span><span class="exh-artwork-size">70×60×192 cm</span></span>
+          </div>
         </div>
       </div>
 
@@ -2652,7 +3313,7 @@
             <div class="exh-other-btn-wrap">
         <button class="exh-other-btn" onclick="closeExhibition()">
           <span data-lang="tr">← Diğer Sergiler</span>
-          <span data-lang="en">← Other Exhibitions</span>
+          <span data-lang="en">← OTHER EXHIBITIONS</span>
         </button>
       </div>
       <div class="exh-divider"></div>
@@ -2690,7 +3351,7 @@
           <img src="cunkububiroyun/oyuneskiz.webp" alt="Eskiz" />
           <span class="exh-sketch-label">
             <span data-lang="tr">Eskiz</span>
-            <span data-lang="en">Sketch</span>
+            <span data-lang="en">SKETCH</span>
           </span>
         </div>
       </div>
@@ -2699,26 +3360,109 @@
       <div class="exh-gallery-wrap reveal">
         <p class="exh-strip-label">
           <span data-lang="tr">Eserler</span>
-          <span data-lang="en">Works</span>
+          <span data-lang="en">WORKS</span>
         </p>
         <div class="exh-masonry">
-          <div class="exh-masonry-item"><img src="cunkububiroyun/oyun001.webp" alt="" /></div>
-          <div class="exh-masonry-item"><img src="cunkububiroyun/oyun002.webp" alt="" /></div>
-          <div class="exh-masonry-item"><img src="cunkububiroyun/oyun003.webp" alt="" /></div>
-          <div class="exh-masonry-item"><img src="cunkububiroyun/oyun004.webp" alt="" /></div>
-          <div class="exh-masonry-item"><img src="cunkububiroyun/oyun005.webp" alt="" /></div>
-          <div class="exh-masonry-item"><img src="cunkububiroyun/oyun006.webp" alt="" /></div>
-          <div class="exh-masonry-item"><img src="cunkububiroyun/oyun007.webp" alt="" /></div>
-          <div class="exh-masonry-item"><img src="cunkububiroyun/oyun008.webp" alt="" /></div>
-          <div class="exh-masonry-item"><img src="cunkububiroyun/oyun009.webp" alt="" /></div>
-          <div class="exh-masonry-item"><img src="cunkububiroyun/oyun010.webp" alt="" /></div>
-          <div class="exh-masonry-item"><img src="cunkububiroyun/oyun011.webp" alt="" /></div>
-          <div class="exh-masonry-item"><img src="cunkububiroyun/oyun012.webp" alt="" /></div>
-          <div class="exh-masonry-item"><img src="cunkububiroyun/oyun013.webp" alt="" /></div>
-          <div class="exh-masonry-item"><img src="cunkububiroyun/oyun014.webp" alt="" /></div>
-          <div class="exh-masonry-item"><img src="cunkububiroyun/oyun015.webp" alt="" /></div>
-          <div class="exh-masonry-item"><img src="cunkububiroyun/oyun016.webp" alt="" /></div>
-          <div class="exh-masonry-item"><img src="cunkububiroyun/oyun017.webp" alt="" /></div>
+          <div class="exh-masonry-item">
+            <img src="cunkububiroyun/oyun001.webp" alt="yansıma" />
+            <span class="exh-artwork-name" data-name-en="REFLECTION">YANSIMA</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Bronze">Bronz</span><span class="exh-artwork-size">35×16×10 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="cunkububiroyun/oyun002.webp" alt="seni düşündüm duydunmu?" />
+            <span class="exh-artwork-name" data-name-en="I THOUGHT OF YOU, DID YOU FEEL IT?">SENİ DÜŞÜNDÜM DUYDUNMU?</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Bronze">Bronz</span><span class="exh-artwork-size">18×9×9 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="cunkububiroyun/oyun003.webp" alt="nefes" />
+            <span class="exh-artwork-name" data-name-en="BREATH">NEFES</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Bronze">Bronz</span><span class="exh-artwork-size">18×9×9 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="cunkububiroyun/oyun004.webp" alt="manifesto" />
+            <span class="exh-artwork-name" data-name-en="MANIFESTO">MANİFESTO</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Bronze">Bronz</span><span class="exh-artwork-size">36×14×12 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="cunkububiroyun/oyun005.webp" alt="kör kuyu" />
+            <span class="exh-artwork-name" data-name-en="BLIND WELL">KÖR KUYU</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Bronze">Bronz</span><span class="exh-artwork-size">27×23×10 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="cunkububiroyun/oyun006.webp" alt="lütfen bulduğunuz gibi bırakın" />
+            <span class="exh-artwork-name" data-name-en="PLEASE LEAVE AS YOU FOUND IT">LÜTFEN BULDUĞUNUZ GİBİ BIRAKIN</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Bronze">Bronz</span><span class="exh-artwork-size">27×9×9 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="cunkububiroyun/oyun007.webp" alt="beklenmeyen hata" />
+            <span class="exh-artwork-name" data-name-en="UNEXPECTED ERROR">BEKLENMEYEN HATA</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Bronze">Bronz</span><span class="exh-artwork-size">27×9×9 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="cunkububiroyun/oyun008.webp" alt="için içime sığmadı" />
+            <span class="exh-artwork-name" data-name-en="I COULDN'T CONTAIN IT INSIDE ME">İÇİN İÇİME SIĞMADI</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Bronze">Bronz</span><span class="exh-artwork-size">28×29×12 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="cunkububiroyun/oyun009.webp" alt="hayalet" />
+            <span class="exh-artwork-name" data-name-en="GHOST">HAYALET</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Bronze">Bronz</span><span class="exh-artwork-size">28×13×11 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="cunkububiroyun/oyun010.webp" alt="hamal" />
+            <span class="exh-artwork-name" data-name-en="PORTER">HAMAL</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Bronze">Bronz</span><span class="exh-artwork-size">26×29×12 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="cunkububiroyun/oyun011.webp" alt="fucking empathy" />
+            <span class="exh-artwork-name" data-name-en="FUCKING EMPATHY">FUCKİNG EMPATHY</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Bronze">Bronz</span><span class="exh-artwork-size">34×21×9 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="cunkububiroyun/oyun012.webp" alt="defans" />
+            <span class="exh-artwork-name" data-name-en="DEFENSE">DEFANS</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Bronze">Bronz</span><span class="exh-artwork-size">27×16×10 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="cunkububiroyun/oyun013.webp" alt="boğaziçi" />
+            <span class="exh-artwork-name" data-name-en="BOSPHORUS">BOĞAZİÇİ</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Bronze">Bronz</span><span class="exh-artwork-size">27×14×10 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="cunkububiroyun/oyun014.webp" alt="ayak oyunu" />
+            <span class="exh-artwork-name" data-name-en="FOOTWORK">AYAK OYUNU</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Bronze">Bronz</span><span class="exh-artwork-size">33×9×9 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="cunkububiroyun/oyun015.webp" alt="ten" />
+            <span class="exh-artwork-name" data-name-en="SKIN">TEN</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Bronze">Bronz</span><span class="exh-artwork-size">18×9×9 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="cunkububiroyun/oyun016.webp" alt="mülteci" />
+            <span class="exh-artwork-name" data-name-en="REFUGEE">MÜLTECİ</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Bronze">Bronz</span><span class="exh-artwork-size">18×9×9 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="cunkububiroyun/oyun017.webp" alt="tüy" />
+            <span class="exh-artwork-name" data-name-en="FEATHER">TÜY</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Bronze">Bronz</span><span class="exh-artwork-size">18×9×9 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="cunkububiroyun/oyun018.webp" alt="dolunay" />
+            <span class="exh-artwork-name" data-name-en="FULL MOON">DOLUNAY</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Bronze">Bronz</span><span class="exh-artwork-size">28×25×10 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="cunkububiroyun/oyun019.webp" alt="herkes birini sever, ama başka birini" />
+            <span class="exh-artwork-name" data-name-en="EVERYONE LOVES SOMEONE, BUT SOMEONE ELSE">HERKES BİRİNİ SEVER, AMA BAŞKA BİRİNİ</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Bronze">Bronz</span><span class="exh-artwork-size">18×73×12 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="cunkububiroyun/oyun020.webp" alt="kadının oniki hali" />
+            <span class="exh-artwork-name" data-name-en="TWELVE STATES OF A WOMAN">KADININ ONİKİ HALİ</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Bronze">Bronz</span><span class="exh-artwork-size">57×55×15 cm</span></span>
+          </div>
         </div>
       </div>
 
@@ -2733,7 +3477,7 @@
             <div class="exh-other-btn-wrap">
         <button class="exh-other-btn" onclick="closeExhibition()">
           <span data-lang="tr">← Diğer Sergiler</span>
-          <span data-lang="en">← Other Exhibitions</span>
+          <span data-lang="en">← OTHER EXHIBITIONS</span>
         </button>
       </div>
       <div class="exh-divider"></div>
@@ -2782,23 +3526,64 @@
       <div class="exh-gallery-wrap reveal">
         <p class="exh-strip-label">
           <span data-lang="tr">Eserler</span>
-          <span data-lang="en">Works</span>
+          <span data-lang="en">WORKS</span>
         </p>
         <div class="exh-masonry">
-          <div class="exh-masonry-item"><img src="bvby/bvby002.webp" alt="" /></div>
-          <div class="exh-masonry-item"><img src="bvby/bvby003.webp" alt="" /></div>
-          <div class="exh-masonry-item"><img src="bvby/bvby004.webp" alt="" /></div>
-          <div class="exh-masonry-item"><img src="bvby/bvby005.webp" alt="" /></div>
-          <div class="exh-masonry-item"><img src="bvby/bvby006.webp" alt="" /></div>
-          <div class="exh-masonry-item"><img src="bvby/bvby007.webp" alt="" /></div>
-          <div class="exh-masonry-item"><img src="bvby/bvby008webp.webp" alt="" /></div>
-          <div class="exh-masonry-item"><img src="bvby/bvby009.webp" alt="" /></div>
-          <div class="exh-masonry-item"><img src="bvby/bvby010.webp" alt="" /></div>
-          <div class="exh-masonry-item"><img src="bvby/bvby011.webp" alt="" /></div>
-          <div class="exh-masonry-item"><img src="bvby/bvby012.webp" alt="" /></div>
-          <div class="exh-masonry-item"><img src="bvby/bvby013.webp" alt="" /></div>
-          <div class="exh-masonry-item"><img src="bvby/bvby014.webp" alt="" /></div>
-          <div class="exh-masonry-item"><img src="bvby/bvby015.webp" alt="" /></div>
+          <div class="exh-masonry-item">
+            <img src="bvby/bvby001.webp" alt="who-ness" />
+            <span class="exh-artwork-name" data-name-en="WHO-NESS">WHO-NESS</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Concrete &amp; Steel">Beton &amp; Çelik</span><span class="exh-artwork-size">230×50×100 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="bvby/bvby003.webp" alt="kına kokusu" />
+            <span class="exh-artwork-name" data-name-en="SCENT OF HENNA">KINA KOKUSU</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Concrete &amp; Steel">Beton &amp; Çelik</span><span class="exh-artwork-size">200×100×90 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="bvby/bvby005.webp" alt="hiç kimsenin anıtı" />
+            <span class="exh-artwork-name" data-name-en="MONUMENT TO NO ONE">HİÇ KİMSENİN ANITI</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Stainless Steel">Paslanmaz Çelik</span><span class="exh-artwork-size">250×150×180 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="bvby/bvby006.webp" alt="aşkla yıkananlar" />
+            <span class="exh-artwork-name" data-name-en="THOSE WASHED BY LOVE">AŞKLA YIKANANLAR</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Steel">Çelik</span><span class="exh-artwork-size">250×150×50 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="bvby/bvby007.webp" alt="figür" />
+            <span class="exh-artwork-name" data-name-en="FIGURE">FİGÜR</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Concrete &amp; Steel">Beton &amp; Çelik</span><span class="exh-artwork-size">80×20×20 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="bvby/bvby008webp.webp" alt="üşümekten özleyememek" />
+            <span class="exh-artwork-name" data-name-en="TOO COLD TO MISS">ÜŞÜMEKTEN ÖZLEYEMEMEK</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Concrete &amp; Steel">Beton &amp; Çelik</span><span class="exh-artwork-size">190×100×50 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="bvby/bvby009.webp" alt="battaniye" />
+            <span class="exh-artwork-name" data-name-en="BLANKET">BATTANİYE</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Steel">Çelik</span><span class="exh-artwork-size">80×20×20 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="bvby/bvby010.webp" alt="bahar" />
+            <span class="exh-artwork-name" data-name-en="SPRING">BAHAR</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Concrete &amp; Steel">Beton &amp; Çelik</span><span class="exh-artwork-size">90×20×20 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="bvby/bvby011.webp" alt="pesimist" />
+            <span class="exh-artwork-name" data-name-en="PESSIMIST">PESİMİST</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Concrete &amp; Steel">Beton &amp; Çelik</span><span class="exh-artwork-size">190×110×50 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="bvby/bvby013.webp" alt="içinden şiir geçen adam" />
+            <span class="exh-artwork-name" data-name-en="THE MAN WITH POETRY INSIDE">İÇİNDEN ŞİİR GEÇEN ADAM</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Steel">Çelik</span><span class="exh-artwork-size">120×80×30 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="bvby/bvby014.webp" alt="disconnects erectus" />
+            <span class="exh-artwork-name" data-name-en="DISCONNECTS ERECTUS">DISCONNECTS ERECTUS</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Steel">Çelik</span><span class="exh-artwork-size">70×40×40 cm</span></span>
+          </div>
         </div>
       </div>
 
@@ -2813,7 +3598,7 @@
             <div class="exh-other-btn-wrap">
         <button class="exh-other-btn" onclick="closeExhibition()">
           <span data-lang="tr">← Diğer Sergiler</span>
-          <span data-lang="en">← Other Exhibitions</span>
+          <span data-lang="en">← OTHER EXHIBITIONS</span>
         </button>
       </div>
       <div class="exh-divider"></div>
@@ -2861,7 +3646,7 @@
           <img src="dusbozumu/dusbozumueskiz.webp" alt="Eskiz" />
           <span class="exh-sketch-label">
             <span data-lang="tr">Eskiz</span>
-            <span data-lang="en">Sketch</span>
+            <span data-lang="en">SKETCH</span>
           </span>
         </div>
       </div>
@@ -2901,141 +3686,103 @@
       <div class="exh-gallery-wrap reveal">
         <p class="exh-strip-label">
           <span data-lang="tr">Eserler</span>
-          <span data-lang="en">Works</span>
+          <span data-lang="en">WORKS</span>
         </p>
         <div class="exh-masonry">
           <div class="exh-masonry-item">
             <img src="dusbozumu/dusbozumu001.webp" alt="Marifet Kapısı" />
-            <div class="exh-artwork-info">
-              <span class="exh-artwork-name"><span data-lang="tr">Marifet Kapısı</span><span data-lang="en">Gate of Mastery</span></span>
-              <span class="exh-artwork-meta">Demir · 74×35×25 cm</span>
-            </div>
+            <span class="exh-artwork-name" data-name-en="GATE OF MASTERY">MARİFET KAPISI</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Iron">Demir</span><span class="exh-artwork-size">74×35×25 cm</span></span>
           </div>
           <div class="exh-masonry-item">
             <img src="dusbozumu/dusbozumu002.webp" alt="Dilek" />
-            <div class="exh-artwork-info">
-              <span class="exh-artwork-name"><span data-lang="tr">Dilek</span><span data-lang="en">Wish</span></span>
-              <span class="exh-artwork-meta">Demir · 190×45×45 cm</span>
-            </div>
+            <span class="exh-artwork-name" data-name-en="WISH">DİLEK</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Iron">Demir</span><span class="exh-artwork-size">190×45×45 cm</span></span>
           </div>
           <div class="exh-masonry-item">
             <img src="dusbozumu/dusbozumu003.webp" alt="Küstüm Seninle" />
-            <div class="exh-artwork-info">
-              <span class="exh-artwork-name"><span data-lang="tr">Küstüm Seninle</span><span data-lang="en">I'm Upset With You</span></span>
-              <span class="exh-artwork-meta">Demir · 60×20×10 cm</span>
-            </div>
+            <span class="exh-artwork-name" data-name-en="I'M UPSET WITH YOU">KÜSTÜM SENİNLE</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Iron">Demir</span><span class="exh-artwork-size">60×20×10 cm</span></span>
           </div>
           <div class="exh-masonry-item">
             <img src="dusbozumu/dusbozumu004.webp" alt="Nefes" />
-            <div class="exh-artwork-info">
-              <span class="exh-artwork-name"><span data-lang="tr">Nefes</span><span data-lang="en">Breath</span></span>
-              <span class="exh-artwork-meta">Demir · 78×32×18 cm</span>
-            </div>
+            <span class="exh-artwork-name" data-name-en="BREATH">NEFES</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Iron">Demir</span><span class="exh-artwork-size">78×32×18 cm</span></span>
           </div>
           <div class="exh-masonry-item">
             <img src="dusbozumu/dusbozumu005.webp" alt="Günü Karşılamak" />
-            <div class="exh-artwork-info">
-              <span class="exh-artwork-name"><span data-lang="tr">Günü Karşılamak</span><span data-lang="en">Greeting the Day</span></span>
-              <span class="exh-artwork-meta">Demir · 78×20×26 cm</span>
-            </div>
+            <span class="exh-artwork-name" data-name-en="GREETING THE DAY">GÜNÜ KARŞILAMAK</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Iron">Demir</span><span class="exh-artwork-size">78×20×26 cm</span></span>
           </div>
           <div class="exh-masonry-item">
             <img src="dusbozumu/dusbozumu007.webp" alt="Delikanlı" />
-            <div class="exh-artwork-info">
-              <span class="exh-artwork-name"><span data-lang="tr">Delikanlı</span><span data-lang="en">Young Man</span></span>
-              <span class="exh-artwork-meta">Demir · 80×15×20 cm</span>
-            </div>
+            <span class="exh-artwork-name" data-name-en="YOUNG MAN">DELİKANLI</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Iron">Demir</span><span class="exh-artwork-size">80×15×20 cm</span></span>
           </div>
           <div class="exh-masonry-item">
             <img src="dusbozumu/dusbozumu008.webp" alt="Rüzgara Karşı" />
-            <div class="exh-artwork-info">
-              <span class="exh-artwork-name"><span data-lang="tr">Rüzgara Karşı</span><span data-lang="en">Against the Wind</span></span>
-              <span class="exh-artwork-meta">Demir · 190×120×50 cm</span>
-            </div>
+            <span class="exh-artwork-name" data-name-en="AGAINST THE WIND">RÜZGARA KARŞI</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Iron">Demir</span><span class="exh-artwork-size">190×120×50 cm</span></span>
           </div>
           <div class="exh-masonry-item">
             <img src="dusbozumu/dusbozumu009.webp" alt="Özeleştiri" />
-            <div class="exh-artwork-info">
-              <span class="exh-artwork-name"><span data-lang="tr">Özeleştiri</span><span data-lang="en">Self-Criticism</span></span>
-              <span class="exh-artwork-meta">Demir · 124×27×20 cm</span>
-            </div>
+            <span class="exh-artwork-name" data-name-en="SELF-CRITICISM">ÖZELEŞTİRİ</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Iron">Demir</span><span class="exh-artwork-size">124×27×20 cm</span></span>
           </div>
           <div class="exh-masonry-item">
             <img src="dusbozumu/dusbozumu006.webp" alt="Göz" />
-            <div class="exh-artwork-info">
-              <span class="exh-artwork-name"><span data-lang="tr">Göz</span><span data-lang="en">Eye</span></span>
-              <span class="exh-artwork-meta">Demir · 70×20×80 cm</span>
-            </div>
+            <span class="exh-artwork-name" data-name-en="EYE">GÖZ</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Iron">Demir</span><span class="exh-artwork-size">70×20×80 cm</span></span>
           </div>
           <div class="exh-masonry-item">
             <img src="dusbozumu/dusbozumu010.webp" alt="Yelpaze" />
-            <div class="exh-artwork-info">
-              <span class="exh-artwork-name"><span data-lang="tr">Yelpaze</span><span data-lang="en">Fan</span></span>
-              <span class="exh-artwork-meta">Demir · 80×20×20 cm</span>
-            </div>
+            <span class="exh-artwork-name" data-name-en="FAN">YELPAZE</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Iron">Demir</span><span class="exh-artwork-size">80×20×20 cm</span></span>
           </div>
           <div class="exh-masonry-item">
             <img src="dusbozumu/dusbozumu012.webp" alt="Anıları Giymek" />
-            <div class="exh-artwork-info">
-              <span class="exh-artwork-name"><span data-lang="tr">Anıları Giymek</span><span data-lang="en">Wearing Memories</span></span>
-              <span class="exh-artwork-meta">Demir · 70×15×15 cm</span>
-            </div>
+            <span class="exh-artwork-name" data-name-en="WEARING MEMORIES">ANILARI GİYMEK</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Iron">Demir</span><span class="exh-artwork-size">70×15×15 cm</span></span>
           </div>
           <div class="exh-masonry-item">
             <img src="dusbozumu/dusbozumu015.webp" alt="Boşluğa Eskiz" />
-            <div class="exh-artwork-info">
-              <span class="exh-artwork-name"><span data-lang="tr">Boşluğa Eskiz</span><span data-lang="en">Sketch into the Void</span></span>
-              <span class="exh-artwork-meta">Demir · 106×48×34 cm</span>
-            </div>
+            <span class="exh-artwork-name" data-name-en="SKETCH INTO THE VOID">BOŞLUĞA ESKİZ</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Iron">Demir</span><span class="exh-artwork-size">106×48×34 cm</span></span>
           </div>
           <div class="exh-masonry-item">
             <img src="dusbozumu/dusbozumu013.webp" alt="Kaçak Gelin" />
-            <div class="exh-artwork-info">
-              <span class="exh-artwork-name"><span data-lang="tr">Kaçak Gelin</span><span data-lang="en">Runaway Bride</span></span>
-              <span class="exh-artwork-meta">Demir · 64×38×30 cm</span>
-            </div>
+            <span class="exh-artwork-name" data-name-en="RUNAWAY BRIDE">KAÇAK GELİN</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Iron">Demir</span><span class="exh-artwork-size">64×38×30 cm</span></span>
           </div>
           <div class="exh-masonry-item">
             <img src="dusbozumu/dusbozumu014.webp" alt="Geride Kalan" />
-            <div class="exh-artwork-info">
-              <span class="exh-artwork-name"><span data-lang="tr">Geride Kalan</span><span data-lang="en">The One Left Behind</span></span>
-              <span class="exh-artwork-meta">Demir · 90×15×15 cm</span>
-            </div>
+            <span class="exh-artwork-name" data-name-en="THE ONE LEFT BEHIND">GERİDE KALAN</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Iron">Demir</span><span class="exh-artwork-size">90×15×15 cm</span></span>
           </div>
           <div class="exh-masonry-item">
             <img src="dusbozumu/dusbozumu017.webp" alt="Pasif Agresif" />
-            <div class="exh-artwork-info">
-              <span class="exh-artwork-name"><span data-lang="tr">Pasif Agresif</span><span data-lang="en">Passive Aggressive</span></span>
-              <span class="exh-artwork-meta">Demir · 120×120×20 cm</span>
-            </div>
+            <span class="exh-artwork-name" data-name-en="PASSIVE AGGRESSIVE">PASİF AGRESİF</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Iron">Demir</span><span class="exh-artwork-size">120×120×20 cm</span></span>
           </div>
           <div class="exh-masonry-item">
             <img src="dusbozumu/dusbozumu016.webp" alt="Kendi Kafesinin Tutsağı" />
-            <div class="exh-artwork-info">
-              <span class="exh-artwork-name"><span data-lang="tr">Kendi Kafesinin Tutsağı</span><span data-lang="en">Prisoner of One's Own Cage</span></span>
-              <span class="exh-artwork-meta">Demir · 190×35×35 cm</span>
-            </div>
+            <span class="exh-artwork-name" data-name-en="PRISONER OF ONE'S OWN CAGE">KENDİ KAFESİNİN TUTSAĞI</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Iron">Demir</span><span class="exh-artwork-size">190×35×35 cm</span></span>
           </div>
           <div class="exh-masonry-item">
             <img src="dusbozumu/dusbozumu018.webp" alt="Hakikat Kapısı" />
-            <div class="exh-artwork-info">
-              <span class="exh-artwork-name"><span data-lang="tr">Hakikat Kapısı</span><span data-lang="en">Gate of Truth</span></span>
-              <span class="exh-artwork-meta">Demir · 220×60×70 cm</span>
-            </div>
+            <span class="exh-artwork-name" data-name-en="GATE OF TRUTH">HAKİKAT KAPISI</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Iron">Demir</span><span class="exh-artwork-size">220×60×70 cm</span></span>
           </div>
           <div class="exh-masonry-item">
             <img src="dusbozumu/dusbozumu019.webp" alt="İstanbul'da Bir İzmir'li" />
-            <div class="exh-artwork-info">
-              <span class="exh-artwork-name"><span data-lang="tr">İstanbul'da Bir İzmir'li</span><span data-lang="en">An İzmirean in İstanbul</span></span>
-              <span class="exh-artwork-meta">Demir · 76×20×15 cm</span>
-            </div>
+            <span class="exh-artwork-name" data-name-en="AN IZMIRIAN IN ISTANBUL">İSTANBUL'DA BİR İZMİR'Lİ</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Iron">Demir</span><span class="exh-artwork-size">76×20×15 cm</span></span>
           </div>
           <div class="exh-masonry-item">
             <img src="dusbozumu/dusbozumu020.webp" alt="Yunuslar ve Turnalar" />
-            <div class="exh-artwork-info">
-              <span class="exh-artwork-name"><span data-lang="tr">Yunuslar ve Turnalar</span><span data-lang="en">Dolphins and Cranes</span></span>
-              <span class="exh-artwork-meta">Demir · 120×120×20 cm</span>
-            </div>
+            <span class="exh-artwork-name" data-name-en="DOLPHINS AND CRANES">YUNUSLAR VE TURNALAR</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Iron">Demir</span><span class="exh-artwork-size">120×120×20 cm</span></span>
           </div>
         </div>
       </div>
@@ -3044,19 +3791,465 @@
           <button class="exh-nav-btn" onclick="openExhibition('bvby')">
             <span>← <span data-lang="tr">Bir Var-lık Bir Yok-luk</span><span data-lang="en">A Being, A Non-Being</span></span>
           </button>
-          <button class="exh-nav-btn" disabled>
-            <span><span data-lang="tr">Son Sergi</span><span data-lang="en">Last Exhibition</span> →</span>
+          <button class="exh-nav-btn" onclick="openExhibition('yeriniyadirgayanlar')">
+            <span><span data-lang="tr">Yerini Yadırgayanlar</span><span data-lang="en">Outsiders</span> →</span>
           </button>
         </div>
             <div class="exh-other-btn-wrap">
         <button class="exh-other-btn" onclick="closeExhibition()">
           <span data-lang="tr">← Diğer Sergiler</span>
-          <span data-lang="en">← Other Exhibitions</span>
+          <span data-lang="en">← OTHER EXHIBITIONS</span>
         </button>
       </div>
       <div class="exh-divider"></div>
     </article>
 
+
+    <!-- SERGİ 7: YERİNİ YADIRGAYANLAR -->
+    <article class="exhibition-block exh-detail" id="yeriniyadirgayanlar">
+
+      <!-- HERO: Sol metin / Sağ eskiz -->
+      <div class="yy-hero reveal">
+        <div class="yy-hero-left">
+          <span class="exh-year">2017</span>
+          <h3 class="yy-hero-title">
+            <span data-lang="tr">Yerini<br>Yadırgayanlar</span>
+            <span data-lang="en">Outsiders</span>
+          </h3>
+          <p class="yy-hero-poem">
+            <span data-lang="tr">sana da bir <em>terslik</em> var gibi geliyor mu?<br>arada bir de olsa?</span>
+            <span data-lang="en">does something feel a bit <em>off</em> to you too?<br>every now and then?</span>
+          </p>
+        </div>
+        <div class="yy-hero-right">
+          <img src="yeriniyadirgayanlar/yeriniyadirgayanlarsketch.webp" alt="Yerini Yadırgayanlar — Eskiz" />
+        </div>
+      </div>
+
+      <!-- INTRO: Metin + Eskiz -->
+      <div class="yy-metin reveal">
+        <p data-lang="tr">
+          olan biten herşeyi etrafımızdaki; hepsini tam olarak anlayıp; içine sindirip; neden-sonuç bağlantılarını kurabildiğinden emin misin? güzelin güzelliğinden, doğrunun doğruluğundan… o cep telefonunu seçmendeki en önemli etkenin bilmemne özelliği olmasından; ve bu özelliğe olan gereksiniminin "şu şu şu nedenlere" bağlı olduğundan emin misin? outdoor… indoor… casual… trendy…minimal… ve bunun gibi imaj gruplarından birine dahil olmak zorunda olduğunun; yok bunları tümden reddediyorsan da sana sunulan "marjinal" konseptinin ürünlerini kullanmak zorunda olduğunun; yani <em class="yy-vurgu">"karşı"lığın bile "dahil"liğe dahil olduğunu</em> hiç göremedin mi?<br><br>
+          ( kendini yakıştıramıyorsan aynaya bir daha bak istersen)<br><br>
+          düşünsen yazının başından beridir küçük harfle yazmaya çalışıyorum ama şu aletin sürekli baş harflerini büyütüp durması yüzünden geri dönüyorum. o kadar emin ki benim büyük harfle başlamam gerektiğinden.<br><br>
+          dahil oldukça aynılaştığımızın, onlar bize iletiştiricileri sattıkça koptuğumuzun, özgürleştikçe yere çakılmaya yaklaştığımızın farkında mısın? bu öyle bir sel ki. "ben" olduğunu zannettiğim şeyde ne kadar "ben" kaldı; ben artık bilmiyorum. toprak gibi, kocaman ağaç kütükleri gibi, evler gibi yuvarlanırken bu selin akışında; bir gariplik var gibi geldi bir ara.<br><br>
+          ve <em class="yy-vurgu">"yerini yadırgayanlar"</em> doğdu; benim gibi. bence senin gibi…
+        </p>
+        <p data-lang="en">
+          are you sure you fully grasp, digest, and connect the cause-and-effect of everything happening around you? the beauty of beauty, the truth of truth… are you sure the most important factor in choosing that phone was some feature, and that your need for it stems from "such and such reasons"? outdoor… indoor… casual… trendy… minimal… and that you must belong to one of these image groups — or if you reject them all, that you're still obliged to use the products of the "marginal" concept they offer you — meaning <em class="yy-vurgu">even your "opposition" is included in the "included"</em>?<br><br>
+          (if you can't see yourself fitting in, maybe look in the mirror again)<br><br>
+          think about it — since the beginning of this text I've been trying to write in lowercase but this device keeps capitalizing the first letters so I keep going back. it's so sure I need to start with a capital letter.<br><br>
+          are you aware that the more we belong, the more we become the same; that as they sell us the communicators, we drift apart; that as we become freer, we come closer to crashing down? this is quite a flood. how much of "me" remains in what I thought was "me" — I no longer know. like soil, like massive tree trunks, like houses tumbling in the current of this flood; something felt strange for a moment.<br><br>
+          and <em class="yy-vurgu">"outsiders"</em> was born; like me. like you, i think…
+        </p>
+      </div>
+
+      <!-- Eserler -->
+      <div class="exh-gallery-wrap reveal">
+        <p class="exh-strip-label">
+          <span data-lang="tr">Eserler</span>
+          <span data-lang="en">WORKS</span>
+        </p>
+        <div class="exh-masonry">
+          <div class="exh-masonry-item">
+            <img src="yeriniyadirgayanlar/ahhayat.webp" alt="ah hayat" />
+            <span class="exh-artwork-name" data-name-en="AH LIFE">AH HAYAT</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Bronze">Bronz</span><span class="exh-artwork-size">31×9×9 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="yeriniyadirgayanlar/barisma.webp" alt="barışma" />
+            <span class="exh-artwork-name" data-name-en="RECONCILIATION">BARIŞMA</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Bronze">Bronz</span><span class="exh-artwork-size">24×14×10 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="yeriniyadirgayanlar/cesme.webp" alt="çeşme" />
+            <span class="exh-artwork-name" data-name-en="FOUNTAIN">ÇEŞME</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Bronze">Bronz</span><span class="exh-artwork-size">26×21×10 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="yeriniyadirgayanlar/helenistik.webp" alt="helenistik" />
+            <span class="exh-artwork-name" data-name-en="HELLENISTIC">HELENİSTİK</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Bronze">Bronz</span><span class="exh-artwork-size">58×18×18 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="yeriniyadirgayanlar/hickimse.webp" alt="hiç kimse" />
+            <span class="exh-artwork-name" data-name-en="NO ONE">HİÇ KİMSE</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Bronze">Bronz</span><span class="exh-artwork-size">30×13×12 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="yeriniyadirgayanlar/karakutu.webp" alt="kara kutu" />
+            <span class="exh-artwork-name" data-name-en="BLACK BOX">KARA KUTU</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Bronze">Bronz</span><span class="exh-artwork-size">56×9×9 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="yeriniyadirgayanlar/melekoglan.webp" alt="melek oğlan" />
+            <span class="exh-artwork-name" data-name-en="ANGEL BOY">MELEK OĞLAN</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Bronze">Bronz</span><span class="exh-artwork-size">56×9×9 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="yeriniyadirgayanlar/pisman.webp" alt="pişman" />
+            <span class="exh-artwork-name" data-name-en="REGRET">PİŞMAN</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Bronze">Bronz</span><span class="exh-artwork-size">32×9×9 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="yeriniyadirgayanlar/stretch.webp" alt="stretch" />
+            <span class="exh-artwork-name" data-name-en="STRETCH">STRETCH</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Bronze">Bronz</span><span class="exh-artwork-size">64×16×16 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="yeriniyadirgayanlar/yagmurubekleyenadam.webp" alt="yağmuru bekleyen adam" />
+            <span class="exh-artwork-name" data-name-en="THE MAN WAITING FOR RAIN">YAĞMURU BEKLEYEN ADAM</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Bronze">Bronz</span><span class="exh-artwork-size">32×14×8 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="yeriniyadirgayanlar/yeriniyadirgayanlar.webp" alt="yerini yadırgayanlar" />
+            <span class="exh-artwork-name" data-name-en="OUTSIDERS">YERİNİ YADIRGAYANLAR</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Bronze">Bronz</span><span class="exh-artwork-size">25×10×85 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="yeriniyadirgayanlar/yuksekkaldirim.webp" alt="yüksek kaldırım" />
+            <span class="exh-artwork-name" data-name-en="HIGH SIDEWALK">YÜKSEK KALDIRIM</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Bronze">Bronz</span><span class="exh-artwork-size">120×20×50 cm</span></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="exh-nav-btns">
+        <button class="exh-nav-btn" onclick="openExhibition('dusbozumu')">
+          <span>← <span data-lang="tr">Düşbozumu</span><span data-lang="en">Dream Harvest</span></span>
+        </button>
+        <button class="exh-nav-btn" onclick="openExhibition('ikbld')">
+          <span><span data-lang="tr">İnsan Kara Bir Leke Değildir</span><span data-lang="en">Man Is Not a Black Spot</span> →</span>
+        </button>
+      </div>
+      <div class="exh-other-btn-wrap">
+        <button class="exh-other-btn" onclick="closeExhibition()">
+          <span data-lang="tr">← Diğer Sergiler</span>
+          <span data-lang="en">← OTHER EXHIBITIONS</span>
+        </button>
+      </div>
+      <div class="exh-divider"></div>
+    </article>
+
+    <!-- SERGİ 8: İNSAN KARA BİR LEKE DEĞİLDİR -->
+    <article class="exhibition-block exh-detail" id="ikbld">
+
+      <!-- HERO: ikbldbackground tam ekran -->
+      <div class="exh-hero reveal">
+        <img src="ikbld/ikbldbackground.webp" alt="İnsan Kara Bir Leke Değildir" class="exh-hero-bg" style="object-position: center 30%;" />
+        <div class="exh-hero-overlay" style="background: linear-gradient(160deg, rgba(8,8,8,0.92) 0%, rgba(8,8,8,0.45) 50%, rgba(8,8,8,0.8) 100%);"></div>
+        <div class="exh-hero-content">
+          <span class="exh-year">2014</span>
+          <h3 class="exh-hero-title">
+            <span data-lang="tr">insan kara bir<br><em style="font-style:normal; font-weight:700;">leke değildir</em></span>
+            <span data-lang="en">man is not<br><em style="font-style:normal; font-weight:700;">a black spot</em></span>
+          </h3>
+          <p class="exh-hero-poem">
+            <span data-lang="tr">yanılır bazen. hiç beklemediğin tepkiler verir.<br>bunları seçmez dersin; <em>seçer.</em></span>
+            <span data-lang="en">sometimes wrong. reacts in ways you never expected.<br>you say they don't choose these; <em>they do.</em></span>
+          </p>
+        </div>
+      </div>
+
+      <!-- METİN + ESKİZ: yan yana tam boy -->
+      <div class="ikbld-icerik reveal">
+        <div class="ikbld-metin">
+          <p data-lang="tr">
+            yanılır bazen. hiç beklemediğin tepkiler verir. bunları seçmez dersin; seçer. artık kesin bir şey söyler dersin; susar. ağlar, üzülür, ders çıkardı sanırsın; unutur. özür dileyemez, teşekkür edemez, rica edemez. kırar, dağıtır, vazgeçer. yarı yoldan döner. yalnız bırakır. gider, dönmez. sorarsın bilmez.<br><br>
+            hırsına, isteğine, inadına karşı koyamaz. nefretini susturamaz. değer bilmez. bozduğunu tamir etmez. ihanet eder.<br><br>
+            <em class="ikbld-vurgu">hesaplanamaz, gruplanamaz, yorumlanamaz.</em><br>
+            <em class="ikbld-vurgu">hesaplanamaz.</em><br>
+            <em class="ikbld-vurgu">hesaplanamaz.</em><br><br>
+            şaşırtır. rakamları alt-üst eder. çünkü özeldir. her bir insan bu evrende bir renktir.<br><br>
+            <em class="ikbld-son">ama kara bir LEKE değildir.</em>
+          </p>
+          <p data-lang="en">
+            sometimes wrong. reacts in ways you never expected. you say they don't choose these; they do. you think they'll finally say something definitive; they go silent. they cry, they grieve, you think they've learned; they forget. can't apologize, can't say thank you, can't ask. they break, scatter, give up. turn back halfway. leave you alone. they go, don't return. you ask, they don't know.<br><br>
+            can't resist their greed, desire, stubbornness. can't silence their hatred. ungrateful. doesn't fix what they've broken. betrays.<br><br>
+            <em class="ikbld-vurgu">incalculable, uncategorizable, uninterpretable.</em><br>
+            <em class="ikbld-vurgu">incalculable.</em><br>
+            <em class="ikbld-vurgu">incalculable.</em><br><br>
+            surprises. upends all the numbers. because they are special. each human being is a color in this universe.<br><br>
+            <em class="ikbld-son">but not a black spot.</em>
+          </p>
+        </div>
+        <div class="ikbld-eskiz">
+          <img src="ikbld/ikbldsketch.webp" alt="Eskiz" />
+        </div>
+      </div>
+
+      <!-- Eserler -->
+      <div class="exh-gallery-wrap reveal">
+        <p class="exh-strip-label">
+          <span data-lang="tr">Eserler</span>
+          <span data-lang="en">WORKS</span>
+        </p>
+        <div class="exh-masonry">
+          <div class="exh-masonry-item">
+            <img src="ikbld/beklerken.webp" alt="beklerken" />
+            <span class="exh-artwork-name" data-name-en="WAITING">BEKLERKEN</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Steel">Çelik</span><span class="exh-artwork-size">45×15×15 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="ikbld/aydinlatmayanyanmalar.webp" alt="aydınlatmayan yanmalar" />
+            <span class="exh-artwork-name" data-name-en="THE UNILLUMINATED">AYDINLATMAYAN YANMALAR</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Steel">Çelik</span><span class="exh-artwork-size">240×150×30 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="ikbld/figur2.webp" alt="figür II" />
+            <span class="exh-artwork-name" data-name-en="FIGURE II">FİGÜR II</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Steel">Çelik</span><span class="exh-artwork-size">80×20×20 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="ikbld/figur3.webp" alt="figür III" />
+            <span class="exh-artwork-name" data-name-en="FIGURE III">FİGÜR III</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Steel">Çelik</span><span class="exh-artwork-size">80×20×20 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="ikbld/ilkask.webp" alt="ilk aşk" />
+            <span class="exh-artwork-name" data-name-en="FIRST LOVE">İLK AŞK</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Steel">Çelik</span><span class="exh-artwork-size">50×30×30 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="ikbld/kokos.webp" alt="kokoş" />
+            <span class="exh-artwork-name" data-name-en="VAIN">KOKOŞ</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Steel">Çelik</span><span class="exh-artwork-size">40×10×10 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="ikbld/kapanik.webp" alt="kapanık" />
+            <span class="exh-artwork-name" data-name-en="CLOSED">KAPANIK</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Steel">Çelik</span><span class="exh-artwork-size">90×20×20 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="ikbld/hayalkirikligi.webp" alt="hayal kırıklığı" />
+            <span class="exh-artwork-name" data-name-en="DISAPPOINTMENT">HAYAL KIRIKLIĞI</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Steel">Çelik</span><span class="exh-artwork-size">60×25×20 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="ikbld/kutsaladam.webp" alt="kutsal adam" />
+            <span class="exh-artwork-name" data-name-en="HOLY MAN">KUTSAL ADAM</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Steel &amp; Beech Wood">Çelik &amp; Kayın Ağacı</span><span class="exh-artwork-size">190×50×60 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="ikbld/mutevazi.webp" alt="mütevazi" />
+            <span class="exh-artwork-name" data-name-en="HUMBLE">MÜTEVAZİ</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Steel &amp; Beech Wood">Çelik &amp; Kayın Ağacı</span><span class="exh-artwork-size">40×40×20 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="ikbld/hamile.webp" alt="hamile" />
+            <span class="exh-artwork-name" data-name-en="PREGNANT">HAMİLE</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Steel">Çelik</span><span class="exh-artwork-size">180×70×40 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="ikbld/reenkarnasyon.webp" alt="reenkarnasyon" />
+            <span class="exh-artwork-name" data-name-en="REINCARNATION">REENKARNASYON</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Steel">Çelik</span><span class="exh-artwork-size">160×100×50 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="ikbld/dedigimdedik.webp" alt="dediğim dedik" />
+            <span class="exh-artwork-name" data-name-en="WHAT I SAID, I SAID">DEDİĞİM DEDİK</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Steel">Çelik</span><span class="exh-artwork-size">60×15×15 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="ikbld/kizkurusu.webp" alt="kız kurusu" />
+            <span class="exh-artwork-name" data-name-en="OLD MAID">KIZ KURUSU</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Steel">Çelik</span><span class="exh-artwork-size">35×25×25 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="ikbld/gelin.webp" alt="gelin" />
+            <span class="exh-artwork-name" data-name-en="BRIDE">GELİN</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Steel">Çelik</span><span class="exh-artwork-size">80×30×30 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="ikbld/iskence.webp" alt="işkence" />
+            <span class="exh-artwork-name" data-name-en="TORTURE">İŞKENCE</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Steel &amp; Mulberry Wood">Çelik &amp; Dut Ağacı</span><span class="exh-artwork-size">70×35×45 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="ikbld/itaatedenler.webp" alt="itaat edenler" />
+            <span class="exh-artwork-name" data-name-en="UNCLE TOMS">İTAAT EDENLER</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Steel &amp; Mulberry Wood">Çelik &amp; Dut Ağacı</span><span class="exh-artwork-size">60×20×40 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="ikbld/cebimdehaciyatmazlar.webp" alt="ceplerimde hacıyatmazlar" />
+            <span class="exh-artwork-name" data-name-en="THE PILGRIMS IN MY POCKET">CEPLERİMDE HACIYATMAZLAR</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Steel">Çelik</span><span class="exh-artwork-size">90×20×20 cm</span></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="exh-nav-btns">
+        <button class="exh-nav-btn" onclick="openExhibition('yeriniyadirgayanlar')">
+          <span>← <span data-lang="tr">Yerini Yadırgayanlar</span><span data-lang="en">Outsiders</span></span>
+        </button>
+        <button class="exh-nav-btn" disabled>
+          <span><span data-lang="tr">Son Sergi</span><span data-lang="en">Last Exhibition</span> →</span>
+        </button>
+      </div>
+      <div class="exh-other-btn-wrap">
+        <button class="exh-other-btn" onclick="closeExhibition()">
+          <span data-lang="tr">← Diğer Sergiler</span>
+          <span data-lang="en">← OTHER EXHIBITIONS</span>
+        </button>
+      </div>
+      <div class="exh-divider"></div>
+    </article>
+
+    <!-- SERGİ: TAHTEREVALLİ -->
+    <article class="exhibition-block exh-detail" id="tahterevalli">
+
+      <!-- HERO: tam ekran arkaplan + sol metin -->
+      <div class="exh-hero reveal">
+        <img src="tahterevalli/tahterevalliarkaplan.webp" alt="Tahterevalli" class="exh-hero-bg" style="object-position: center 40%;" />
+        <div class="exh-hero-overlay" style="background: linear-gradient(135deg, rgba(8,8,8,0.92) 0%, rgba(8,8,8,0.5) 50%, rgba(8,8,8,0.75) 100%);"></div>
+        <div class="exh-hero-content">
+          <span class="exh-year">2016</span>
+          <h3 class="exh-hero-title">
+            <span data-lang="tr">Tahterevalli</span>
+            <span data-lang="en">Seesaw</span>
+          </h3>
+          <p class="exh-hero-poem">
+            <span data-lang="tr">"hayat" dediğin oyun bahçesinin;<br>iki kişilik oyuncağıdır tahterevalli.</span>
+            <span data-lang="en">the seesaw is the toy for two<br>in the playground you call "life."</span>
+          </p>
+        </div>
+      </div>
+
+      <!-- METİN -->
+      <!-- METİN + ESKİZ yan yana -->
+      <div class="thr-icerik reveal">
+        <div class="thr-metin">
+          <p data-lang="tr">
+            bir üçgen, bir çubuk. iki kişi de her bir başına. <em class="thr-vurgu">"sevgi"</em> taşırsın cebinde, ağır basar. fazlaysa karşındakinden; yerde geçer oyundaki zamanın. havalanmak için ağırlıklarından kurtulman gerekir. bomboş ceplerle de binmeyesin oyuncağa ama; belki yukarıdaki ucunda olursun ama; bir farkı yoktur "yüksek" yalnızlığın diğerinden. manzaran güzeldir belki; o kadar.<br><br>
+            gider tek başına oturursan bir ucuna; ceplerin <em class="thr-vurgu">"hayaller"</em> ile dolu; oysa boştur "hayal"in içi; hafiftir. kalkar çubuğun diğer ucu; kimsenin ulaşamayacağı yüksekliklere. hayallerin boyunca yerde geçer zamanın. ki bir bakarsın oyun bitmiş.<br><br>
+            <em class="thr-vurgu">"tecrübe"</em> önceki oyunlardan kalan toprak tadıdır; yaralarının kabuğudur yani bir bakıma. aşağı yukarı değil; çubuğun üzerindeki yerini sağlar; bir adım ileri ya da geri. seni de karşındakini de paralel tutar yere.<br><br>
+            ceketinin astarına kaçmış; orada olduğunu bile bilmediğin bir <em class="thr-vurgu">"korku"</em>, sıkı kapatılmamış kapağından sızıp havaya karışmış bir <em class="thr-vurgu">"saygı"</em>, hazmedemediğin bir <em class="thr-vurgu">"kibir"</em>... hepsi ya ağırlıktır ya da fazladan bir adım.<br><br>
+            oyun bahçesinde gün böyle geçer; <em class="thr-vurgu">"denge"</em> ceplerinde aynı ağırlıkları taşıyanların ödülüdür. ve benzer yaraları olanların...
+          </p>
+          <p data-lang="en">
+            a triangle, a plank. one person at each end. you carry <em class="thr-vurgu">"love"</em> in your pocket, it weighs heavy. if you carry more than the other; your time in the game is spent on the ground. to take flight you must free yourself of your weights. but don't ride the toy with empty pockets either; perhaps you'll be at the upper end; but high loneliness is no different from any other. the view may be beautiful; that's all.<br><br>
+            if you sit alone at one end; your pockets full of <em class="thr-vurgu">"dreams"</em>; yet dreams are hollow inside; weightless. the other end of the plank rises; to heights no one can reach. your time passes on the ground along the length of your dreams. and then you look — the game is over.<br><br>
+            <em class="thr-vurgu">"experience"</em> is the taste of earth left from previous games; it is the scab on your wounds, in a way. not up or down; it secures your place on the plank; one step forward or back. it keeps both you and the one across from you parallel to the ground.<br><br>
+            a <em class="thr-vurgu">"fear"</em> that slipped into the lining of your jacket, one you didn't even know was there; a <em class="thr-vurgu">"respect"</em> that seeped out from its loosely closed lid into the air; a <em class="thr-vurgu">"pride"</em> you couldn't digest... all of it is either weight or an extra step.<br><br>
+            the day passes like this in the playground; <em class="thr-vurgu">"balance"</em> is the reward of those who carry the same weights in their pockets. and of those with similar wounds...
+          </p>
+        </div>
+        <div class="thr-eskiz">
+          <img src="tahterevalli/tahterevallieskiz.webp" alt="Tahterevalli Eskiz" />
+        </div>
+      </div>
+
+      <!-- Eserler -->
+      <div class="exh-gallery-wrap reveal">
+        <p class="exh-strip-label">
+          <span data-lang="tr">Eserler</span>
+          <span data-lang="en">WORKS</span>
+        </p>
+        <div class="exh-masonry">
+          <div class="exh-masonry-item">
+            <img src="tahterevalli/alternatif.webp" alt="alternatif çözüm" />
+            <span class="exh-artwork-name" data-name-en="ALTERNATIVE SOLUTION">ALTERNATİF ÇÖZÜM</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Bronze">Bronz</span><span class="exh-artwork-size">32×52×10 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="tahterevalli/backtoback.webp" alt="sırtsırta" />
+            <span class="exh-artwork-name" data-name-en="BACK TO BACK">SIRTSIRTA</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Bronze">Bronz</span><span class="exh-artwork-size">20×45×10 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="tahterevalli/kotutecrubeler.webp" alt="kötü tecrübeler" />
+            <span class="exh-artwork-name" data-name-en="BAD EXPERIENCES">KÖTÜ TECRÜBELER</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Bronze">Bronz</span><span class="exh-artwork-size">21×52×10 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="tahterevalli/baslangic.webp" alt="başlangıç" />
+            <span class="exh-artwork-name" data-name-en="BEGINNING">BAŞLANGIÇ</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Bronze">Bronz</span><span class="exh-artwork-size">32×40×10 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="tahterevalli/deprem.webp" alt="deprem" />
+            <span class="exh-artwork-name" data-name-en="EARTHQUAKE">DEPREM</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Bronze">Bronz</span><span class="exh-artwork-size">88×31×15 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="tahterevalli/askadusmek.webp" alt="aşka düşmek" />
+            <span class="exh-artwork-name" data-name-en="FALLING IN LOVE">AŞKA DÜŞMEK</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Bronze">Bronz</span><span class="exh-artwork-size">28×47×10 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="tahterevalli/flirt.webp" alt="flört" />
+            <span class="exh-artwork-name" data-name-en="FLIRT">FLÖRT</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Bronze">Bronz</span><span class="exh-artwork-size">40×60×15 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="tahterevalli/nafile.webp" alt="nafile" />
+            <span class="exh-artwork-name" data-name-en="IN VAIN">NAFİLE</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Bronze">Bronz</span><span class="exh-artwork-size">33×46×10 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="tahterevalli/opucuk.webp" alt="öpücük" />
+            <span class="exh-artwork-name" data-name-en="KISS">ÖPÜCÜK</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Bronze">Bronz</span><span class="exh-artwork-size">33×45×10 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="tahterevalli/sadakat.webp" alt="sadakat" />
+            <span class="exh-artwork-name" data-name-en="LOYALTY">SADAKAT</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Bronze">Bronz</span><span class="exh-artwork-size">44×38×15 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="tahterevalli/kavusma.webp" alt="kavuşma" />
+            <span class="exh-artwork-name" data-name-en="REUNION">KAVUŞMA</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Bronze">Bronz</span><span class="exh-artwork-size">60×47×15 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="tahterevalli/platonik.webp" alt="platonik" />
+            <span class="exh-artwork-name" data-name-en="PLATONIC">PLATONİK</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Bronze">Bronz</span><span class="exh-artwork-size">17×52×10 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="tahterevalli/cambaz.webp" alt="cambaz" />
+            <span class="exh-artwork-name" data-name-en="ACROBAT">CAMBAZ</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Bronze">Bronz</span><span class="exh-artwork-size">56×30×67 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="tahterevalli/zamanlama.webp" alt="zamanlama" />
+            <span class="exh-artwork-name" data-name-en="TIMING">ZAMANLAMA</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Bronze">Bronz</span><span class="exh-artwork-size">90×60×15 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="tahterevalli/sonadogru.webp" alt="sona doğru" />
+            <span class="exh-artwork-name" data-name-en="TOWARD THE END">SONA DOĞRU</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Bronze">Bronz</span><span class="exh-artwork-size">35×45×10 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="tahterevalli/seniseyretmek.webp" alt="seni seyretmek" />
+            <span class="exh-artwork-name" data-name-en="WATCHING YOU">SENİ SEYRETMEK</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Bronze">Bronz</span><span class="exh-artwork-size">90×20×15 cm</span></span>
+          </div>
+          <div class="exh-masonry-item">
+            <img src="tahterevalli/yaben.webp" alt="ya ben" />
+            <span class="exh-artwork-name" data-name-en="WHAT ABOUT ME">YA BEN</span>
+            <span class="exh-artwork-meta"><span class="exh-artwork-material" data-material-en="Bronze">Bronz</span><span class="exh-artwork-size">32×54×10 cm</span></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="exh-nav-btns">
+        <button class="exh-nav-btn" onclick="openExhibition('ikbld')">
+          <span>← <span data-lang="tr">İnsan Kara Bir Leke Değildir</span><span data-lang="en">Man Is Not a Black Spot</span></span>
+        </button>
+        <button class="exh-nav-btn" disabled>
+          <span><span data-lang="tr">Son Sergi</span><span data-lang="en">Last Exhibition</span> →</span>
+        </button>
+      </div>
+      <div class="exh-other-btn-wrap">
+        <button class="exh-other-btn" onclick="closeExhibition()">
+          <span data-lang="tr">← Diğer Sergiler</span>
+          <span data-lang="en">← OTHER EXHIBITIONS</span>
+        </button>
+      </div>
+      <div class="exh-divider"></div>
+    </article>
     <!-- Sonraki sergiler buraya eklenecak -->
 
   </section>
@@ -3078,14 +4271,39 @@
 
         <div class="acc-item">
           <button class="acc-trigger">
-            <span class="acc-year">2021</span>
-            <span class="acc-count">2 <span data-lang="tr">sergi</span><span data-lang="en">exhibitions</span></span>
+            <span class="acc-year">2025</span>
+            <span class="acc-count">1 <span data-lang="tr">sergi</span><span data-lang="en">exhibition</span></span>
             <span class="acc-icon">+</span>
           </button>
           <div class="acc-panel">
             <ul class="acc-list">
-              <li><span class="acc-date">21 Eki — 30 Kas</span><span class="acc-title">"Çünkü Bu Bir Oyun"</span><span class="acc-venue">Galeri Selvin, İstanbul</span></li>
-              <li><span class="acc-date">15 Eki — 15 Kas</span><span class="acc-title">"Rüya Anıdan Sayılır Mı?"</span><span class="acc-venue">Hüsrev Kethüda Hamamı, İstanbul</span></li>
+              <li><span class="acc-date">21 Eki</span><span class="acc-title">"Rüya Hissi Süsler, Hafıza Anıyı"</span><span class="acc-venue">Hüsrev Kethüda Hamamı, İstanbul</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="acc-item">
+          <button class="acc-trigger">
+            <span class="acc-year">2023</span>
+            <span class="acc-count">1 <span data-lang="tr">sergi</span><span data-lang="en">exhibition</span></span>
+            <span class="acc-icon">+</span>
+          </button>
+          <div class="acc-panel">
+            <ul class="acc-list">
+              <li><span class="acc-date">15 Eki</span><span class="acc-title">"İki Kişilik Bir Dünya"</span><span class="acc-venue">Vino Locale, İzmir</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="acc-item">
+          <button class="acc-trigger">
+            <span class="acc-year">2021</span>
+            <span class="acc-count">1 <span data-lang="tr">sergi</span><span data-lang="en">exhibition</span></span>
+            <span class="acc-icon">+</span>
+          </button>
+          <div class="acc-panel">
+            <ul class="acc-list">
+              <li><span class="acc-date">15 Eki — 15 Kas</span><span class="acc-title">"Rüya Anıdan Sayılır mı?"</span><span class="acc-venue">Hüsrev Kethüda Hamamı, İstanbul</span></li>
             </ul>
           </div>
         </div>
@@ -3093,14 +4311,13 @@
         <div class="acc-item">
           <button class="acc-trigger">
             <span class="acc-year">2020</span>
-            <span class="acc-count">4 <span data-lang="tr">sergi</span><span data-lang="en">exhibitions</span></span>
+            <span class="acc-count">2 <span data-lang="tr">sergi</span><span data-lang="en">exhibitions</span></span>
             <span class="acc-icon">+</span>
           </button>
           <div class="acc-panel">
             <ul class="acc-list">
+              <li><span class="acc-date">21 Eki — 30 Kas</span><span class="acc-title">"Çünkü Bu Bir Oyun"</span><span class="acc-venue">Galeri Selvin, İstanbul</span></li>
               <li><span class="acc-date">3 Tem</span><span class="acc-title">"Because This Is A Game"</span><span class="acc-venue">Gallery ExMachina, Barselona</span></li>
-              <li><span class="acc-date">12 Mar</span><span class="acc-title">Art Ankara Sanat Fuarı</span><span class="acc-venue">Galeri Selvin, Ankara</span></li>
-              <li><span class="acc-date">20 Şub</span><span class="acc-title">İstanbul Sanat ve Antika Fuarı</span><span class="acc-venue">Galeri Selvin, İstanbul</span></li>
             </ul>
           </div>
         </div>
@@ -3108,7 +4325,7 @@
         <div class="acc-item">
           <button class="acc-trigger">
             <span class="acc-year">2019</span>
-            <span class="acc-count">4 <span data-lang="tr">sergi</span><span data-lang="en">exhibitions</span></span>
+            <span class="acc-count">3 <span data-lang="tr">sergi</span><span data-lang="en">exhibitions</span></span>
             <span class="acc-icon">+</span>
           </button>
           <div class="acc-panel">
@@ -3116,7 +4333,6 @@
               <li><span class="acc-date">25 Eyl</span><span class="acc-title">Alaçatı Sanat Birleşmesi</span><span class="acc-venue">Baykuşhane, İzmir</span></li>
               <li><span class="acc-date">25 Nis</span><span class="acc-title">"Bir Var-lık Bir Yok-luk"</span><span class="acc-venue">Hüsrev Kethüda Hamamı, İstanbul</span></li>
               <li><span class="acc-date">12 Nis</span><span class="acc-title">"Bir Var-lık Bir Yok-luk"</span><span class="acc-venue">İzmir Devlet Resim Heykel Müzesi</span></li>
-              <li><span class="acc-date">14 Mar</span><span class="acc-title">Art Ankara Sanat Fuarı</span><span class="acc-venue">Galeri Selvin, Ankara</span></li>
             </ul>
           </div>
         </div>
@@ -3124,16 +4340,13 @@
         <div class="acc-item">
           <button class="acc-trigger">
             <span class="acc-year">2018</span>
-            <span class="acc-count">6 <span data-lang="tr">sergi</span><span data-lang="en">exhibitions</span></span>
+            <span class="acc-count">3 <span data-lang="tr">sergi</span><span data-lang="en">exhibitions</span></span>
             <span class="acc-icon">+</span>
           </button>
           <div class="acc-panel">
             <ul class="acc-list">
-              <li><span class="acc-date">29 Eyl</span><span class="acc-title">Alaçatı Sanat Haftası</span><span class="acc-venue">Değirmenaltı Sanat Galerisi, İzmir</span></li>
               <li><span class="acc-date">15 Ağu</span><span class="acc-title">"Gün Batımı" Sergisi</span><span class="acc-venue">Galeri Selvin, Bodrum</span></li>
-              <li><span class="acc-date">6 Nis</span><span class="acc-title">Dünya Sanat Günü Etkinlikleri</span><span class="acc-venue">Ahmed Adnan Saygun Sanat Merkezi, İzmir</span></li>
-              <li><span class="acc-date">14—15 Mar</span><span class="acc-title">Art Ankara & Lebriz Karma Sergisi</span><span class="acc-venue">Ankara / İstanbul</span></li>
-              <li><span class="acc-date">13 Şub</span><span class="acc-title">"Karalamalar" Eskiz Çizimleri</span><span class="acc-venue">ENKA Okulları Sanat Galerisi, İstanbul</span></li>
+              <li><span class="acc-date">3 Şub</span><span class="acc-title">"Karalamalar" Eskiz Çizimleri</span><span class="acc-venue">ENKA Okulları Sanat Galerisi, İstanbul</span></li>
               <li><span class="acc-date">12 Oca</span><span class="acc-title">"Düşbozumu" Heykel Sergisi</span><span class="acc-venue">Galeri Selvin, İstanbul</span></li>
             </ul>
           </div>
@@ -3142,7 +4355,7 @@
         <div class="acc-item">
           <button class="acc-trigger">
             <span class="acc-year">2014 — 2017</span>
-            <span class="acc-count">8 <span data-lang="tr">sergi</span><span data-lang="en">exhibitions</span></span>
+            <span class="acc-count">6 <span data-lang="tr">sergi</span><span data-lang="en">exhibitions</span></span>
             <span class="acc-icon">+</span>
           </button>
           <div class="acc-panel">
@@ -3150,14 +4363,171 @@
               <li><span class="acc-date">Eki 2017</span><span class="acc-title">"Yerini Yadırgayanlar"</span><span class="acc-venue">Old Town Gallery, Kuşadası</span></li>
               <li><span class="acc-date">Nis 2016</span><span class="acc-title">"Tahterevalli" Sergisi</span><span class="acc-venue">Galeri Selvin, İstanbul</span></li>
               <li><span class="acc-date">Oca 2016</span><span class="acc-title">"Tahterevalli ve Oyunbozan"</span><span class="acc-venue">Ekol Sanat Galerisi, İzmir</span></li>
-              <li><span class="acc-date">Kas 2015</span><span class="acc-title">"40 Genç Sanatçı" (Egesder)</span><span class="acc-venue">Ahmed Adnan Saygun Sanat Merkezi, İzmir</span></li>
-              <li><span class="acc-date">2015</span><span class="acc-title">"Eskiz Defteri" / "Karalamalar" / "Re-design"</span><span class="acc-venue">Bou Art & Design, İstanbul</span></li>
+              <li><span class="acc-date">2015</span><span class="acc-title">"Eskiz Defteri" / "Karalamalar" / "Re-design"</span><span class="acc-venue">Bou Art &amp; Design, İstanbul</span></li>
               <li><span class="acc-date">Kas 2014</span><span class="acc-title">"İnsan Kara Bir Leke Değildir"</span><span class="acc-venue">Galeri Selvin, İstanbul</span></li>
               <li><span class="acc-date">Kas 2014</span><span class="acc-title">Resim ve Demir Resimler Sergisi</span><span class="acc-venue">No2 Galeri, İzmir</span></li>
-              <li><span class="acc-date">Eki 2014</span><span class="acc-title">Art of Smyrna Karma Sergisi</span><span class="acc-venue">Swissotel, İzmir</span></li>
             </ul>
           </div>
         </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- BASINDA -->
+  <section id="basinda">
+    <div class="basinda-video-bg">
+      <video autoplay muted loop playsinline>
+        <source src="sessizhikayeler.mp4" type="video/mp4" />
+      </video>
+      <div class="basinda-video-overlay"></div>
+    </div>
+    <div class="basinda-inner">
+      <div class="reveal">
+        <p class="about-label">
+          <span data-lang="tr">Basında</span>
+          <span data-lang="en">Press</span>
+        </p>
+        <div class="about-divider"></div>
+      </div>
+
+      <!-- Röportajlar -->
+      <div class="basinda-grid reveal">
+
+        <a href="https://open.spotify.com/episode/6slPsyfQyOV0W4XlllHX8N?si=108d75b6126d43c0" target="_blank" class="basinda-card">
+          <div class="basinda-card-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+          </div>
+          <div class="basinda-card-content">
+            <span class="basinda-card-source">Spotify · Evrim Kuran — 3te3</span>
+            <h3 class="basinda-card-title">
+              <span data-lang="tr">Podcast Söyleşi</span>
+              <span data-lang="en">Podcast Interview</span>
+            </h3>
+            <span class="basinda-card-date">Aralık 2021</span>
+          </div>
+          <span class="basinda-card-arrow">→</span>
+        </a>
+
+        <a href="https://www.ithafsanat.com/baska-bir-yasam-arayanlarin-hikayesini-heykelleriyle-anlatiyor/" target="_blank" class="basinda-card">
+          <div class="basinda-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10l6 6v8a2 2 0 01-2 2z"/><path d="M17 21v-8H7v8M7 3v5h8"/></svg>
+          </div>
+          <div class="basinda-card-content">
+            <span class="basinda-card-source">İthaf Sanat Dergisi</span>
+            <h3 class="basinda-card-title">
+              <span data-lang="tr">Röportaj</span>
+              <span data-lang="en">Interview</span>
+            </h3>
+            <span class="basinda-card-date">Eylül 2021</span>
+          </div>
+          <span class="basinda-card-arrow">→</span>
+        </a>
+
+        <a href="https://www.artfulliving.com.tr/sanat/bu-heykeller-iliskinin-degil-insanin-hikyeleri-i-22305" target="_blank" class="basinda-card">
+          <div class="basinda-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10l6 6v8a2 2 0 01-2 2z"/><path d="M17 21v-8H7v8M7 3v5h8"/></svg>
+          </div>
+          <div class="basinda-card-content">
+            <span class="basinda-card-source">Artful Living · Atacan Şişman</span>
+            <h3 class="basinda-card-title">
+              <span data-lang="tr">"Bu heykeller ilişkinin değil, insanın hikayeleri"</span>
+              <span data-lang="en">"These sculptures tell the stories of people, not relationships"</span>
+            </h3>
+            <span class="basinda-card-date">Kasım 2020</span>
+          </div>
+          <span class="basinda-card-arrow">→</span>
+        </a>
+
+        <a href="http://sanatkritik.com/soylesi/ozan-unal-heykeli-tasarlarim-demeyecegim-heykel-icime-dogar/" target="_blank" class="basinda-card">
+          <div class="basinda-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10l6 6v8a2 2 0 01-2 2z"/><path d="M17 21v-8H7v8M7 3v5h8"/></svg>
+          </div>
+          <div class="basinda-card-content">
+            <span class="basinda-card-source">SanatKritik · Abdullah Ezik</span>
+            <h3 class="basinda-card-title">
+              <span data-lang="tr">"Heykeli tasarlarım demeyeceğim, heykel içime doğar"</span>
+              <span data-lang="en">"I won't say I design sculpture — sculpture is born within me"</span>
+            </h3>
+            <span class="basinda-card-date">Ekim 2020</span>
+          </div>
+          <span class="basinda-card-arrow">→</span>
+        </a>
+
+        <a href="https://youtu.be/QTvKsp2WdcY?si=EukDAdaQs5gz7bzy" target="_blank" class="basinda-card">
+          <div class="basinda-card-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+          </div>
+          <div class="basinda-card-content">
+            <span class="basinda-card-source">YouTube · Ceren Atasoy</span>
+            <h3 class="basinda-card-title">
+              <span data-lang="tr">"Çünkü Bu Bir Oyun" — Atölye Çalışmaları</span>
+              <span data-lang="en">"Because This Is A Game" — Studio Works</span>
+            </h3>
+            <span class="basinda-card-date">2020</span>
+          </div>
+          <span class="basinda-card-arrow">→</span>
+        </a>
+
+        <a href="https://youtu.be/R5FwXMYRoOw?si=hEcT2dB5DolNu7U0" target="_blank" class="basinda-card">
+          <div class="basinda-card-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+          </div>
+          <div class="basinda-card-content">
+            <span class="basinda-card-source">YouTube · Azize Design Studio — Begüm Koçum</span>
+            <h3 class="basinda-card-title">
+              <span data-lang="tr">"Bir Var-lık Bir Yok-luk" — Galeri Selvin 35. Yıl</span>
+              <span data-lang="en">"A Being, A Non-Being" — Galeri Selvin 35th Anniversary</span>
+            </h3>
+            <span class="basinda-card-date">Mayıs — Haziran 2019</span>
+          </div>
+          <span class="basinda-card-arrow">→</span>
+        </a>
+
+        <a href="https://youtu.be/CtywSDONp1M?si=4VwHfgtkrIJCs7hj" target="_blank" class="basinda-card">
+          <div class="basinda-card-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+          </div>
+          <div class="basinda-card-content">
+            <span class="basinda-card-source">YouTube · Piece of Art News — Ceren Atasoy</span>
+            <h3 class="basinda-card-title">
+              <span data-lang="tr">Röportaj</span>
+              <span data-lang="en">Interview</span>
+            </h3>
+            <span class="basinda-card-date">2019</span>
+          </div>
+          <span class="basinda-card-arrow">→</span>
+        </a>
+
+        <a href="https://youtu.be/DMrnSf6kBjs?si=RPbhlufUBA2i8eX8" target="_blank" class="basinda-card">
+          <div class="basinda-card-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+          </div>
+          <div class="basinda-card-content">
+            <span class="basinda-card-source">YouTube · Yönetmen: Erdal Kaş — Müzik: Cenk Erdoğan</span>
+            <h3 class="basinda-card-title">
+              <span data-lang="tr">"Bir Var-lık Bir Yok-luk" — Sergi Filmi</span>
+              <span data-lang="en">"A Being, A Non-Being" — Exhibition Film</span>
+            </h3>
+            <span class="basinda-card-date">Nisan — Mayıs 2019</span>
+          </div>
+          <span class="basinda-card-arrow">→</span>
+        </a>
+
+        <a href="https://youtu.be/1g4iXfe0FYQ?si=OT9v8LEQpJXEacXe" target="_blank" class="basinda-card">
+          <div class="basinda-card-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+          </div>
+          <div class="basinda-card-content">
+            <span class="basinda-card-source">ARTtv · Galeri Selvin 35. Yıl</span>
+            <h3 class="basinda-card-title">
+              <span data-lang="tr">"Bir Var-lık Bir Yok-luk" — Ortaköy Kethüda Hamamı</span>
+              <span data-lang="en">"A Being, A Non-Being" — Ortaköy Kethüda Hamam</span>
+            </h3>
+            <span class="basinda-card-date">2019</span>
+          </div>
+          <span class="basinda-card-arrow">→</span>
+        </a>
 
       </div>
     </div>
@@ -3180,8 +4550,9 @@
             <span data-lang="tr">Menajer</span>
             <span data-lang="en">Manager</span>
           </p>
-          <p class="contact-block-name">Jane Doe</p>
-          <a href="tel:+905556666060" class="contact-block-tel">0555 666 60 60</a>
+          <p class="contact-block-name">Tülin Berk</p>
+          <a href="mailto:tulin@tulinberk.com" class="contact-block-tel">tulin@tulinberk.com</a>
+          <a href="tel:+905322472818" class="contact-block-tel">0532 247 28 18</a>
         </div>
 
         <div class="contact-block">
@@ -3192,9 +4563,9 @@
         <div class="contact-block">
           <p class="contact-block-label">
             <span data-lang="tr">Atölye</span>
-            <span data-lang="en">Studio</span>
+            <span data-lang="en">STUDIO</span>
           </p>
-          <p class="contact-block-val">Karşıyaka, İzmir</p>
+          <p class="contact-block-val">Latife Hanım Mah. 7691 Sok. No:2<br>Karşıyaka / İzmir</p>
         </div>
       </div>
 
@@ -3253,6 +4624,9 @@
   <!-- FOOTER -->
   <footer>
     <p class="footer-copy">© 2025 Ozan Ünal. <span data-lang="tr">Tüm hakları saklıdır.</span><span data-lang="en">All rights reserved.</span></p>
+    <p class="footer-copy">
+      <span data-lang="tr">site tasarımı</span><span data-lang="en">site design</span> · Günay Gündüz
+    </p>
   </footer>
 
   <script>
@@ -3308,8 +4682,36 @@
         const lang = btn.dataset.set;
         document.body.classList.toggle('lang-en', lang === 'en');
         document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.set === lang));
+        // Masonry kartlarını güncelle
+        updateMasonryLang(lang === 'en');
+        // Açık lightbox varsa güncelle
+        if (document.getElementById('lightbox')?.classList.contains('open') && lbItems.length) {
+          updateLightboxContent();
+        }
       });
     });
+
+    function updateMasonryLang(isEn) {
+      document.querySelectorAll('.exh-masonry-item').forEach(item => {
+        const nameEl = item.querySelector('.exh-artwork-name');
+        const matEl  = item.querySelector('.exh-artwork-material');
+        if (nameEl) {
+          if (!nameEl.dataset.nameTr) nameEl.dataset.nameTr = nameEl.textContent.trim();
+          if (isEn) {
+            const enName = nameEl.dataset.nameEn || nameEl.dataset.nameTr;
+            nameEl.textContent = enName.toLocaleUpperCase('en-US');
+          } else {
+            nameEl.textContent = nameEl.dataset.nameTr;
+          }
+        }
+        if (matEl) {
+          if (!matEl.dataset.matTr) matEl.dataset.matTr = matEl.textContent.trim();
+          const enRaw = matEl.dataset.materialEn || matEl.dataset.matTr;
+          const decoded = enRaw.replace(/&amp;/g, '&');
+          matEl.textContent = isEn ? decoded : matEl.dataset.matTr;
+        }
+      });
+    }
 
     // Hata durumunda placeholder göster
     document.querySelectorAll('.scene-sketch img').forEach(img => {
@@ -3354,11 +4756,19 @@
       container.querySelectorAll('.exh-masonry-item').forEach((item, i) => {
         item.onclick = () => {
           const items = container.querySelectorAll('.exh-masonry-item');
-          lbItems = Array.from(items).map(el => ({
-            src: el.querySelector('img')?.src || '',
-            name: el.querySelector('.exh-artwork-name')?.textContent?.trim() || '',
-            meta: el.querySelector('.exh-artwork-meta')?.textContent?.trim() || ''
-          }));
+          lbItems = Array.from(items).map(el => {
+            const nameEl     = el.querySelector('.exh-artwork-name');
+            const materialEl = el.querySelector('.exh-artwork-material');
+            const sizeEl     = el.querySelector('.exh-artwork-size');
+            return {
+              src:         el.querySelector('img')?.src || '',
+              nameTr:      nameEl?.textContent?.trim() || '',
+              nameEn:      nameEl?.dataset?.nameEn || nameEl?.textContent?.trim() || '',
+              materialTr:  materialEl?.textContent?.trim() || '',
+              materialEn:  materialEl?.dataset?.materialEn || materialEl?.textContent?.trim() || '',
+              size:        sizeEl?.textContent?.trim() || '',
+            };
+          });
           lbIndex = i;
           openLightbox();
         };
@@ -3377,9 +4787,13 @@
     function updateLightboxContent() {
       const item = lbItems[lbIndex];
       if (!item) return;
+      const isEn = document.body.classList.contains('lang-en');
+      const name = isEn ? item.nameEn : item.nameTr;
       document.getElementById('lightboxImg').src = item.src;
-      document.getElementById('lightboxName').textContent = item.name;
-      document.getElementById('lightboxMeta').textContent = item.meta;
+      document.getElementById('lightboxName').textContent = name.toLocaleUpperCase('en-US');
+      document.getElementById('lightboxMeta').textContent = isEn ? item.materialEn : item.materialTr;
+      const sizeEl = document.getElementById('lightboxSize');
+      if (sizeEl) sizeEl.textContent = item.size;
       document.getElementById('lightboxCounter').textContent = `${lbIndex + 1} / ${lbItems.length}`;
       document.getElementById('lightboxPrev').style.opacity = lbIndex === 0 ? '0.2' : '1';
       document.getElementById('lightboxNext').style.opacity = lbIndex === lbItems.length - 1 ? '0.2' : '1';
@@ -3530,6 +4944,73 @@
       }
     }
 
+    // ── ESKİZ STACK & SPREAD
+    (function() {
+      const scene     = document.querySelector('.eskiz-scene');
+      const stack     = document.getElementById('eskizStack');
+      const eskizText = document.getElementById('eskizText');
+      if (!scene || !stack) return;
+
+      const cards = Array.from(stack.querySelectorAll('.eskiz-card'));
+
+      // Saçılma vektörleri
+      const spreads = [
+        { x: -420, y: -220, r: -28, s: 0.88 },
+        { x:  380, y: -260, r:  22, s: 0.92 },
+        { x: -360, y:  210, r: -20, s: 0.90 },
+        { x:  400, y:  230, r:  30, s: 0.87 },
+        { x: -480, y:   10, r: -35, s: 0.85 },
+        { x:  460, y:  -80, r:  26, s: 0.91 },
+        { x: -220, y: -360, r: -18, s: 0.93 },
+        { x:  240, y:  340, r:  18, s: 0.89 },
+        { x: -400, y:  320, r: -12, s: 0.86 },
+        { x:  420, y: -240, r:  32, s: 0.88 },
+        { x:   80, y: -380, r:  -8, s: 0.94 },
+        { x:  -80, y:  380, r:  10, s: 0.90 },
+      ];
+
+      // Başlangıç: tüm kartlar TAM üst üste, metnin önünde
+      cards.forEach((card, i) => {
+        card.style.transform = 'rotate(0deg)';
+        card.style.zIndex = 10;
+      });
+
+      function ease(t) {
+        return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+      }
+
+      function update() {
+        const sceneTop    = scene.offsetTop;
+        const sceneHeight = scene.offsetHeight;
+        const scrollY     = window.scrollY;
+        const vh          = window.innerHeight;
+
+        const raw      = (scrollY - sceneTop) / (sceneHeight - vh);
+        const progress = Math.max(0, Math.min(1, raw));
+        const ep       = ease(progress);
+
+        cards.forEach((card, i) => {
+          const s = spreads[i] || { x: 0, y: 0, r: 0, s: 1 };
+          const tx  = s.x * ep;
+          const ty  = s.y * ep;
+          const rot = s.r * ep;
+          const sc  = 1 - (1 - (s.s || 1)) * ep;
+          card.style.transform = `translate(${tx}px, ${ty}px) rotate(${rot}deg) scale(${sc})`;
+          // z-index sabit — kartlar birbirinin önüne geçmez
+          card.style.zIndex = 10;
+        });
+
+        // Kartlar iyice açılınca metin belirsin ve kalsın
+        if (eskizText && progress > 0.65) {
+          eskizText.classList.add('visible');
+        }
+      }
+
+      window.addEventListener('scroll', update, { passive: true });
+      window.addEventListener('resize', update);
+      update();
+    })();
+
     // ── İletişim Formu
     function submitForm() {
       const name    = document.querySelector('input[name="name"]').value.trim();
@@ -3537,7 +5018,7 @@
       const subject = document.querySelector('input[name="subject"]').value.trim();
       const message = document.querySelector('textarea[name="message"]').value.trim();
       if (!name || !email || !message) return;
-      const mailto = `mailto:info@ozanunal.com?subject=${encodeURIComponent(subject || 'İletişim')}&body=${encodeURIComponent(`Ad: ${name}\nE-posta: ${email}\n\n${message}`)}`;
+      const mailto = `mailto:ozanuenal@gmail.com?subject=${encodeURIComponent(subject || 'İletişim')}&body=${encodeURIComponent(`Ad: ${name}\nE-posta: ${email}\n\n${message}`)}`;
       window.location.href = mailto;
       document.getElementById('formSuccess').style.display = 'block';
     }
@@ -3564,12 +5045,17 @@
     <button class="lightbox-nav lightbox-prev" id="lightboxPrev" onclick="lightboxNav(-1)">
       <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
     </button>
-    <div class="lightbox-img-wrap">
-      <img id="lightboxImg" src="" alt="" />
-    </div>
-    <div class="lightbox-info">
-      <span class="lightbox-name" id="lightboxName"></span>
-      <span class="lightbox-meta" id="lightboxMeta"></span>
+    <div class="lightbox-content">
+      <div class="lightbox-img-wrap">
+        <img id="lightboxImg" src="" alt="" />
+      </div>
+      <div class="lightbox-info">
+        <div class="lightbox-info-row">
+          <span class="lightbox-name" id="lightboxName"></span>
+          <span class="lightbox-size" id="lightboxSize"></span>
+        </div>
+        <span class="lightbox-meta" id="lightboxMeta"></span>
+      </div>
     </div>
     <button class="lightbox-nav lightbox-next" id="lightboxNext" onclick="lightboxNav(1)">
       <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
@@ -3588,7 +5074,7 @@
   <button class="exh-overlay-close" id="exhOverlayClose" onclick="closeExhibition()">
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="15 18 9 12 15 6"/></svg>
     <span data-lang="tr">Tüm Sergiler</span>
-    <span data-lang="en">All Exhibitions</span>
+    <span data-lang="en">ALL EXHIBITIONS</span>
   </button>
 
 </body>

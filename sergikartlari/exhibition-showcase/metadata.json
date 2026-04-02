@@ -1,0 +1,5 @@
+{
+  "name": "Exhibition Showcase",
+  "description": "A horizontal scrolling exhibition showcase inspired by GSAP ScrollTrigger.",
+  "requestFramePermissions": []
+}
