@@ -1508,7 +1508,29 @@
       flex-direction: column;
       gap: 2.5rem;
     }
-    .exh-poem-stanzas p {
+    .exh-poem-divider {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      margin: 2.5rem 0 1.5rem;
+      opacity: 0.35;
+    }
+    .exh-poem-divider::before,
+    .exh-poem-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--copper);
+    }
+    .exh-poem-divider span {
+      font-size: 0.5rem;
+      letter-spacing: 0.4em;
+      color: var(--copper);
+      font-weight: 400;
+    }
+    .exh-poem-stanzas .exh-poem-divider:first-child {
+      margin-top: 0;
+    }
       font-size: clamp(0.85rem, 1.2vw, 1rem);
       font-style: italic;
       font-weight: 300;
@@ -3003,37 +3025,58 @@
             </span>
           </p>
           <button class="exh-poem-toggle" onclick="togglePoem('ikbd')">
-            <span data-lang="tr">Şiirin tamamını oku</span>
-            <span data-lang="en">Read the full poem</span>
+            <span data-lang="tr">Diğer şiirler</span>
+            <span data-lang="en">Other poems</span>
             <span class="exh-poem-toggle-icon" id="ikbd-icon">+</span>
           </button>
         </div>
       </div>
 
-      <!-- Tam Şiir — Akordiyon -->
+      <!-- Diğer Şiirler — Akordiyon -->
       <div class="exh-full-poem" id="ikbd-poem">
         <div class="exh-full-poem-inner">
           <div class="exh-poem-stanzas">
+
+            <div class="exh-poem-divider"><span>I</span></div>
             <p data-lang="tr">öyle bir hüzünle baktı ki özne yükleme;<br>kıyamadım bıraktım kalemi.<br>"sen yokken" de bitti cümle.</p>
             <p data-lang="en">the subject gazed at the object with such sorrow;<br>I couldn't bear it, I set down my pen.<br>the sentence ended with "when you were gone."</p>
+
+            <div class="exh-poem-divider"><span>II</span></div>
             <p data-lang="tr">hangisi daha güzel bilmiyorum...<br>bir terzi gibi özene bezene biçtiğim aşk mı?<br>bunun sana nasıl da yakıştığını izlemek mi?</p>
             <p data-lang="en">I don't know which is more beautiful...<br>the love I tailored with such care?<br>or watching how perfectly it suits you?</p>
+
+            <div class="exh-poem-divider"><span>III</span></div>
             <p data-lang="tr">"hiç" kadar gider<br>"hep" kadar olur<br>"kimse" kadar üzer<br>"herkes" yerine severim<br>seni...</p>
             <p data-lang="en">leaves as much as "never"<br>stays as long as "always"<br>hurts as much as "no one"<br>I love you instead of "everyone"...</p>
+
+            <div class="exh-poem-divider"><span>IV</span></div>
             <p data-lang="tr">yorgundum sana sığındım<br>uykusuzdum uyudum uyandım<br>hayra yordum ayıldım kalktım<br>çok yol yürüdüm sonra<br>sana<br>senden<br>seninle</p>
             <p data-lang="en">I was tired, I took shelter in you<br>I was sleepless, I slept, I woke<br>I took it as a good sign, I came to, I rose<br>I walked a long road, then<br>toward you<br>from you<br>with you</p>
+
+            <div class="exh-poem-divider"><span>V</span></div>
             <p data-lang="tr">dizine dokundum gözümü açtım<br>neredeydin dedim<br>uyan diye bekliyordum dedin<br>gülümsedim<br>rüyada arıyordum seni dedim<br>anda buldum</p>
             <p data-lang="en">I touched your knee and opened my eyes<br>where were you, I asked<br>I was waiting for you to wake, you said<br>I smiled<br>I was looking for you in dreams, I said<br>I found you in the now</p>
+
+            <div class="exh-poem-divider"><span>VI</span></div>
             <p data-lang="tr">silgim yoktu, defteri tümden attım,<br>kalemim bitmiş meğer; ucunu açtım.<br>yeni bir sayfa; bembeyaz.<br>yazdım:<br>"anlatsana ben yokken neler yaptın?"<br>yok olmadı dedim; onu da buruşturup attım.<br>yenisini aldım önüme serdim.<br>yazdım:<br>"bugün baharın ilk günü... günaydın"</p>
             <p data-lang="en">I had no eraser, so I threw out the whole notebook,<br>my pen had run dry; I sharpened it.<br>a new page; pure white.<br>I wrote:<br>"tell me, what did you do while I was gone?"<br>it didn't disappear; I crumpled that one too.<br>I took a new one and laid it before me.<br>I wrote:<br>"today is the first day of spring... good morning"</p>
+
+            <div class="exh-poem-divider"><span>VII</span></div>
             <p data-lang="tr">ağaç bizi seyrediyordu yapraklarının arasından. gülümsedi, göğe kaldırdı başını. "pıt" bir manolya açtı yukarılarda. biraz ileride bir kız "kokuyu alıyor musun?" diye sordu yanındaki oğlana ve ilk kez koluna girdi. oğlan heyecanlandı. "şuradaki ağaçtan geliyordur" dedi. "ne zaman baksam altında yalnız başına bir oğlan otururdu" dedi kız. "bak kızın dizine yatmış senin oğlan." "yıllardır çiçek açmıyormuş bu ağaç" dedi oğlan. "demek bahar yeni geldi" dedi kız, daha da sokularak. sarıldılar sonra.</p>
             <p data-lang="en">the tree watched us through its leaves. it smiled, raised its head to the sky. a magnolia bloomed — pop — on a high branch. a little further, a girl asked the boy beside her "can you smell it?" and for the first time took his arm. "it must be from that tree," he said. "every time I looked, a boy used to sit alone beneath it," said the girl. "look, your boy is lying with his head on the girl's knee." "this tree hasn't bloomed in years," said the boy. "so spring has just arrived," said the girl, drawing closer. they held each other close.</p>
+
+            <div class="exh-poem-divider"><span>VIII</span></div>
             <p data-lang="tr">"tam o anın şiiri" derdim...<br>sabahınkörlerinde sarındığım<br>üzerinden ölü kelebekler dökülen battaniyeme.<br>ağırdı. acıtırdı tenimi, dikenliydi.<br>sıcak tutardı ama ısıtmazdı.<br>böyle yavan<br>böyle tatsız tuzsuz<br>böyle soğuk<br>böyle eksikti yalnızlığım.<br>günaydınını omzuma örtene dek</p>
             <p data-lang="en">"that is the poem of exactly that moment," I would say...<br>the blanket I wrapped around myself in the early hours,<br>from which dead butterflies fell.<br>it was heavy. it scratched my skin, thorny.<br>it kept me warm but didn't warm me.<br>so bland, so tasteless, so cold<br>my loneliness was lacking in just this way.<br>until you draped your good morning over my shoulder</p>
+
+            <div class="exh-poem-divider"><span>IX</span></div>
             <p data-lang="tr">kolay değil bir asırdır kenarındaydım. kupkuru.<br>avucumdan usulca bıraktım kayığımı<br>içine oturdum biraz tedirgin.<br>eğildim aşağı baktım, derindi.<br>elimi suya soktum, okşadım. alıştım...<br>dalgana da vuruldum durgunluğuna da<br>fırtınana da mehtabına da.<br>dedim merhaba<br>kumsalına da açığına da...</p>
             <p data-lang="en">it isn't easy — I had been at the edge for a century. bone dry.<br>gently I let go of my little boat<br>I sat inside it, a little anxious.<br>I leaned over; it was deep.<br>I put my hand in the water, caressed it. I got used to it...<br>I was struck by your waves and your stillness<br>your storms and your moonlight.<br>I said hello<br>to your shores and your open waters...</p>
+
+            <div class="exh-poem-divider"><span>X</span></div>
             <p data-lang="tr">yokluk olduğunu bile bilmediğim<br>bir yoklukmuşsun meğer.<br>eksik olan eksiklik hissin,<br>varlığım dediğim yokluğunmuş...<br>ne büyük kayıp<br>bir kere gelinen hayat için.</p>
             <p data-lang="en">you turned out to be an absence<br>I didn't even know was an absence.<br>what was missing was the feeling of missing,<br>what I called my existence was your absence...<br>what a great loss<br>for a life lived only once.</p>
+
           </div>
         </div>
       </div>
