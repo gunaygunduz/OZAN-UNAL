@@ -313,7 +313,7 @@
     /* ESKİZ STACK & SPREAD */
     .eskiz-scene {
       position: relative;
-      height: 400vh;
+      height: 800vh;
       background: var(--bg);
     }
     .eskiz-sticky {
@@ -327,8 +327,9 @@
     }
     .eskiz-stack-wrap {
       position: relative;
-      width: 340px;
-      height: 420px;
+      width: 417px;
+      height: 600px;
+      margin: 0 auto;
       clip-path: none;
     }
     .eskiz-text {
@@ -352,28 +353,28 @@
       opacity: 1;
     }
     .eskiz-stack {
-      position: relative;
-      width: 340px;
-      height: 420px;
+      position: absolute;
+      inset: 0;
     }
     .eskiz-card {
       position: absolute;
       inset: 0;
       background: #fff;
       box-shadow: 0 4px 32px rgba(0,0,0,0.4);
-      overflow: hidden;
+      overflow: visible;
       will-change: transform;
     }
     .eskiz-card img {
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain;
+      object-position: center;
       display: block;
       pointer-events: none;
     }
     @media (max-width: 900px) {
       .eskiz-text { width: 260px; max-width: 260px; }
-      .eskiz-stack { width: 260px; height: 320px; }
+      .eskiz-stack-wrap { width: min(320px, 85vw); height: min(460px, 70vh); }
     }
 
     /* SAHNE 4 */
@@ -603,8 +604,9 @@
       pointer-events: none;
       opacity: 0;
       transition: opacity 0.35s ease;
+      cursor: pointer;
     }
-    .glass-panel.visible { opacity: 1; }
+    .glass-panel.visible { opacity: 1; pointer-events: all; }
     .glass-panel-left  { left: 0; background: linear-gradient(to right, rgba(8,8,8,1) 0%, rgba(8,8,8,0.97) 50%, rgba(8,8,8,0.6) 80%, transparent 100%); }
     .glass-panel-right { right: 0; background: linear-gradient(to left,  rgba(8,8,8,1) 0%, rgba(8,8,8,0.97) 50%, rgba(8,8,8,0.6) 80%, transparent 100%); }
     .exh-overlay-close {
@@ -1107,8 +1109,8 @@
       background: var(--bg);
     }
     .yy-hero-right img {
-      width: 85%;
-      height: 85%;
+      width: 106%;
+      height: 106%;
       object-fit: contain;
       object-position: center;
       mix-blend-mode: screen;
@@ -2531,7 +2533,7 @@
       </div>
       <div class="scene-text">
         <h2 class="scene-heading">
-          <span data-lang="tr">Kara demir'in içindeki<br/><em>güzelliği gördüm.</em></span>
+          <span data-lang="tr">Kara demirin içindeki<br/><em>güzelliği gördüm.</em></span>
           <span data-lang="en">I saw the beauty<br/><em>inside black iron.</em></span>
         </h2>
         <p class="scene-body" style="background: rgba(8,8,8,0.55); padding: 1.2rem 1.5rem; backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); text-align: left;">
@@ -2748,7 +2750,7 @@
           </div>
           <!-- Kart 8 — Yakında -->
           <div class="exh-slide-card" onclick="openExhibition('tahterevalli')">
-            <div class="exh-slide-img"><img src="tahterevalli/flirt.webp" alt="" /></div>
+            <div class="exh-slide-img"><img src="tahterevalli/tahterevallikart.webp" alt="" /></div>
             <div class="exh-slide-overlay"></div>
             <div class="exh-slide-info">
               <span class="exh-slide-year">2016</span>
@@ -2980,15 +2982,15 @@
         </div>
       </div>
 
-      <div class="exh-nav-btns">
-          <button class="exh-nav-btn" disabled>
-            <span>← <span data-lang="tr">İlk Sergi</span><span data-lang="en">FIRST EXHIBITION</span></span>
-          </button>
-          <button class="exh-nav-btn" onclick="openExhibition('ikbd')">
-            <span><span data-lang="tr">İki Kişilik Bir Dünya</span><span data-lang="en">A World for Two</span> →</span>
-          </button>
-        </div>
-            <div class="exh-other-btn-wrap">
+            <div class="exh-nav-btns">
+        <button class="exh-nav-btn" disabled>
+          <span>← <span data-lang="tr">İlk Sergi</span><span data-lang="en">FIRST EXHIBITION</span></span>
+        </button>
+        <button class="exh-nav-btn" onclick="openExhibition('ikbd')">
+          <span><span data-lang="tr">İki Kişilik Bir Dünya</span><span data-lang="en">A World for Two</span> →</span>
+        </button>
+      </div>
+      <div class="exh-other-btn-wrap">
         <button class="exh-other-btn" onclick="closeExhibition()">
           <span data-lang="tr">← Diğer Sergiler</span>
           <span data-lang="en">← OTHER EXHIBITIONS</span>
@@ -3002,7 +3004,7 @@
 
       <!-- Tam Ekran Eskiz Hero -->
       <div class="exh-hero reveal">
-        <img src="ikikisilikbirdunya/ikbdsketch.webp" alt="İki Kişilik Bir Dünya — Eskiz" class="exh-hero-bg" />
+        <img src="ikikisilikbirdunya/ikbdsketch.webp" alt="İki Kişilik Bir Dünya — Eskiz" class="exh-hero-bg" style="object-fit: contain; transform: scale(0.8); transform-origin: center;" />
         <div class="exh-hero-overlay"></div>
         <div class="exh-hero-content">
           <span class="exh-year">2021</span>
@@ -3156,15 +3158,15 @@
         </div>
       </div>
 
-      <div class="exh-nav-btns">
-          <button class="exh-nav-btn" onclick="openExhibition('rhsha')">
-            <span>← <span data-lang="tr">Rüya Hissi Süsler</span><span data-lang="en">Dream Adorns</span></span>
-          </button>
-          <button class="exh-nav-btn" onclick="openExhibition('ras')">
-            <span><span data-lang="tr">Rüya Anıdan Sayılır Mı?</span><span data-lang="en">Can a Dream Count?</span> →</span>
-          </button>
-        </div>
-            <div class="exh-other-btn-wrap">
+            <div class="exh-nav-btns">
+        <button class="exh-nav-btn" onclick="openExhibition('rhsha')">
+          <span>← <span data-lang="tr">Rüya Hissi Süsler, Hafıza Anıyı.</span><span data-lang="en">Dream Adorns the Feeling</span></span>
+        </button>
+        <button class="exh-nav-btn" onclick="openExhibition('ras')">
+          <span><span data-lang="tr">Rüya Anıdan Sayılır Mı?</span><span data-lang="en">Can a Dream Count as a Memory?</span> →</span>
+        </button>
+      </div>
+      <div class="exh-other-btn-wrap">
         <button class="exh-other-btn" onclick="closeExhibition()">
           <span data-lang="tr">← Diğer Sergiler</span>
           <span data-lang="en">← OTHER EXHIBITIONS</span>
@@ -3345,15 +3347,15 @@
         </div>
       </div>
 
-      <div class="exh-nav-btns">
-          <button class="exh-nav-btn" onclick="openExhibition('ikbd')">
-            <span>← <span data-lang="tr">İki Kişilik Bir Dünya</span><span data-lang="en">A World for Two</span></span>
-          </button>
-          <button class="exh-nav-btn" onclick="openExhibition('oyun')">
-            <span><span data-lang="tr">Çünkü Bu Bir Oyun</span><span data-lang="en">Because This Is A Game</span> →</span>
-          </button>
-        </div>
-            <div class="exh-other-btn-wrap">
+            <div class="exh-nav-btns">
+        <button class="exh-nav-btn" onclick="openExhibition('ikbd')">
+          <span>← <span data-lang="tr">İki Kişilik Bir Dünya</span><span data-lang="en">A World for Two</span></span>
+        </button>
+        <button class="exh-nav-btn" onclick="openExhibition('oyun')">
+          <span><span data-lang="tr">Çünkü Bu Bir Oyun</span><span data-lang="en">Because This Is A Game</span> →</span>
+        </button>
+      </div>
+      <div class="exh-other-btn-wrap">
         <button class="exh-other-btn" onclick="closeExhibition()">
           <span data-lang="tr">← Diğer Sergiler</span>
           <span data-lang="en">← OTHER EXHIBITIONS</span>
@@ -3509,15 +3511,15 @@
         </div>
       </div>
 
-      <div class="exh-nav-btns">
-          <button class="exh-nav-btn" onclick="openExhibition('ras')">
-            <span>← <span data-lang="tr">Rüya Anıdan Sayılır Mı?</span><span data-lang="en">Can a Dream Count?</span></span>
-          </button>
-          <button class="exh-nav-btn" onclick="openExhibition('bvby')">
-            <span><span data-lang="tr">Bir Var-lık Bir Yok-luk</span><span data-lang="en">A Being, A Non-Being</span> →</span>
-          </button>
-        </div>
-            <div class="exh-other-btn-wrap">
+            <div class="exh-nav-btns">
+        <button class="exh-nav-btn" onclick="openExhibition('ras')">
+          <span>← <span data-lang="tr">Rüya Anıdan Sayılır Mı?</span><span data-lang="en">Can a Dream Count?</span></span>
+        </button>
+        <button class="exh-nav-btn" onclick="openExhibition('bvby')">
+          <span><span data-lang="tr">Bir Var-lık Bir Yok-luk</span><span data-lang="en">A Being, A Non-Being</span> →</span>
+        </button>
+      </div>
+      <div class="exh-other-btn-wrap">
         <button class="exh-other-btn" onclick="closeExhibition()">
           <span data-lang="tr">← Diğer Sergiler</span>
           <span data-lang="en">← OTHER EXHIBITIONS</span>
@@ -3630,15 +3632,15 @@
         </div>
       </div>
 
-      <div class="exh-nav-btns">
-          <button class="exh-nav-btn" onclick="openExhibition('oyun')">
-            <span>← <span data-lang="tr">Çünkü Bu Bir Oyun</span><span data-lang="en">Because This Is A Game</span></span>
-          </button>
-          <button class="exh-nav-btn" onclick="openExhibition('dusbozumu')">
-            <span><span data-lang="tr">Düşbozumu</span><span data-lang="en">Dream Harvest</span> →</span>
-          </button>
-        </div>
-            <div class="exh-other-btn-wrap">
+            <div class="exh-nav-btns">
+        <button class="exh-nav-btn" onclick="openExhibition('oyun')">
+          <span>← <span data-lang="tr">Çünkü Bu Bir Oyun</span><span data-lang="en">Because This Is A Game</span></span>
+        </button>
+        <button class="exh-nav-btn" onclick="openExhibition('dusbozumu')">
+          <span><span data-lang="tr">Düşbozumu</span><span data-lang="en">Dream Harvest</span> →</span>
+        </button>
+      </div>
+      <div class="exh-other-btn-wrap">
         <button class="exh-other-btn" onclick="closeExhibition()">
           <span data-lang="tr">← Diğer Sergiler</span>
           <span data-lang="en">← OTHER EXHIBITIONS</span>
@@ -3830,15 +3832,15 @@
         </div>
       </div>
 
-      <div class="exh-nav-btns">
-          <button class="exh-nav-btn" onclick="openExhibition('bvby')">
-            <span>← <span data-lang="tr">Bir Var-lık Bir Yok-luk</span><span data-lang="en">A Being, A Non-Being</span></span>
-          </button>
-          <button class="exh-nav-btn" onclick="openExhibition('yeriniyadirgayanlar')">
-            <span><span data-lang="tr">Yerini Yadırgayanlar</span><span data-lang="en">Outsiders</span> →</span>
-          </button>
-        </div>
-            <div class="exh-other-btn-wrap">
+            <div class="exh-nav-btns">
+        <button class="exh-nav-btn" onclick="openExhibition('bvby')">
+          <span>← <span data-lang="tr">Bir Var-lık Bir Yok-luk</span><span data-lang="en">A Being, A Non-Being</span></span>
+        </button>
+        <button class="exh-nav-btn" onclick="openExhibition('yeriniyadirgayanlar')">
+          <span><span data-lang="tr">Yerini Yadırgayanlar</span><span data-lang="en">Outsiders</span> →</span>
+        </button>
+      </div>
+      <div class="exh-other-btn-wrap">
         <button class="exh-other-btn" onclick="closeExhibition()">
           <span data-lang="tr">← Diğer Sergiler</span>
           <span data-lang="en">← OTHER EXHIBITIONS</span>
@@ -3957,12 +3959,12 @@
         </div>
       </div>
 
-      <div class="exh-nav-btns">
+            <div class="exh-nav-btns">
         <button class="exh-nav-btn" onclick="openExhibition('dusbozumu')">
           <span>← <span data-lang="tr">Düşbozumu</span><span data-lang="en">Dream Harvest</span></span>
         </button>
-        <button class="exh-nav-btn" onclick="openExhibition('ikbld')">
-          <span><span data-lang="tr">İnsan Kara Bir Leke Değildir</span><span data-lang="en">Man Is Not a Black Spot</span> →</span>
+        <button class="exh-nav-btn" onclick="openExhibition('tahterevalli')">
+          <span><span data-lang="tr">Tahterevalli</span><span data-lang="en">Seesaw</span> →</span>
         </button>
       </div>
       <div class="exh-other-btn-wrap">
@@ -4122,8 +4124,8 @@
       </div>
 
       <div class="exh-nav-btns">
-        <button class="exh-nav-btn" onclick="openExhibition('yeriniyadirgayanlar')">
-          <span>← <span data-lang="tr">Yerini Yadırgayanlar</span><span data-lang="en">Outsiders</span></span>
+        <button class="exh-nav-btn" onclick="openExhibition('tahterevalli')">
+          <span>← <span data-lang="tr">Tahterevalli</span><span data-lang="en">Seesaw</span></span>
         </button>
         <button class="exh-nav-btn" disabled>
           <span><span data-lang="tr">Son Sergi</span><span data-lang="en">Last Exhibition</span> →</span>
@@ -4278,11 +4280,11 @@
       </div>
 
       <div class="exh-nav-btns">
-        <button class="exh-nav-btn" onclick="openExhibition('ikbld')">
-          <span>← <span data-lang="tr">İnsan Kara Bir Leke Değildir</span><span data-lang="en">Man Is Not a Black Spot</span></span>
+        <button class="exh-nav-btn" onclick="openExhibition('yeriniyadirgayanlar')">
+          <span>← <span data-lang="tr">Yerini Yadırgayanlar</span><span data-lang="en">Outsiders</span></span>
         </button>
-        <button class="exh-nav-btn" disabled>
-          <span><span data-lang="tr">Son Sergi</span><span data-lang="en">Last Exhibition</span> →</span>
+        <button class="exh-nav-btn" onclick="openExhibition('ikbld')">
+          <span><span data-lang="tr">İnsan Kara Bir Leke Değildir</span><span data-lang="en">Man Is Not a Black Spot</span> →</span>
         </button>
       </div>
       <div class="exh-other-btn-wrap">
@@ -4668,7 +4670,7 @@
   <footer>
     <p class="footer-copy">© 2025 Ozan Ünal. <span data-lang="tr">Tüm hakları saklıdır.</span><span data-lang="en">All rights reserved.</span></p>
     <p class="footer-copy">
-      <span data-lang="tr">site tasarımı</span><span data-lang="en">site design</span> · Günay Gündüz
+      <span data-lang="tr">tasarım</span><span data-lang="en">design</span> · Günay Gündüz
     </p>
   </footer>
 
@@ -4954,6 +4956,10 @@
       document.body.style.overflow = 'hidden';
       // Lightbox'ı başlat
       setTimeout(() => initLightbox(), 100);
+
+      // Glass panellere tıklanınca kapat
+      glassL.onclick = closeExhibition;
+      glassR.onclick = closeExhibition;
     }
 
     function closeExhibition() {
@@ -4998,18 +5004,18 @@
 
       // Saçılma vektörleri
       const spreads = [
-        { x: -420, y: -220, r: -28, s: 0.88 },
-        { x:  380, y: -260, r:  22, s: 0.92 },
-        { x: -360, y:  210, r: -20, s: 0.90 },
-        { x:  400, y:  230, r:  30, s: 0.87 },
-        { x: -480, y:   10, r: -35, s: 0.85 },
-        { x:  460, y:  -80, r:  26, s: 0.91 },
-        { x: -220, y: -360, r: -18, s: 0.93 },
-        { x:  240, y:  340, r:  18, s: 0.89 },
-        { x: -400, y:  320, r: -12, s: 0.86 },
-        { x:  420, y: -240, r:  32, s: 0.88 },
-        { x:   80, y: -380, r:  -8, s: 0.94 },
-        { x:  -80, y:  380, r:  10, s: 0.90 },
+        { x: -560, y: -285, r: -28, s: 0.88 },
+        { x:  500, y: -330, r:  22, s: 0.92 },
+        { x: -470, y:  265, r: -20, s: 0.90 },
+        { x:  525, y:  300, r:  30, s: 0.87 },
+        { x: -615, y:   15, r: -35, s: 0.85 },
+        { x:  590, y: -100, r:  26, s: 0.91 },
+        { x: -285, y: -455, r: -18, s: 0.93 },
+        { x:  310, y:  430, r:  18, s: 0.89 },
+        { x: -520, y:  400, r: -12, s: 0.86 },
+        { x:  550, y: -310, r:  32, s: 0.88 },
+        { x:  100, y: -490, r:  -8, s: 0.94 },
+        { x: -100, y:  490, r:  10, s: 0.90 },
       ];
 
       // Başlangıç: tüm kartlar TAM üst üste, metnin önünde
