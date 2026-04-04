@@ -313,7 +313,7 @@
     /* ESKİZ STACK & SPREAD */
     .eskiz-scene {
       position: relative;
-      height: 800vh;
+      height: 600vh;
       background: var(--bg);
     }
     .eskiz-sticky {
@@ -2463,7 +2463,7 @@
         <strong>Ünal</strong>
       </h1>
       <p class="hero-quote">
-        <span data-lang="tr">"sen gerçeği ham haliyle sindiremiyorsun." dedi…<br/>alıyorsun o gerçeği kucağına, atölyene geliyorsun. dövüyorsun, kaynatıyorsun, zımparalıyorsun…<br/>bozuyor ve tekrar yapıyorsun. ancak o zaman sindirebileceğin hale geliyor gerçek.<br/>"sen heykel yapıyorken; aslında gerçeği tekrar inşa ediyorsun" dedi…</span>
+        <span data-lang="tr">"sen gerçeği ham haliyle sindiremiyorsun." dedi…<br/>alıyorsun o gerçeği kucağına, atölyene geliyorsun. dövüyorsun, kaynatıyorsun, zımparalıyorsun…<br/>bozuyor ve tekrar yapıyorsun. ancak o zaman sindirebileceğin hale geliyor gerçek.<br/>"sen heykel yapıyorken; aslında gerçeği tekrar inşa ediyorsun"</span>
         <span data-lang="en">"you can't digest reality in its raw form." they said…<br/>you take that reality into your arms, you come to your studio. you hammer it, you weld it, you sand it…<br/>you break it and rebuild it. only then does reality become something you can digest.<br/>"while you're sculpting; you're actually rebuilding reality" they said…</span>
       </p>
       <img src="imza.png" alt="Ozan Ünal" class="hero-signature" />
@@ -5034,7 +5034,7 @@
         const scrollY     = window.scrollY;
         const vh          = window.innerHeight;
 
-        const raw      = (scrollY - sceneTop) / (sceneHeight - vh);
+        const raw      = (scrollY - sceneTop) / ((sceneHeight - vh) * 0.52);
         const progress = Math.max(0, Math.min(1, raw));
         const ep       = ease(progress);
 
@@ -5045,13 +5045,25 @@
           const rot = s.r * ep;
           const sc  = 1 - (1 - (s.s || 1)) * ep;
           card.style.transform = `translate(${tx}px, ${ty}px) rotate(${rot}deg) scale(${sc})`;
-          // z-index sabit — kartlar birbirinin önüne geçmez
           card.style.zIndex = 10;
         });
 
-        // Kartlar iyice açılınca metin belirsin ve kalsın
         if (eskizText && progress > 0.65) {
           eskizText.classList.add('visible');
+        }
+
+        // Animasyon tamamlanınca sonraki bölüme atla
+        if (progress >= 1 && !scene._jumped) {
+          scene._jumped = true;
+          const nextSection = scene.nextElementSibling;
+          if (nextSection) {
+            setTimeout(() => {
+              nextSection.scrollIntoView({ behavior: 'smooth' });
+            }, 300);
+          }
+        }
+        if (progress < 0.95) {
+          scene._jumped = false;
         }
       }
 
