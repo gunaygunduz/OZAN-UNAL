@@ -313,7 +313,7 @@
     /* ESKİZ STACK & SPREAD */
     .eskiz-scene {
       position: relative;
-      height: 600vh;
+      height: 800vh;
       background: var(--bg);
     }
     .eskiz-sticky {
@@ -5034,7 +5034,7 @@
         const scrollY     = window.scrollY;
         const vh          = window.innerHeight;
 
-        const raw      = (scrollY - sceneTop) / ((sceneHeight - vh) * 0.52);
+        const raw      = (scrollY - sceneTop) / (sceneHeight - vh);
         const progress = Math.max(0, Math.min(1, raw));
         const ep       = ease(progress);
 
@@ -5048,22 +5048,9 @@
           card.style.zIndex = 10;
         });
 
+        // Kartlar iyice açılınca metin belirsin ve kalsın
         if (eskizText && progress > 0.65) {
           eskizText.classList.add('visible');
-        }
-
-        // Animasyon tamamlanınca sonraki bölüme atla
-        if (progress >= 1 && !scene._jumped) {
-          scene._jumped = true;
-          const nextSection = scene.nextElementSibling;
-          if (nextSection) {
-            setTimeout(() => {
-              nextSection.scrollIntoView({ behavior: 'smooth' });
-            }, 300);
-          }
-        }
-        if (progress < 0.95) {
-          scene._jumped = false;
         }
       }
 
