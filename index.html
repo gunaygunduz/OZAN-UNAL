@@ -732,11 +732,24 @@
       transition: transform 0.4s cubic-bezier(0.23,1,0.32,1);
     }
     @media (min-width: 601px) and (max-width: 900px) {
-      .exh-slider-wrap { padding: 0 0.5rem; }
-      .exh-slide-card { width: calc((100% - 1.6rem) / 5); }
+      .exh-slider-wrap { padding: 0 1.5rem; flex-direction: column; gap: 1rem; }
+      .exh-slider-btn { display: none; }
+      .exh-slider {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+        overflow: visible;
+        flex: none;
+        width: 100%;
+      }
+      .exh-slide-card {
+        width: 100% !important;
+        display: block !important;
+      }
       .exh-slide-year { font-size: 0.42rem; }
-      .exh-slide-title { font-size: 0.7rem; }
+      .exh-slide-title { font-size: 0.8rem; }
       .exh-slide-info { padding: 0.8rem; }
+      .exh-slider-dots { display: none; }
     }
     @media (min-width: 901px) and (max-width: 1200px) {
       .exh-slide-card { width: calc((100% - 2rem) / 5); }
@@ -2037,6 +2050,165 @@
       color: var(--copper);
       display: block;
     }
+    /* GEÇMİŞ SERGİLER — TİMELINE */
+    .timeline {
+      position: relative;
+      max-width: 800px;
+      margin: 3rem auto 0;
+      padding-left: 3rem;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.4rem;
+      bottom: 0;
+      width: 1px;
+      background: linear-gradient(to bottom, var(--copper) 0%, rgba(184,115,51,0.15) 100%);
+    }
+    .tl-year-group {
+      position: relative;
+      margin-bottom: 3.5rem;
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .tl-year-group.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .tl-year-dot {
+      position: absolute;
+      left: -3.4rem;
+      top: 0.35rem;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--copper);
+      box-shadow: 0 0 0 3px rgba(184,115,51,0.2);
+    }
+    .tl-year {
+      font-size: 0.55rem;
+      letter-spacing: 0.4em;
+      color: var(--copper);
+      font-weight: 400;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      display: block;
+    }
+    .tl-entries {
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+    }
+    .tl-entry {
+      display: grid;
+      grid-template-columns: 110px 1fr;
+      gap: 1rem;
+      align-items: baseline;
+    }
+    .tl-date {
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      color: var(--gray);
+      font-weight: 300;
+      text-align: right;
+      padding-right: 1rem;
+      border-right: 1px solid rgba(184,115,51,0.15);
+    }
+    .tl-info {}
+    .tl-title {
+      font-size: 0.85rem;
+      font-weight: 400;
+      color: var(--white);
+      line-height: 1.4;
+    }
+    .tl-venue {
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      color: var(--gray-lt);
+      font-weight: 300;
+      margin-top: 0.2rem;
+    }
+    @media (max-width: 900px) {
+      .timeline { padding-left: 2rem; }
+      .tl-entry { grid-template-columns: 80px 1fr; gap: 0.8rem; }
+      .tl-date { font-size: 0.55rem; }
+    }
+
+    /* GEÇMİŞ SERGİLER — MARQUEE */
+    .mq-wrap {
+      margin-top: 3rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      overflow: hidden;
+    }
+    .mq-track {
+      overflow: hidden;
+      padding: 1rem 0;
+      border-top: 1px solid rgba(184,115,51,0.12);
+    }
+    .mq-track:last-child {
+      border-bottom: 1px solid rgba(184,115,51,0.12);
+    }
+    .mq-inner {
+      display: flex;
+      width: max-content;
+      gap: 0;
+    }
+    .mq-track-left .mq-inner {
+      animation: mq-left 40s linear infinite;
+    }
+    .mq-track-right .mq-inner {
+      animation: mq-right 55s linear infinite;
+    }
+    .mq-wrap:hover .mq-inner {
+      animation-play-state: paused;
+    }
+    @keyframes mq-left {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+    @keyframes mq-right {
+      from { transform: translateX(-50%); }
+      to   { transform: translateX(0); }
+    }
+    .mq-item {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 0.8rem;
+      padding: 0 2rem;
+      white-space: nowrap;
+    }
+    .mq-date {
+      font-size: 0.5rem;
+      letter-spacing: 0.3em;
+      color: var(--copper);
+      font-weight: 400;
+      text-transform: uppercase;
+    }
+    .mq-sep {
+      color: rgba(184,115,51,0.4);
+      font-size: 0.6rem;
+    }
+    .mq-title {
+      font-size: 0.85rem;
+      font-weight: 400;
+      color: var(--white);
+      letter-spacing: 0.02em;
+    }
+    .mq-venue {
+      font-size: 0.6rem;
+      font-weight: 300;
+      color: var(--gray-lt);
+      letter-spacing: 0.1em;
+    }
+    .mq-dot {
+      color: rgba(184,115,51,0.3);
+      font-size: 1rem;
+    }
+
     .accordion {
       display: flex;
       flex-direction: column;
@@ -2146,6 +2318,169 @@
     }
 
     /* İLETİŞİM */
+    /* DÖKÜMAN VİDEO */
+    #dokuman {
+      background: var(--bg-2);
+      padding: 8rem 4rem;
+    }
+    .doku-inner {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .doku-desc {
+      margin: 2rem 0 3rem;
+      font-size: 0.9rem;
+      font-weight: 300;
+      font-style: italic;
+      line-height: 2;
+      color: rgba(240,236,228,0.65);
+      max-width: 700px;
+    }
+      margin-top: 3rem;
+      position: relative;
+    }
+    .doku-thumb {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16/9;
+      overflow: hidden;
+      cursor: pointer;
+      isolation: isolate;
+    }
+    .doku-thumb-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: grayscale(20%) brightness(0.8);
+      transition: filter 0.4s ease, transform 0.6s ease;
+    }
+    .doku-thumb:hover .doku-thumb-img {
+      filter: grayscale(0%) brightness(0.9);
+      transform: scale(1.02);
+    }
+    .doku-thumb-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(8,8,8,0.5) 0%, transparent 60%);
+    }
+    /* Play butonu SADECE dokuman section içinde görünür */
+    .doku-play-btn {
+      display: none;
+    }
+    #dokuman .doku-play-btn {
+      display: block;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      width: 80px;
+      height: 80px;
+      z-index: 10;
+      transition: transform 0.3s ease;
+    }
+    #dokuman .doku-play-btn:hover {
+      transform: translate(-50%, -50%) scale(1.12);
+    }
+    #dokuman .doku-play-btn svg {
+      width: 80px;
+      height: 80px;
+      filter: drop-shadow(0 4px 20px rgba(0,0,0,0.6));
+    }
+    .doku-iframe-wrap {
+      width: 100%;
+      aspect-ratio: 16/9;
+    }
+    .doku-iframe-wrap iframe {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+    @media (max-width: 900px) {
+      #dokuman { padding: 5rem 2rem; }
+    }
+
+    /* DÖKÜMAN VİDEO */
+    #dokuman {
+      background: var(--bg-2);
+      padding: 8rem 4rem;
+    }
+    .doku-inner {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .doku-desc {
+      margin: 2rem 0 3rem;
+      font-size: 0.9rem;
+      font-weight: 300;
+      font-style: italic;
+      line-height: 2;
+      color: rgba(240,236,228,0.65);
+      max-width: 700px;
+    }
+    .doku-video-wrap {
+      position: relative;
+    }
+    .doku-thumb {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16/9;
+      overflow: hidden;
+      cursor: pointer;
+      isolation: isolate;
+    }
+    .doku-thumb-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: grayscale(20%) brightness(0.8);
+      transition: filter 0.4s ease, transform 0.6s ease;
+    }
+    .doku-thumb:hover .doku-thumb-img {
+      filter: grayscale(0%) brightness(0.9);
+      transform: scale(1.02);
+    }
+    .doku-thumb-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(8,8,8,0.5) 0%, transparent 60%);
+    }
+    /* Play butonu SADECE dokuman section içinde görünür */
+    .doku-play-btn {
+      display: none;
+    }
+    #dokuman .doku-play-btn {
+      display: block;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      width: 80px;
+      height: 80px;
+      z-index: 10;
+      transition: transform 0.3s ease;
+    }
+    #dokuman .doku-play-btn:hover {
+      transform: translate(-50%, -50%) scale(1.12);
+    }
+    #dokuman .doku-play-btn svg {
+      width: 80px;
+      height: 80px;
+      filter: drop-shadow(0 4px 20px rgba(0,0,0,0.6));
+    }
+    @media (max-width: 900px) {
+      #dokuman { padding: 5rem 2rem; }
+    }
+
     /* BASINDA */
     #basinda {
       position: relative;
@@ -2163,7 +2498,7 @@
       height: 100%;
       object-fit: cover;
       filter: grayscale(40%) contrast(1.05);
-      opacity: 0.3;
+      opacity: 0.4;
     }
     .basinda-video-overlay {
       position: absolute;
@@ -2439,9 +2774,87 @@
       #scene-3 .scene-text { transform: translateX(30px); }
       footer { flex-direction: column; gap: 1.5rem; text-align: center; }
     }
-    @media (max-width: 600px) {
-      .nav-links { display: none; }
-      .hero-name { font-size: 3rem; }
+    /* HAMBURGEr MENÜ */
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 32px;
+      height: 32px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      z-index: 1001;
+    }
+    .nav-hamburger span {
+      display: block;
+      width: 100%;
+      height: 1px;
+      background: var(--white);
+      transition: transform 0.35s ease, opacity 0.35s ease, width 0.35s ease;
+      transform-origin: center;
+    }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; width: 0; }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+    /* Mobil açılır menü */
+    .nav-mobile-menu {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(8,8,8,0.97);
+      z-index: 999;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2.5rem;
+      opacity: 0;
+      transition: opacity 0.35s ease;
+    }
+    .nav-mobile-menu.open {
+      display: flex;
+      opacity: 1;
+    }
+    .nav-mobile-menu a {
+      font-size: 1.2rem;
+      font-weight: 300;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--white);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .nav-mobile-menu a:hover { color: var(--copper); }
+    .nav-mobile-lang {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      margin-top: 1rem;
+    }
+    .nav-mobile-close {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      background: none;
+      border: none;
+      color: var(--white);
+      cursor: pointer;
+      padding: 0.5rem;
+      opacity: 0.6;
+      transition: opacity 0.3s;
+    }
+    .nav-mobile-close:hover { opacity: 1; }
+    .nav-mobile-lang .lang-btn {
+      font-size: 1rem;
+      letter-spacing: 0.2em;
+    }
+    @media (max-width: 900px) {
+      .nav-hamburger { display: flex; }
+      .nav-links { display: none !important; }
+      .lang-toggle { display: none; }
     }
   </style>
 </head>
@@ -2456,7 +2869,6 @@
     <ul class="nav-links">
       <li><a href="#sergiler"><span data-lang="tr">Sergiler</span><span data-lang="en">EXHIBITIONS</span></a></li>
       <li><a href="#hakkinda"><span data-lang="tr">Hakkında</span><span data-lang="en">ABOUT</span></a></li>
-      <li><a href="#basinda"><span data-lang="tr">Basında</span><span data-lang="en">PRESS</span></a></li>
       <li><a href="#iletisim"><span data-lang="tr">İletişim</span><span data-lang="en">CONTACT</span></a></li>
     </ul>
     <div class="lang-toggle">
@@ -2464,7 +2876,36 @@
       <span class="lang-sep">·</span>
       <button class="lang-btn" data-set="en">EN</button>
     </div>
+    <!-- Hamburger -->
+    <button class="nav-hamburger" id="navHamburger" aria-label="Menü">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
   </nav>
+
+  <!-- MOBİL MENÜ BACKDROP -->
+  <div class="nav-mobile-backdrop" id="navMobileBackdrop"></div>
+
+  <!-- MOBİL MENÜ DRAWER -->
+  <div class="nav-mobile-menu" id="navMobileMenu">
+    <button class="nav-mobile-close" id="navMobileClose" aria-label="Kapat">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <line x1="18" y1="6" x2="6" y2="18"/>
+        <line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+    <a href="#hero" class="nav-mobile-link"><span data-lang="tr">Ana Sayfa</span><span data-lang="en">Home</span></a>
+    <a href="#sergiler" class="nav-mobile-link"><span data-lang="tr">Sergiler</span><span data-lang="en">Exhibitions</span></a>
+    <a href="#hakkinda" class="nav-mobile-link"><span data-lang="tr">Hakkında</span><span data-lang="en">About</span></a>
+    <a href="#basinda" class="nav-mobile-link"><span data-lang="tr">Basında</span><span data-lang="en">Press</span></a>
+    <a href="#iletisim" class="nav-mobile-link"><span data-lang="tr">İletişim</span><span data-lang="en">Contact</span></a>
+    <div class="nav-mobile-lang">
+      <button class="lang-btn" data-set="tr">TR</button>
+      <span class="lang-sep" style="color:var(--gray)">·</span>
+      <button class="lang-btn" data-set="en">EN</button>
+    </div>
+  </div>
 
   <!-- SAHNE 1: KARŞILAMA -->
   <section id="hero">
@@ -4445,162 +4886,34 @@
     </div>
   </section>
 
-  <!-- BASINDA -->
-  <section id="basinda">
-    <div class="basinda-video-bg">
-      <video autoplay muted loop playsinline>
-        <source src="sessizhikayeler.mp4" type="video/mp4" />
-      </video>
-      <div class="basinda-video-overlay"></div>
-    </div>
-    <div class="basinda-inner">
-      <div class="reveal">
-        <p class="about-label">
-          <span data-lang="tr">Basında</span>
-          <span data-lang="en">Press</span>
-        </p>
-        <div class="about-divider"></div>
+  <!-- DÖKÜMAN -->
+  <section id="dokuman">
+    <div class="doku-inner reveal">
+      <p class="about-label">
+        <span data-lang="tr">Döküman</span>
+        <span data-lang="en">Documentary</span>
+      </p>
+      <div class="about-divider"></div>
+
+      <p class="doku-desc reveal">
+        <span data-lang="tr">Ekim 2025'de İstanbul Hüsrev Kethüda Hamamı'nda açılan "Rüya Hissi Süsler, Hafıza Anıyı." heykel sergimin oluşum süreci boyunca çektiğim videolardan, ilham olanlardan, düşüncelerden, eskizlerden, yorumlarımdan, sorularımdan hazırladığım bir döküman... biraz görüntü biraz söz...</span>
+        <span data-lang="en">A documentary I prepared from videos I shot throughout the formation process of my sculpture exhibition "Dream Adorns the Feeling, Memory the Moment." which opened at Istanbul's Hüsrev Kethüda Hamam in October 2025... inspirations, thoughts, sketches, reflections, questions... a little image, a little word...</span>
+      </p>
+
+      <div class="doku-video-wrap" id="dokuVideoWrap">
+        <!-- Thumbnail ve oynat butonu -->
+        <div class="doku-thumb" id="dokuThumb">
+          <img src="videocover.webp" alt="Döküman" class="doku-thumb-img" />
+          <div class="doku-thumb-overlay"></div>
+          <button class="doku-play-btn" id="dokuPlayBtn" aria-label="Videoyu Oynat">
+            <svg viewBox="0 0 80 80" fill="none">
+              <circle cx="40" cy="40" r="39" stroke="rgba(184,115,51,0.7)" stroke-width="1.5"/>
+              <polygon points="32,24 60,40 32,56" fill="#f0ece4"/>
+            </svg>
+          </button>
+        </div>
       </div>
 
-      <!-- Röportajlar -->
-      <div class="basinda-grid reveal">
-
-        <a href="https://open.spotify.com/episode/6slPsyfQyOV0W4XlllHX8N?si=108d75b6126d43c0" target="_blank" class="basinda-card">
-          <div class="basinda-card-icon">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
-          </div>
-          <div class="basinda-card-content">
-            <span class="basinda-card-source">Spotify · Evrim Kuran — 3te3</span>
-            <h3 class="basinda-card-title">
-              <span data-lang="tr">Podcast Söyleşi</span>
-              <span data-lang="en">Podcast Interview</span>
-            </h3>
-            <span class="basinda-card-date">Aralık 2021</span>
-          </div>
-          <span class="basinda-card-arrow">→</span>
-        </a>
-
-        <a href="https://www.ithafsanat.com/baska-bir-yasam-arayanlarin-hikayesini-heykelleriyle-anlatiyor/" target="_blank" class="basinda-card">
-          <div class="basinda-card-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10l6 6v8a2 2 0 01-2 2z"/><path d="M17 21v-8H7v8M7 3v5h8"/></svg>
-          </div>
-          <div class="basinda-card-content">
-            <span class="basinda-card-source">İthaf Sanat Dergisi</span>
-            <h3 class="basinda-card-title">
-              <span data-lang="tr">Röportaj</span>
-              <span data-lang="en">Interview</span>
-            </h3>
-            <span class="basinda-card-date">Eylül 2021</span>
-          </div>
-          <span class="basinda-card-arrow">→</span>
-        </a>
-
-        <a href="https://www.artfulliving.com.tr/sanat/bu-heykeller-iliskinin-degil-insanin-hikyeleri-i-22305" target="_blank" class="basinda-card">
-          <div class="basinda-card-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10l6 6v8a2 2 0 01-2 2z"/><path d="M17 21v-8H7v8M7 3v5h8"/></svg>
-          </div>
-          <div class="basinda-card-content">
-            <span class="basinda-card-source">Artful Living · Atacan Şişman</span>
-            <h3 class="basinda-card-title">
-              <span data-lang="tr">"Bu heykeller ilişkinin değil, insanın hikayeleri"</span>
-              <span data-lang="en">"These sculptures tell the stories of people, not relationships"</span>
-            </h3>
-            <span class="basinda-card-date">Kasım 2020</span>
-          </div>
-          <span class="basinda-card-arrow">→</span>
-        </a>
-
-        <a href="http://sanatkritik.com/soylesi/ozan-unal-heykeli-tasarlarim-demeyecegim-heykel-icime-dogar/" target="_blank" class="basinda-card">
-          <div class="basinda-card-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10l6 6v8a2 2 0 01-2 2z"/><path d="M17 21v-8H7v8M7 3v5h8"/></svg>
-          </div>
-          <div class="basinda-card-content">
-            <span class="basinda-card-source">SanatKritik · Abdullah Ezik</span>
-            <h3 class="basinda-card-title">
-              <span data-lang="tr">"Heykeli tasarlarım demeyeceğim, heykel içime doğar"</span>
-              <span data-lang="en">"I won't say I design sculpture — sculpture is born within me"</span>
-            </h3>
-            <span class="basinda-card-date">Ekim 2020</span>
-          </div>
-          <span class="basinda-card-arrow">→</span>
-        </a>
-
-        <a href="https://youtu.be/QTvKsp2WdcY?si=EukDAdaQs5gz7bzy" target="_blank" class="basinda-card">
-          <div class="basinda-card-icon">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-          </div>
-          <div class="basinda-card-content">
-            <span class="basinda-card-source">YouTube · Ceren Atasoy</span>
-            <h3 class="basinda-card-title">
-              <span data-lang="tr">"Çünkü Bu Bir Oyun" — Atölye Çalışmaları</span>
-              <span data-lang="en">"Because This Is A Game" — Studio Works</span>
-            </h3>
-            <span class="basinda-card-date">2020</span>
-          </div>
-          <span class="basinda-card-arrow">→</span>
-        </a>
-
-        <a href="https://youtu.be/R5FwXMYRoOw?si=hEcT2dB5DolNu7U0" target="_blank" class="basinda-card">
-          <div class="basinda-card-icon">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-          </div>
-          <div class="basinda-card-content">
-            <span class="basinda-card-source">YouTube · Azize Design Studio — Begüm Koçum</span>
-            <h3 class="basinda-card-title">
-              <span data-lang="tr">"Bir Var-lık Bir Yok-luk" — Galeri Selvin 35. Yıl</span>
-              <span data-lang="en">"A Being, A Non-Being" — Galeri Selvin 35th Anniversary</span>
-            </h3>
-            <span class="basinda-card-date">Mayıs — Haziran 2019</span>
-          </div>
-          <span class="basinda-card-arrow">→</span>
-        </a>
-
-        <a href="https://youtu.be/CtywSDONp1M?si=4VwHfgtkrIJCs7hj" target="_blank" class="basinda-card">
-          <div class="basinda-card-icon">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-          </div>
-          <div class="basinda-card-content">
-            <span class="basinda-card-source">YouTube · Piece of Art News — Ceren Atasoy</span>
-            <h3 class="basinda-card-title">
-              <span data-lang="tr">Röportaj</span>
-              <span data-lang="en">Interview</span>
-            </h3>
-            <span class="basinda-card-date">2019</span>
-          </div>
-          <span class="basinda-card-arrow">→</span>
-        </a>
-
-        <a href="https://youtu.be/DMrnSf6kBjs?si=RPbhlufUBA2i8eX8" target="_blank" class="basinda-card">
-          <div class="basinda-card-icon">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-          </div>
-          <div class="basinda-card-content">
-            <span class="basinda-card-source">YouTube · Yönetmen: Erdal Kaş — Müzik: Cenk Erdoğan</span>
-            <h3 class="basinda-card-title">
-              <span data-lang="tr">"Bir Var-lık Bir Yok-luk" — Sergi Filmi</span>
-              <span data-lang="en">"A Being, A Non-Being" — Exhibition Film</span>
-            </h3>
-            <span class="basinda-card-date">Nisan — Mayıs 2019</span>
-          </div>
-          <span class="basinda-card-arrow">→</span>
-        </a>
-
-        <a href="https://youtu.be/1g4iXfe0FYQ?si=OT9v8LEQpJXEacXe" target="_blank" class="basinda-card">
-          <div class="basinda-card-icon">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-          </div>
-          <div class="basinda-card-content">
-            <span class="basinda-card-source">ARTtv · Galeri Selvin 35. Yıl</span>
-            <h3 class="basinda-card-title">
-              <span data-lang="tr">"Bir Var-lık Bir Yok-luk" — Ortaköy Kethüda Hamamı</span>
-              <span data-lang="en">"A Being, A Non-Being" — Ortaköy Kethüda Hamam</span>
-            </h3>
-            <span class="basinda-card-date">2019</span>
-          </div>
-          <span class="basinda-card-arrow">→</span>
-        </a>
-
-      </div>
     </div>
   </section>
 
@@ -4721,6 +5034,38 @@
       el.addEventListener('mouseleave', () => {
         ring.style.transform = `translate(${mouseX}px, ${mouseY}px) translate(-50%, -50%)`;
         ring.style.borderColor = '';
+      });
+    });
+
+    // ── Hamburger Menü
+    document.addEventListener('DOMContentLoaded', () => {
+      const hamburger   = document.getElementById('navHamburger');
+      const mobileMenu  = document.getElementById('navMobileMenu');
+      const closeBtn    = document.getElementById('navMobileClose');
+      if (!hamburger || !mobileMenu) return;
+
+      const backdrop = document.getElementById('navMobileBackdrop');
+
+      function openMenu() {
+        hamburger.classList.add('open');
+        mobileMenu.classList.add('open');
+        if (backdrop) backdrop.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeMenu() {
+        hamburger.classList.remove('open');
+        mobileMenu.classList.remove('open');
+        if (backdrop) backdrop.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+
+      hamburger.addEventListener('click', openMenu);
+      if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+      if (backdrop) backdrop.addEventListener('click', closeMenu);
+
+      mobileMenu.querySelectorAll('.nav-mobile-link').forEach(link => {
+        link.addEventListener('click', closeMenu);
       });
     });
 
@@ -4923,7 +5268,40 @@
       }
     }
 
-    function renderSlider() {
+    function isTabletGrid() {
+      return window.innerWidth >= 601 && window.innerWidth <= 900;
+    }
+
+
+    function isTabletGrid() {
+      return window.innerWidth >= 601 && window.innerWidth <= 900;
+    }
+
+        function renderSlider() {
+      // Tablet modunda tüm kartları göster
+      if (isTabletGrid()) {
+        getSliderCards().forEach(card => card.style.display = 'block');
+        const dotsEl = document.getElementById('sliderDots');
+        if (dotsEl) dotsEl.innerHTML = '';
+        const prev = document.getElementById('sliderPrev');
+        const next = document.getElementById('sliderNext');
+        if (prev) prev.style.display = 'none';
+        if (next) next.style.display = 'none';
+        return;
+      }
+
+      // Tablet modunda tüm kartları göster, slider'ı devre dışı bırak
+      if (isTabletGrid()) {
+        getSliderCards().forEach(card => card.style.display = 'block');
+        const dotsEl = document.getElementById('sliderDots');
+        if (dotsEl) dotsEl.innerHTML = '';
+        const prev = document.getElementById('sliderPrev');
+        const next = document.getElementById('sliderNext');
+        if (prev) prev.style.display = 'none';
+        if (next) next.style.display = 'none';
+        return;
+      }
+
       const cards = getSliderCards();
       const cpp = getCardsPerPage();
       const total = getTotalPages();
@@ -4936,8 +5314,8 @@
       renderDots();
       const prev = document.getElementById('sliderPrev');
       const next = document.getElementById('sliderNext');
-      if (prev) prev.disabled = sliderPage === 0;
-      if (next) next.disabled = sliderPage >= total - 1;
+      if (prev) { prev.style.display = ''; prev.disabled = sliderPage === 0; }
+      if (next) { next.style.display = ''; next.disabled = sliderPage >= total - 1; }
     }
 
     function slideCards(dir) {
@@ -5085,6 +5463,31 @@
       update();
     })();
 
+    // ── Timeline scroll animasyonu
+    const tlObserver = new IntersectionObserver((entries) => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+          setTimeout(() => e.target.classList.add('visible'), i * 80);
+        }
+      });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.tl-year-group').forEach(el => tlObserver.observe(el));
+
+    // ── Döküman Video
+    (function() {
+      const thumb   = document.getElementById('dokuThumb');
+      const playBtn = document.getElementById('dokuPlayBtn');
+      if (!thumb || !playBtn) return;
+
+      function openVideo(e) {
+        e.stopPropagation();
+        window.open('https://www.youtube.com/watch?v=vE6wAhQSFLo&t=0', '_blank');
+      }
+
+      // Sadece butona tıklanınca aç, thumb'a değil
+      playBtn.addEventListener('click', openVideo);
+    })();
+
     // ── İletişim Formu
     function submitForm() {
       const name    = document.querySelector('input[name="name"]').value.trim();
@@ -5097,7 +5500,70 @@
       document.getElementById('formSuccess').style.display = 'block';
     }
 
-    // ── Akordiyon — event delegation
+
+    // ── Hamburger Menü
+    document.addEventListener('DOMContentLoaded', () => {
+      const hamburger   = document.getElementById('navHamburger');
+      const mobileMenu  = document.getElementById('navMobileMenu');
+      const closeBtn    = document.getElementById('navMobileClose');
+      if (!hamburger || !mobileMenu) return;
+
+      const backdrop = document.getElementById('navMobileBackdrop');
+
+      function openMenu() {
+        hamburger.classList.add('open');
+        mobileMenu.classList.add('open');
+        if (backdrop) backdrop.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeMenu() {
+        hamburger.classList.remove('open');
+        mobileMenu.classList.remove('open');
+        if (backdrop) backdrop.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+
+      hamburger.addEventListener('click', openMenu);
+      if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+      if (backdrop) backdrop.addEventListener('click', closeMenu);
+
+      mobileMenu.querySelectorAll('.nav-mobile-link').forEach(link => {
+        link.addEventListener('click', closeMenu);
+      });
+    });
+
+    // ── Döküman Video
+    (function() {
+      const thumb      = document.getElementById('dokuThumb');
+      const playBtn    = document.getElementById('dokuPlayBtn');
+      const videoWrap  = document.getElementById('dokuVideoWrap');
+      if (!thumb || !playBtn || !videoWrap) return;
+
+      function loadVideo(e) {
+        e.stopPropagation();
+        // file:// protokolünde iframe çalışmaz, YouTube'da aç
+        if (window.location.protocol === 'file:') {
+          window.open('https://www.youtube.com/watch?v=vE6wAhQSFLo&t=0', '_blank');
+          return;
+        }
+        // https:// üzerinde (Netlify) iframe embed
+        const iframeWrap = document.createElement('div');
+        iframeWrap.style.cssText = 'width:100%;aspect-ratio:16/9;';
+        const iframe = document.createElement('iframe');
+        iframe.src = 'https://www.youtube.com/embed/vE6wAhQSFLo?autoplay=1&rel=0&modestbranding=1';
+        iframe.style.cssText = 'width:100%;height:100%;display:block;border:none;';
+        iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+        iframe.allowFullscreen = true;
+        iframeWrap.appendChild(iframe);
+        thumb.style.display = 'none';
+        videoWrap.appendChild(iframeWrap);
+      }
+
+      playBtn.addEventListener('click', loadVideo);
+    })();
+
+    // ── Akordiyon
     document.addEventListener('click', e => {
       const trigger = e.target.closest('.acc-trigger');
       if (!trigger) return;
