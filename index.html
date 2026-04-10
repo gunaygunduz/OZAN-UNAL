@@ -5540,14 +5540,17 @@
       const videoWrap  = document.getElementById('dokuVideoWrap');
       if (!thumb || !playBtn || !videoWrap) return;
 
-      function loadVideo(e) {
+      playBtn.addEventListener('click', function(e) {
         e.stopPropagation();
-        // file:// protokolünde iframe çalışmaz, YouTube'da aç
+        e.preventDefault();
+
+        // file:// protokolünde iframe çalışmaz
         if (window.location.protocol === 'file:') {
           window.open('https://www.youtube.com/watch?v=vE6wAhQSFLo&t=0', '_blank');
           return;
         }
-        // https:// üzerinde (Netlify) iframe embed
+
+        // https:// (Netlify) — sayfada oynat
         const iframeWrap = document.createElement('div');
         iframeWrap.style.cssText = 'width:100%;aspect-ratio:16/9;';
         const iframe = document.createElement('iframe');
@@ -5558,9 +5561,7 @@
         iframeWrap.appendChild(iframe);
         thumb.style.display = 'none';
         videoWrap.appendChild(iframeWrap);
-      }
-
-      playBtn.addEventListener('click', loadVideo);
+      });
     })();
 
     // ── Akordiyon
