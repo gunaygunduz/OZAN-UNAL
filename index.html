@@ -2339,58 +2339,7 @@
       margin-top: 3rem;
       position: relative;
     }
-    .doku-thumb {
-      position: relative;
-      width: 100%;
-      aspect-ratio: 16/9;
-      overflow: hidden;
-      cursor: pointer;
-      isolation: isolate;
-    }
-    .doku-thumb-img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      filter: grayscale(20%) brightness(0.8);
-      transition: filter 0.4s ease, transform 0.6s ease;
-    }
-    .doku-thumb:hover .doku-thumb-img {
-      filter: grayscale(0%) brightness(0.9);
-      transform: scale(1.02);
-    }
-    .doku-thumb-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to top, rgba(8,8,8,0.5) 0%, transparent 60%);
-    }
-    /* Play butonu SADECE dokuman section içinde görünür */
-    .doku-play-btn {
-      display: none;
-    }
-    #dokuman .doku-play-btn {
-      display: block;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 0;
-      width: 80px;
-      height: 80px;
-      z-index: 10;
-      transition: transform 0.3s ease;
-    }
-    #dokuman .doku-play-btn:hover {
-      transform: translate(-50%, -50%) scale(1.12);
-    }
-    #dokuman .doku-play-btn svg {
-      width: 80px;
-      height: 80px;
-      filter: drop-shadow(0 4px 20px rgba(0,0,0,0.6));
-    }
+
     .doku-iframe-wrap {
       width: 100%;
       aspect-ratio: 16/9;
@@ -2425,58 +2374,17 @@
     .doku-video-wrap {
       position: relative;
     }
-    .doku-thumb {
-      position: relative;
+    .doku-iframe-wrap {
       width: 100%;
       aspect-ratio: 16/9;
-      overflow: hidden;
-      cursor: pointer;
-      isolation: isolate;
     }
-    .doku-thumb-img {
+    .doku-iframe-wrap iframe {
       width: 100%;
       height: 100%;
-      object-fit: cover;
       display: block;
-      filter: grayscale(20%) brightness(0.8);
-      transition: filter 0.4s ease, transform 0.6s ease;
-    }
-    .doku-thumb:hover .doku-thumb-img {
-      filter: grayscale(0%) brightness(0.9);
-      transform: scale(1.02);
-    }
-    .doku-thumb-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to top, rgba(8,8,8,0.5) 0%, transparent 60%);
-    }
-    /* Play butonu SADECE dokuman section içinde görünür */
-    .doku-play-btn {
-      display: none;
-    }
-    #dokuman .doku-play-btn {
-      display: block;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: none;
       border: none;
-      cursor: pointer;
-      padding: 0;
-      width: 80px;
-      height: 80px;
-      z-index: 10;
-      transition: transform 0.3s ease;
     }
-    #dokuman .doku-play-btn:hover {
-      transform: translate(-50%, -50%) scale(1.12);
-    }
-    #dokuman .doku-play-btn svg {
-      width: 80px;
-      height: 80px;
-      filter: drop-shadow(0 4px 20px rgba(0,0,0,0.6));
-    }
+
     @media (max-width: 900px) {
       #dokuman { padding: 5rem 2rem; }
     }
@@ -4901,16 +4809,13 @@
       </p>
 
       <div class="doku-video-wrap" id="dokuVideoWrap">
-        <!-- Thumbnail ve oynat butonu -->
-        <div class="doku-thumb" id="dokuThumb">
-          <img src="videocover.webp" alt="Döküman" class="doku-thumb-img" />
-          <div class="doku-thumb-overlay"></div>
-          <button class="doku-play-btn" id="dokuPlayBtn" aria-label="Videoyu Oynat">
-            <svg viewBox="0 0 80 80" fill="none">
-              <circle cx="40" cy="40" r="39" stroke="rgba(184,115,51,0.7)" stroke-width="1.5"/>
-              <polygon points="32,24 60,40 32,56" fill="#f0ece4"/>
-            </svg>
-          </button>
+        <div class="doku-iframe-wrap">
+          <iframe
+            src="https://www.youtube.com/embed/vE6wAhQSFLo?rel=0&modestbranding=1"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+            frameborder="0">
+          </iframe>
         </div>
       </div>
 
@@ -5473,20 +5378,7 @@
     }, { threshold: 0.15 });
     document.querySelectorAll('.tl-year-group').forEach(el => tlObserver.observe(el));
 
-    // ── Döküman Video
-    (function() {
-      const thumb   = document.getElementById('dokuThumb');
-      const playBtn = document.getElementById('dokuPlayBtn');
-      if (!thumb || !playBtn) return;
 
-      function openVideo(e) {
-        e.stopPropagation();
-        window.open('https://www.youtube.com/watch?v=vE6wAhQSFLo&t=0', '_blank');
-      }
-
-      // Sadece butona tıklanınca aç, thumb'a değil
-      playBtn.addEventListener('click', openVideo);
-    })();
 
     // ── İletişim Formu
     function submitForm() {
@@ -5532,37 +5424,6 @@
         link.addEventListener('click', closeMenu);
       });
     });
-
-    // ── Döküman Video
-    (function() {
-      const thumb      = document.getElementById('dokuThumb');
-      const playBtn    = document.getElementById('dokuPlayBtn');
-      const videoWrap  = document.getElementById('dokuVideoWrap');
-      if (!thumb || !playBtn || !videoWrap) return;
-
-      playBtn.addEventListener('click', function(e) {
-        e.stopPropagation();
-        e.preventDefault();
-
-        // file:// protokolünde iframe çalışmaz
-        if (window.location.protocol === 'file:') {
-          window.open('https://www.youtube.com/watch?v=vE6wAhQSFLo&t=0', '_blank');
-          return;
-        }
-
-        // https:// (Netlify) — sayfada oynat
-        const iframeWrap = document.createElement('div');
-        iframeWrap.style.cssText = 'width:100%;aspect-ratio:16/9;';
-        const iframe = document.createElement('iframe');
-        iframe.src = 'https://www.youtube.com/embed/vE6wAhQSFLo?autoplay=1&rel=0&modestbranding=1';
-        iframe.style.cssText = 'width:100%;height:100%;display:block;border:none;';
-        iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
-        iframe.allowFullscreen = true;
-        iframeWrap.appendChild(iframe);
-        thumb.style.display = 'none';
-        videoWrap.appendChild(iframeWrap);
-      });
-    })();
 
     // ── Akordiyon
     document.addEventListener('click', e => {
